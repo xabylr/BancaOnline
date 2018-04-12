@@ -1,3 +1,6 @@
 /BancaOnline-ejb/build/
 /build/
 /BancaOnline-ejb/dist/
+/BancaOnline-ejb/nbproject/
+/nbproject/
+/BancaOnline-war/nbproject/
