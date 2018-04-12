@@ -1,6 +1,9 @@
-/BancaOnline-ejb/build/
 /build/
+/dist/
+/nbproject/private/
 /BancaOnline-ejb/dist/
-/BancaOnline-ejb/nbproject/
-/nbproject/
-/BancaOnline-war/nbproject/
+/BancaOnline-ejb/build/
+/BancaOnline-ejb/nbproject/private/
+/BancaOnline-war/nbproject/private/
+/BancaOnline-war/dist/
+/BancaOnline-war/build/
