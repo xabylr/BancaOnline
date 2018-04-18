@@ -5,15 +5,6 @@ CREATE TABLE empleado (
 );
 
 
-CREATE TABLE cliente (
-    dni         INT PRIMARY KEY,
-    nombre      VARCHAR(30),
-    apellidos   VARCHAR(100),
-    cuenta      INT,
-    FOREIGN KEY (cuenta) REFERENCES cuentacorriente (id)
-);
-
-
 CREATE TABLE cuentacorriente (
     id              INT PRIMARY KEY,
     iban            VARCHAR(24),
@@ -21,6 +12,14 @@ CREATE TABLE cuentacorriente (
     decimales       INT,
     divisa          VARCHAR(3),
     fechacreacion   BIGINT
+);
+
+CREATE TABLE cliente (
+    dni         INT PRIMARY KEY,
+    nombre      VARCHAR(30),
+    apellidos   VARCHAR(100),
+    cuenta      INT,
+    FOREIGN KEY (cuenta) REFERENCES cuentacorriente (id)
 );
 
 
