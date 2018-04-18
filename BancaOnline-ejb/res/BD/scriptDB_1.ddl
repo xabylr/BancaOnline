@@ -4,6 +4,13 @@ CREATE TABLE empleado (
     apellidos   VARCHAR(100)
 );
 
+CREATE TABLE cliente (
+    dni         INT PRIMARY KEY,
+    nombre      VARCHAR(30),
+    apellidos   VARCHAR(100),
+    cuenta      INT,
+    FOREIGN KEY (cuenta) REFERENCES cuentacorriente (id)
+);
 
 CREATE TABLE cuentacorriente (
     id              INT PRIMARY KEY,
@@ -14,20 +21,11 @@ CREATE TABLE cuentacorriente (
     fechacreacion   BIGINT
 );
 
-CREATE TABLE cliente (
-    dni         INT PRIMARY KEY,
-    nombre      VARCHAR(30),
-    apellidos   VARCHAR(100),
-    cuenta      INT,
-    FOREIGN KEY (cuenta) REFERENCES cuentacorriente (id)
-);
-
-
 CREATE TABLE movimientorealizado (
     id                      BIGINT PRIMARY KEY,
     concepto                VARCHAR(200),
     fechaCreado             BIGINT,
-    fechaRealizado          BIGINT
+    fechaRealizado          BIGINT,
     cuantia                 BIGINT, --siempre positivo
     decimales               INT,
     divisa                  VARCHAR(3),
