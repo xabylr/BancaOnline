@@ -1,0 +1,63 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 21-mar-2018, 11:52:32
+    Author     : Stefan
+*/
+
+            .body {
+                background-image: url("res/money.jpg");
+            }
+            
+            .enmarcado{
+                border-style: solid;
+                border-width: 3px;
+            }
+            
+            .celdaDato{
+                   text-align: left;
+            }
+            
+            .celdaValor{
+                   text-align: right;
+            }
+            
+            
+            .container {
+                margin-top: 5em;
+            }
+            
+            .header{
+                background-color: #fff; 
+            }
+            
+            .gifRobo {
+                
+                border-width: 5px;
+                margin-top: 50px;              
+                max-width: 100%
+            }
+            
+            .imgIzquierda{
+                height: 450px;
+            }
+            .img{
+                max-height: 100%;
+                max-width: 100%;
+            }
+            
+            
+            .logInForm{
+                max-width: 100%;
+                border-style: solid;
+                border-width: 5px;
+                background-color: #ececf6;
+            }
+            
+            .formTopMargin {
+                margin-top: 10px;
+                margin-left: -25px;
+            }

@@ -1,7 +1,7 @@
 <%-- 
     Document   : bancaInicio
     Created on : 18-mar-2018, 0:10:16
-    Author     : Abel (Remasterizado by Stefan)
+    Author     : Javier (Basado en login)
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,52 +9,51 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>UMA Bank Login</title>
+        <title>Visión general de &ltUSUARIO&gt </title>
         
         <link rel="stylesheet" type="text/css" href="styles.css">
-             <%--
-        <link rel="stylesheet" href="../res/boostrap/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="../res/boostrap/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-   --%>
       
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        
+         <link rel="stylesheet" href="/static/bootstrap/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+            <script src="/static/bootstrap/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+               
     </head>
     <body class="body">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 leftPane">
-                    <div class="row header">
-                        <h2 class="col-lg-4"><b>UMA BANK</b></h2>
-                        <h4 class="col-lg-8"><i>Tu dinero es nuestro y nuestro dinero tambien</i></h4>
-                    </div>
-
-                    <div class="row imgIzquierda">
-                        <img class="img" src="res/banco.jpg"/>
+                <div class="col-sm-6">
+                    información
+                    <div class="row header enmarcado">
+                        <table style="width:100%">
+                            <tr>
+                                <td clas="celdaDato">IBAN:</td>
+                                <td class="celdaValor">ES 0046 8993 4556 4712</td>
+                            </tr>
+                            <tr>
+                                <td class="celdaDato">Saldo:</td>
+                                <td class="celdaValor">0€</td>
+                            </tr>       
+                        </table>
                     </div>
                 </div>
                 
-                <div class="col-lg-4">
-                    <div class="col-lg-12 logInForm">
-                        
-                            <form class="formTopMargin" method="post" action="LoginServlet" >
-                                <pre>       Iniciar Sesi&oacute;n</pre>
-                                <pre>       DNI :      <input type="text" name="DNI" /></pre>
-                                <pre>       Password : <input type="password" name="password"/></pre>
-                                <pre>       <button>Enviar</button></pre>
-                            </form>
-                        
-                    </div>
-
-                    <div class="col-lg-12 gifRobo">                      
-                        <video class="img" loop autoplay >
-                            <source src="res/rata.mp4" type="video/mp4"/>
-                        </video>
-                    </div>
+                <div class="col-sm-6">
+                    <img src ="res/blackjack.jpg" alt="Juega a nuestro blackjack online!" width="100%">
                     
                 </div>
-            </div>                
+            
+            </div>  <!-- fin de la primera fila -->
+            
+            
+            <div class="row">
+                   Últimos movimientos
+                   <div class="enmarcado">
+                   </div>
+                   
+                   
+            </div>
+            
+            
+            
         </div>
     </body>
 </html>
