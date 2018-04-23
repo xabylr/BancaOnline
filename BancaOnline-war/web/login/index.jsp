@@ -39,7 +39,7 @@
                 <div class="col-lg-4">
                     <div class="col-lg-12 logInForm">
                         
-                            <form class="formTopMargin" method="post" action="LoginServlet" >
+                            <form class="formTopMargin" method="post" action="../LoginServlet" >
                                 <pre>       Iniciar Sesi&oacute;n</pre>
                                 <pre>       DNI :      <input type="text" name="DNI" /></pre>
                                 <pre>       Password : <input type="password" name="password"/></pre>
