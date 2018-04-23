@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c")
     , @NamedQuery(name = "Cliente.findByDni", query = "SELECT c FROM Cliente c WHERE c.dni = :dni")
+    , @NamedQuery(name = "Cliente.findByPassword", query = "SELECT c FROM Cliente c WHERE c.password = :password")
     , @NamedQuery(name = "Cliente.findByNombre", query = "SELECT c FROM Cliente c WHERE c.nombre = :nombre")
     , @NamedQuery(name = "Cliente.findByApellidos", query = "SELECT c FROM Cliente c WHERE c.apellidos = :apellidos")})
 public class Cliente implements Serializable {
@@ -39,6 +40,9 @@ public class Cliente implements Serializable {
     @NotNull
     @Column(name = "dni")
     private Integer dni;
+    @Size(max = 100)
+    @Column(name = "password")
+    private String password;
     @Size(max = 30)
     @Column(name = "nombre")
     private String nombre;
@@ -62,6 +66,14 @@ public class Cliente implements Serializable {
 
     public void setDni(Integer dni) {
         this.dni = dni;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getNombre() {

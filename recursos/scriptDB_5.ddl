@@ -38,7 +38,7 @@ CREATE TABLE movimientorealizado (
     concepto                VARCHAR(200),
     fechaCreado             BIGINT,
     fechaRealizado          BIGINT,
-    cuantia                 BIGINT, --siempre positivo
+    cuantia                 BIGINT,
     decimales               INT,
     divisa                  VARCHAR(3),
     remitente               INT,
@@ -53,7 +53,7 @@ CREATE TABLE movimientopendiente (
     id                      BIGINT PRIMARY KEY,
     concepto                VARCHAR(200),
     fechaCreado             BIGINT,
-    cuantia                 BIGINT, --siempre positivo
+    cuantia                 BIGINT,
     decimales               INT,
     divisa                  VARCHAR(3),
     remitente               INT,

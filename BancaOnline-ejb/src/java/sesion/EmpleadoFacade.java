@@ -29,4 +29,12 @@ public class EmpleadoFacade extends AbstractFacade<Empleado> {
         super(Empleado.class);
     }
     
+    public Empleado validarPassword(int dni, String pass){
+       Empleado  resultado = null;
+       Empleado e = find(dni);
+       if(e!=null && e.getDni()==dni ) resultado=e;
+       
+       return resultado;
+    }
+    
 }

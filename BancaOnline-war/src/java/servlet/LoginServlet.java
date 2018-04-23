@@ -6,6 +6,7 @@
 package servlet;
 
 import entidad.Cliente;
+import entidad.Empleado;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -15,22 +16,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.Dinero;
 import sesion.ClienteFacade;
+import sesion.EmpleadoFacade;
 
 /**
  *
- * @author Abel
+ * @author Abel y Javier
  */
 @WebServlet (name="LoginServlet", urlPatterns={"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
     @EJB
     private ClienteFacade cf;
+    @EJB
+    private EmpleadoFacade ef;
 
-    
-    
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -54,21 +54,30 @@ public class LoginServlet extends HttpServlet {
             dni = utilidades.Dni.obtenerNumero(strDni);   
             
             //Comprobar dni en la base de datos aquí
-                      Cliente encontrado = cf.find(dni);
                       
              PrintWriter salida;
              salida = response.getWriter();
-                      
-           if(encontrado!=null){
-               salida.println("Dni encontrado!");
-               salida.println(encontrado.getNombre());
+             
+             Empleado e = ef.validarPassword(dni, password);          
+           if(e!=null){
+               salida.print("Hola, empleado ");
+               salida.print(e.getNombre());
+               salida.print(" ");
+               salida.print(e.getApellidos());
            }
-            else {
-           
-             salida.println("Dni no encontrado en base de datos");
-            
+           else{
+            Cliente c = cf.validarPassword(dni, password);
+            if(c!=null){
+              salida.print("Hola, usuario ");
+              salida.print(c.getNombre());
+              salida.print(" ");
+              salida.print(c.getApellidos());
+
+            }else{
+                    salida.println("Dni o contraseña incorrectos");
+                   }
+          
            }
-            
             
         }else{ //Código DNI inválido
             RequestDispatcher rd;
