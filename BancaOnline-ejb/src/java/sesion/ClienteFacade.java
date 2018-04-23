@@ -32,7 +32,7 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
        public Cliente  validarPassword(int dni, String pass){
        Cliente  resultado = null;
        Cliente c = find(dni);
-       if(c!=null && c.getDni()==dni ) resultado=c;
+       if(c!=null && c.getPassword().equals(pass) ) resultado=c;
        
        return resultado;
     }

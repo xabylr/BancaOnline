@@ -5,11 +5,19 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@page import="entidad.Cliente"%>
+<%
+    Cliente cliente = (Cliente) session.getAttribute("cliente"); 
+    String nombreYApellidos = cliente.getNombre() + " " + cliente.getApellidos();
+%>
+
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Visión general de &ltUSUARIO&gt </title>
+        <title>Visión general de <%=nombreYApellidos%> cl </title>
         
         <link rel="stylesheet" type="text/css" href="styles.css">
       
@@ -24,6 +32,11 @@
                     información
                     <div class="row header enmarcado">
                         <table style="width:100%">
+                            <tr>
+                                <td clas="celdaDato">Cliente:</td>
+                                <td class="celdaValor"><%=nombreYApellidos%></td>
+                            </tr>
+                            
                             <tr>
                                 <td clas="celdaDato">IBAN:</td>
                                 <td class="celdaValor">ES 0046 8993 4556 4712</td>

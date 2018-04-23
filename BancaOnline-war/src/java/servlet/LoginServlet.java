@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import sesion.ClienteFacade;
 import sesion.EmpleadoFacade;
 
@@ -44,9 +45,15 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        RequestDispatcher rd;
+        PrintWriter salida;
+        salida = response.getWriter();
+        
+        HttpSession session=request.getSession();
+        
+             
         int dni;
         String password = request.getParameter("password");
-                     
         //Comprobación del formato de dni
         
         String strDni = request.getParameter("DNI");
@@ -55,8 +62,7 @@ public class LoginServlet extends HttpServlet {
             
             //Comprobar dni en la base de datos aquí
                       
-             PrintWriter salida;
-             salida = response.getWriter();
+            
              
              Empleado e = ef.validarPassword(dni, password);          
            if(e!=null){
@@ -64,6 +70,8 @@ public class LoginServlet extends HttpServlet {
                salida.print(e.getNombre());
                salida.print(" ");
                salida.print(e.getApellidos());
+               
+               
            }
            else{
             Cliente c = cf.validarPassword(dni, password);
@@ -72,7 +80,20 @@ public class LoginServlet extends HttpServlet {
               salida.print(c.getNombre());
               salida.print(" ");
               salida.print(c.getApellidos());
-
+              
+              //request.setAttribute("cliente", c);
+              
+              session.invalidate();
+              session = request.getSession();
+              session.setAttribute("cliente", c); 
+              
+            //  rd = (RequestDispatcher)this.getServletContext().getRequestDispatcher("/usuario/index.jsp");
+          //    rd.forward(request, response);
+           //   request.getRequestDispatcher("/usuario/index.jsp").forward(request, response);
+              
+     response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/usuario/"));
+           //   rd.forward(request, response);
+              
             }else{
                     salida.println("Dni o contraseña incorrectos");
                    }
@@ -80,7 +101,7 @@ public class LoginServlet extends HttpServlet {
            }
             
         }else{ //Código DNI inválido
-            RequestDispatcher rd;
+            
             rd = (RequestDispatcher)this.getServletContext().getRequestDispatcher("/errorLogin.html");
             rd.forward(request, response);
         }
