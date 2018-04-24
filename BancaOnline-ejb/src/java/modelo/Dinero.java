@@ -103,8 +103,7 @@ public class Dinero implements Cloneable  {
            super.put( divisa.getCodigo(), divisa );
        }   
    }
-   private final static DivisasHashMap DIVISAS = new DivisasHashMap();
-
+   private static final DivisasHashMap DIVISAS = new DivisasHashMap();
   
    static{  
     //divisas con base en el Euro
@@ -243,6 +242,7 @@ public class Dinero implements Cloneable  {
         cantidad.cuantia=0; //borramos el dinero ya ingresado
     }
     
+    //########################## v CONSTRUCTORES v #############################
    
     public Dinero(){
         this("0,00");
@@ -255,6 +255,25 @@ public class Dinero implements Cloneable  {
         this(cantidad, DIVISAS.get("EUR") ); //2 decimales por defecto
     }
     
+    public Dinero(long cantidad, int decimales, String cod){
+        Divisa encontrada = DIVISAS.get(cod);
+        Divisa insertar = encontrada;
+        
+        //Comprobamos si el número de decimales se ajusta a la norma
+        //De lo contrario creamos uan moneda especial; ej: "EUR(3)"
+        if(decimales != encontrada.getDecimales() ){
+            insertar = new Divisa(encontrada.getCodigo()+"("+decimales+")",
+                    encontrada.getBase(),
+                    decimales, 
+                    encontrada.getEquivalencia());
+            
+            DIVISAS.agregar(insertar);       
+        }
+        
+        setCuantia(cantidad, insertar);
+    }
+    
+    
     private Dinero(String cantidad, Divisa div) {
         divisa = div;
         setCuantia(cantidad, divisa);   
@@ -264,6 +283,8 @@ public class Dinero implements Cloneable  {
         this(cantidad, DIVISAS.get(cod));
     }
  
+    
+    //########################## ^ CONSTRUCTORES ^ #############################
    
     public String getDivisa(){
         return divisa.getCodigo();

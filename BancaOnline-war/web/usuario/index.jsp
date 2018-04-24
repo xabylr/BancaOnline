@@ -4,9 +4,12 @@
     Author     : Javier (Basado en login)
 --%>
 
+<%@page import="sesion.DineroCC"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@page import="entidad.Cliente"%>
+<%@page import="modelo.Dinero"%>
+
 <%
     Cliente cliente = (Cliente) session.getAttribute("cliente"); 
     String nombreYApellidos = cliente.getNombre() + " " + cliente.getApellidos();
@@ -17,7 +20,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Visión general de <%=nombreYApellidos%> cl </title>
+        <title>Visión general de <%=nombreYApellidos%></title>
         
         <link rel="stylesheet" type="text/css" href="styles.css">
       
@@ -39,11 +42,11 @@
                             
                             <tr>
                                 <td clas="celdaDato">IBAN:</td>
-                                <td class="celdaValor">ES 0046 8993 4556 4712</td>
+                                <td class="celdaValor">ES <%= cliente.getCuenta().getIban() %>  </td>
                             </tr>
                             <tr>
                                 <td class="celdaDato">Saldo:</td>
-                                <td class="celdaValor">0€</td>
+                                <td class="celdaValor"><%= new DineroCC(cliente.getCuenta()).toString() %>  </td>
                             </tr>       
                         </table>
                     </div>
