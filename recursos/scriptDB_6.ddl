@@ -1,8 +1,7 @@
-CREATE DATABASE BancaOnline;
-CREATE USER 'BancaOnline'@'localhost' IDENTIFIED BY 'pendejo';
-GRANT ALL PRIVILEGES ON BancaOnline.* TO 'bancaOnline'@'localhost' IDENTIFIED BY 'pendejo';
+CREATE DATABASE bancaonline;
+GRANT ALL PRIVILEGES ON bancaonline.* TO 'bancaonline'@'localhost' IDENTIFIED BY 'pendejo';
 
-USE BancaOnline;
+USE bancaonline;
 
 CREATE TABLE empleado (
     dni         INT PRIMARY KEY,
