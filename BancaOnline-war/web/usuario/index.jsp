@@ -21,14 +21,20 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Visión general de <%=nombreYApellidos%></title>
-        
+         <script type="text/javascript" src="/static/jquery/jquery-1.10.1.js"></script>
+        <link rel="stylesheet" href="/static/bootstrap/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+            <script src="/static/bootstrap/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+         
+         
         <link rel="stylesheet" type="text/css" href="styles.css">
       
-         <link rel="stylesheet" href="/static/bootstrap/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-            <script src="/static/bootstrap/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-               
+  
     </head>
     <body class="body">
+        
+        <jsp:include page="/WEB-INF/jspf/cabecera.jspf"/>
+        
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
