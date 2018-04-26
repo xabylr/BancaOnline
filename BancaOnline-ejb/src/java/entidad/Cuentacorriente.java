@@ -11,12 +11,13 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -40,8 +41,8 @@ public class Cuentacorriente implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id")
     private Integer id;
     @Size(max = 24)
@@ -56,8 +57,6 @@ public class Cuentacorriente implements Serializable {
     private String divisa;
     @Column(name = "fechacreacion")
     private BigInteger fechacreacion;
-    @OneToMany(mappedBy = "cuenta")
-    private Collection<Cliente> clienteCollection;
     @OneToMany(mappedBy = "remitente")
     private Collection<Movimientorealizado> movimientorealizadoCollection;
     @OneToMany(mappedBy = "receptor")
@@ -120,15 +119,6 @@ public class Cuentacorriente implements Serializable {
 
     public void setFechacreacion(BigInteger fechacreacion) {
         this.fechacreacion = fechacreacion;
-    }
-
-    @XmlTransient
-    public Collection<Cliente> getClienteCollection() {
-        return clienteCollection;
-    }
-
-    public void setClienteCollection(Collection<Cliente> clienteCollection) {
-        this.clienteCollection = clienteCollection;
     }
 
     @XmlTransient

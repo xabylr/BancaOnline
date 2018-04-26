@@ -1,40 +1,38 @@
 <style type="text/css">
-.cabecera .btn-group .dropdown-menu:after {
+.btn-group .dropdown-menu:after {
     left: auto;
     right: 13px;
 }
-.cabecera .btn-group .dropdown-menu {
+.btn-group .dropdown-menu {
     left: auto;
     right: 0;
 }
 
-.cabecera {
+nav.navbar{
 
-    background-color: #fff;
+    background-color: #DAA520;
 
 }
 
   </style>
   
 
-
-<div class="cabecera">
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
-
+            
              <div class="navbar-header">
-             <a class="navbar-brand" href="#">WebSiteName</a>
+             <a class="navbar-brand" href="/BancaOnline">UMA Bank</a>
              </div>
 
 
-    <div class="float-left">
+    <ul class="nav navbar-nab">
       <ol class="breadcrumb breadcrumb">
         <li class="breadcrumb-item"><a href="#">Home</a></li>
         <li class="breadcrumb-item"><a href="#">Library</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Data</li/usuario/>
+        <li class="breadcrumb-item active" aria-current="page">Data</li>
       </ol>
 
-    </div>
+    </ul>
 
 
     <div class="btn-group">
@@ -53,5 +51,3 @@
 
           </div>
         </nav>
-
-</div>

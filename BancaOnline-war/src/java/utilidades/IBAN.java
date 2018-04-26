@@ -6,7 +6,6 @@
 package utilidades;
 
 import java.math.BigInteger;
-import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -42,9 +41,6 @@ public class IBAN {
             
        
         }else throw new IllegalArgumentException("Formato de IBAN incorrecto");
-        
-        
-        
         
         
         
@@ -129,11 +125,6 @@ public class IBAN {
     public static boolean validarIBAN_ES(String iban){
         return validarIBAN(iban) && validarCCC(iban);
     }
-    
-    
-    
-    
-    
-   
+  
     
 }

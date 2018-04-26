@@ -13,7 +13,7 @@ CREATE TABLE empleado (
 
 
 CREATE TABLE cuentacorriente (
-    id              INT PRIMARY KEY,
+    id              INT PRIMARY KEY AUTO_INCREMENT,
     iban            VARCHAR(24),
     saldo           BIGINT,
     decimales       INT,
@@ -33,7 +33,7 @@ CREATE TABLE cliente (
 
 
 CREATE TABLE movimientorealizado (
-    id                      BIGINT PRIMARY KEY,
+    id                      BIGINT PRIMARY KEY AUTO_INCREMENT,
     concepto                VARCHAR(200),
     fechaCreado             BIGINT,
     fechaRealizado          BIGINT,
@@ -49,7 +49,7 @@ CREATE TABLE movimientorealizado (
 );
 
 CREATE TABLE movimientopendiente (
-    id                      BIGINT PRIMARY KEY,
+    id                      BIGINT PRIMARY KEY AUTO_INCREMENT,
     concepto                VARCHAR(200),
     fechaCreado             BIGINT,
     cuantia                 BIGINT,
