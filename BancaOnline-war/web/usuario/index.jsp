@@ -31,7 +31,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    información
+                    Información
                     <div class="row header enmarcado">
                         <table style="width:100%">
                             <tr>
@@ -41,14 +41,15 @@
                             
                             <tr>
                                 <td clas="celdaDato">IBAN:</td>
-                                <td class="celdaValor">ES <%= cliente.getCuenta().getIban() %>  </td>
+                                <td class="celdaValor"><%= cliente.getCuenta().getIban() %>  </td>
                             </tr>
                             <tr>
                                 <td class="celdaDato">Saldo:</td>
                                 <td class="celdaValor"><%= new DineroCC(cliente.getCuenta()).toString() %>  </td>
                             </tr>       
                         </table>
-                    </div>
+                    </div>   
+                            
                 </div>
                 
                 <div class="col-sm-6">
@@ -58,17 +59,23 @@
             
             </div>  <!-- fin de la primera fila -->
             
+            Últimos movimientos:
             
-            <div class="row">
-                   Últimos movimientos
+            <!--<div class="container">-->
+                <div class="row">
+            <div class="col-sm-6">
                    <div class="enmarcado">
+                       Movimientos
                    </div>
                    
                    
             </div>
+                <div class="col-sm-6">
+                    <button>Realizar Transferencia</button>
+                </div>
+            </div>
             
-            
-            
+            <!--</div>-->
         </div>
     </body>
 </html>

@@ -4,8 +4,8 @@
   <initialize-in-order>false</initialize-in-order>
   <module>
     <web>
-      <web-uri>BancaOnline-war.war</web-uri>
-      <context-root>/BancaOnline</context-root>
+      <web-uri>static-war.war</web-uri>
+      <context-root>/static</context-root>
     </web>
   </module>
   <module>
@@ -13,8 +13,8 @@
   </module>
   <module>
     <web>
-      <web-uri>static-war.war</web-uri>
-      <context-root>/static</context-root>
+      <web-uri>BancaOnline-war.war</web-uri>
+      <context-root>/BancaOnline</context-root>
     </web>
   </module>
 </application>
