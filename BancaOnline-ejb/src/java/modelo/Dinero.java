@@ -255,12 +255,12 @@ public class Dinero implements Cloneable  {
         this(cantidad, DIVISAS.get("EUR") ); //2 decimales por defecto
     }
     
-    public Dinero(long cantidad, int decimales, String cod){
+    protected Dinero(long cantidad, int decimales, String cod){
         Divisa encontrada = DIVISAS.get(cod);
         Divisa insertar = encontrada;
         
         //Comprobamos si el número de decimales se ajusta a la norma
-        //De lo contrario creamos uan moneda especial; ej: "EUR(3)"
+        //De lo contrario creamos una moneda especial; ej: "EUR(3)"
         if(decimales != encontrada.getDecimales() ){
             insertar = new Divisa(encontrada.getCodigo()+"("+decimales+")",
                     encontrada.getBase(),
