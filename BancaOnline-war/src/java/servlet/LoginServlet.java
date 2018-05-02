@@ -5,8 +5,8 @@
  */
 package servlet;
 
-import entidad.Cliente;
-import entidad.Empleado;
+import entidad.*;
+import java.util.Collection;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -61,8 +61,8 @@ public class LoginServlet extends HttpServlet {
             dni = utilidades.Dni.obtenerNumero(strDni);   
             
             //Comprobar dni en la base de datos aquí
-                      
-            
+                     
+             
              
              Empleado e = ef.validarPassword(dni, password);          
            if(e!=null){
@@ -85,7 +85,9 @@ public class LoginServlet extends HttpServlet {
               
               session.invalidate();
               session = request.getSession();
-              session.setAttribute("cliente", c); 
+              session.setAttribute("cliente", c);
+              Collection<Movimientorealizado> movimientos = cf.movimientosRealizados(cf.obtenerCuenta(c.getDni()));
+              session.setAttribute("movimientosRealizados", movimientos);
               
             //  rd = (RequestDispatcher)this.getServletContext().getRequestDispatcher("/usuario/index.jsp");
           //    rd.forward(request, response);

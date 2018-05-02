@@ -5,7 +5,10 @@
  */
 package sesion;
 
-import entidad.Cliente;
+import entidad.*;
+import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -36,5 +39,27 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
        
        return resultado;
     }
+       
+       public Cuentacorriente obtenerCuenta(int dni){
+           Cuentacorriente cuenta = null;
+           List<Object> consulta = em.createQuery("Select c.cuenta from Cliente c where c.dni = :dni").setParameter("dni", dni).getResultList();
+           if(!consulta.isEmpty()){
+               for(Object o: consulta){
+               cuenta = (Cuentacorriente)o;
+               }
+           }
+           return cuenta;
+       }
+       
+       public Collection<Movimientorealizado> movimientosRealizados(Cuentacorriente c){
+           Collection<Movimientorealizado> resultado = new ArrayList<>();
+           List<Object> consulta = em.createQuery("Select m.id from Movimientorealizado m where m.remitente = :codigoCuenta").setParameter("codigoCuenta", c).getResultList();
+           if(!consulta.isEmpty()){
+           for(Object o : consulta){
+               resultado.add(new Movimientorealizado((long)o));
+           }
+           }
+           return resultado;
+       }
     
 }

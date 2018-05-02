@@ -189,7 +189,7 @@ public class Movimientorealizado implements Serializable {
 
     @Override
     public String toString() {
-        return "entidad.Movimientorealizado[ id=" + id + " ]";
+        return "entidad.Movimientorealizado[ " + id + " ]";
     }
     
 }

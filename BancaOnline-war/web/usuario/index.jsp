@@ -7,12 +7,14 @@
 <%@page import="sesion.DineroCC"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%@page import="entidad.Cliente"%>
+<%@page import="entidad.*"%>
+<%@page import="java.util.Collection"%>
 <%@page import="modelo.Dinero"%>
 
 <%
     Cliente cliente = (Cliente) session.getAttribute("cliente"); 
     String nombreYApellidos = cliente.getNombre() + " " + cliente.getApellidos();
+    Collection<Movimientorealizado> movimientos = (Collection<Movimientorealizado>)session.getAttribute("movimientosRealizados");
 %>
 
 
@@ -62,10 +64,20 @@
             Últimos movimientos:
             
             <!--<div class="container">-->
+            
                 <div class="row">
             <div class="col-sm-6">
                    <div class="enmarcado">
-                       Movimientos
+                       <%
+                           if(movimientos != null){
+                               for(Movimientorealizado m : movimientos){
+                                   %>
+                                   <%=m.toString()%>
+                                   <br>
+                                   <%
+                               }
+                           }
+                       %>
                    </div>
                    
                    
