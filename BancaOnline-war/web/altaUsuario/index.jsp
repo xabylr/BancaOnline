@@ -4,11 +4,18 @@
     Author     : Stefan
 --%>
 
+<%@page import="entidad.Empleado"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <%
+            Empleado empleado = (Empleado)session.getAttribute("usuario");
+        %>
+        
+        
         <title>Alta de usuario</title>
           
         <link rel="stylesheet" type="text/css" href="styles.css">
@@ -36,7 +43,7 @@
         <div class="container"> 
             <div class="row">
                     <h5 class="col-4">
-                        Hola <%=request.getParameter("nombreUsuario")%>! <a href="#">Cerrar sesion</a>
+                        Hola <%= empleado.getNombre()%>! <a href="#">Cerrar sesion</a>
                     </h5>
             
                     <h5 class="col-8 text-right">
@@ -46,7 +53,7 @@
         
                     <div class="content">
                         
-                                <form>
+                                <form method="post" action="../AnadirUsuario">
                                     <div class="form-group">
                                         <label>DNI:</label>
                                         <input type="text" class="form-control" id="dni" name="dni">

@@ -32,7 +32,7 @@ public class EmpleadoFacade extends AbstractFacade<Empleado> {
     public Empleado validarPassword(int dni, String pass){
        Empleado  resultado = null;
        Empleado e = find(dni);
-       if(e!=null && e.getDni()==dni ) resultado=e;
+       if(e!=null && e.getPassword().equals(pass) ) resultado=e;
        
        return resultado;
     }
