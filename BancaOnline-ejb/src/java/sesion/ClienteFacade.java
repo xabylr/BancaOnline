@@ -52,7 +52,7 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
        }
        
        private List<Movimiento> getMovimientosOrdenados(Cuentacorriente c, String orden){
-           Collection<Movimiento> resultado = new ArrayList<>();
+           List<Movimiento> resultado = new ArrayList<>();
            Query q = em.createQuery("SELECT m FROM Movimiento m WHERE m.remitente = :remitente ORDER BY m."+orden);
            q.setParameter("remitente", c);
            return q.getResultList();

@@ -4,6 +4,7 @@
     Author     : Javier (Basado en login)
 --%>
 
+<%@page import="java.util.List"%>
 <%@page import="sesion.IbanCC"%>
 <%@page import="sesion.DineroCC"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -15,7 +16,7 @@
 <%
     Cliente cliente = (Cliente) session.getAttribute("cliente"); 
     String nombreYApellidos = cliente.getNombre() + " " + cliente.getApellidos();
-    Collection<Movimientorealizado> movimientos = (Collection<Movimientorealizado>)session.getAttribute("movimientosRealizados");
+    List<Movimiento> movimientos = (List<Movimiento>)session.getAttribute("movimientos");
 %>
 
 
