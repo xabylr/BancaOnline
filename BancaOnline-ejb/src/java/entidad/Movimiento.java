@@ -36,8 +36,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Movimiento.findByCuantia", query = "SELECT m FROM Movimiento m WHERE m.cuantia = :cuantia")
     , @NamedQuery(name = "Movimiento.findByDecimales", query = "SELECT m FROM Movimiento m WHERE m.decimales = :decimales")
     , @NamedQuery(name = "Movimiento.findByDivisa", query = "SELECT m FROM Movimiento m WHERE m.divisa = :divisa")
-    , @NamedQuery(name = "Movimiento.findBySaldoRemitentePrevio", query = "SELECT m FROM Movimiento m WHERE m.saldoRemitentePrevio = :saldoRemitentePrevio")
-    , @NamedQuery(name = "Movimiento.findBySaldoReceptorPrevio", query = "SELECT m FROM Movimiento m WHERE m.saldoReceptorPrevio = :saldoReceptorPrevio")})
+    , @NamedQuery(name = "Movimiento.findBySaldoRttPrev", query = "SELECT m FROM Movimiento m WHERE m.saldoRttPrev = :saldoRttPrev")
+    , @NamedQuery(name = "Movimiento.findBySaldoRttPrevDec", query = "SELECT m FROM Movimiento m WHERE m.saldoRttPrevDec = :saldoRttPrevDec")
+    , @NamedQuery(name = "Movimiento.findBySaldoRttPrevDiv", query = "SELECT m FROM Movimiento m WHERE m.saldoRttPrevDiv = :saldoRttPrevDiv")
+    , @NamedQuery(name = "Movimiento.findBySaldoRcpPrev", query = "SELECT m FROM Movimiento m WHERE m.saldoRcpPrev = :saldoRcpPrev")
+    , @NamedQuery(name = "Movimiento.findBySaldoRcpPrevDec", query = "SELECT m FROM Movimiento m WHERE m.saldoRcpPrevDec = :saldoRcpPrevDec")
+    , @NamedQuery(name = "Movimiento.findBySaldoRcpPrevDiv", query = "SELECT m FROM Movimiento m WHERE m.saldoRcpPrevDiv = :saldoRcpPrevDiv")})
 public class Movimiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,10 +62,20 @@ public class Movimiento implements Serializable {
     @Size(max = 3)
     @Column(name = "divisa")
     private String divisa;
-    @Column(name = "saldoRemitentePrevio")
-    private BigInteger saldoRemitentePrevio;
-    @Column(name = "saldoReceptorPrevio")
-    private BigInteger saldoReceptorPrevio;
+    @Column(name = "saldoRttPrev")
+    private BigInteger saldoRttPrev;
+    @Column(name = "saldoRttPrevDec")
+    private Integer saldoRttPrevDec;
+    @Size(max = 3)
+    @Column(name = "saldoRttPrevDiv")
+    private String saldoRttPrevDiv;
+    @Column(name = "saldoRcpPrev")
+    private BigInteger saldoRcpPrev;
+    @Column(name = "saldoRcpPrevDec")
+    private Integer saldoRcpPrevDec;
+    @Size(max = 3)
+    @Column(name = "saldoRcpPrevDiv")
+    private String saldoRcpPrevDiv;
     @JoinColumn(name = "remitente", referencedColumnName = "id")
     @ManyToOne
     private Cuentacorriente remitente;
@@ -124,20 +138,52 @@ public class Movimiento implements Serializable {
         this.divisa = divisa;
     }
 
-    public BigInteger getSaldoRemitentePrevio() {
-        return saldoRemitentePrevio;
+    public BigInteger getSaldoRttPrev() {
+        return saldoRttPrev;
     }
 
-    public void setSaldoRemitentePrevio(BigInteger saldoRemitentePrevio) {
-        this.saldoRemitentePrevio = saldoRemitentePrevio;
+    public void setSaldoRttPrev(BigInteger saldoRttPrev) {
+        this.saldoRttPrev = saldoRttPrev;
     }
 
-    public BigInteger getSaldoReceptorPrevio() {
-        return saldoReceptorPrevio;
+    public Integer getSaldoRttPrevDec() {
+        return saldoRttPrevDec;
     }
 
-    public void setSaldoReceptorPrevio(BigInteger saldoReceptorPrevio) {
-        this.saldoReceptorPrevio = saldoReceptorPrevio;
+    public void setSaldoRttPrevDec(Integer saldoRttPrevDec) {
+        this.saldoRttPrevDec = saldoRttPrevDec;
+    }
+
+    public String getSaldoRttPrevDiv() {
+        return saldoRttPrevDiv;
+    }
+
+    public void setSaldoRttPrevDiv(String saldoRttPrevDiv) {
+        this.saldoRttPrevDiv = saldoRttPrevDiv;
+    }
+
+    public BigInteger getSaldoRcpPrev() {
+        return saldoRcpPrev;
+    }
+
+    public void setSaldoRcpPrev(BigInteger saldoRcpPrev) {
+        this.saldoRcpPrev = saldoRcpPrev;
+    }
+
+    public Integer getSaldoRcpPrevDec() {
+        return saldoRcpPrevDec;
+    }
+
+    public void setSaldoRcpPrevDec(Integer saldoRcpPrevDec) {
+        this.saldoRcpPrevDec = saldoRcpPrevDec;
+    }
+
+    public String getSaldoRcpPrevDiv() {
+        return saldoRcpPrevDiv;
+    }
+
+    public void setSaldoRcpPrevDiv(String saldoRcpPrevDiv) {
+        this.saldoRcpPrevDiv = saldoRcpPrevDiv;
     }
 
     public Cuentacorriente getRemitente() {

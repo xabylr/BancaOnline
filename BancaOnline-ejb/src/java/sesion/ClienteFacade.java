@@ -5,10 +5,14 @@
  */
 package sesion;
 
-import entidad.Cliente;
+import entidad.*;
+import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -36,5 +40,27 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
        
        return resultado;
     }
+       
+       public Cuentacorriente getCuenta(int dni){
+           Cuentacorriente cuenta = null;
+           
+           Query q = em.createNamedQuery("Cliente.findByDni");
+           q.setParameter("dni", dni);
+           Cliente c = (Cliente) q.getSingleResult();
+           
+           return c.getCuenta();
+       }
+       
+       private List<Movimiento> getMovimientosOrdenados(Cuentacorriente c, String orden){
+           Collection<Movimiento> resultado = new ArrayList<>();
+           Query q = em.createQuery("SELECT m FROM Movimiento m WHERE m.remitente = :remitente ORDER BY m."+orden);
+           q.setParameter("remitente", c);
+           return q.getResultList();
+       }
+       
+       public List<Movimiento> getMovimientosFechaDesc(Cuentacorriente c){
+         return getMovimientosOrdenados(c, "fecha desc");
+       }
+       
     
 }

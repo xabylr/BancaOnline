@@ -4,15 +4,18 @@
     Author     : Javier (Basado en login)
 --%>
 
+<%@page import="sesion.IbanCC"%>
 <%@page import="sesion.DineroCC"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%@page import="entidad.Cliente"%>
+<%@page import="entidad.*"%>
+<%@page import="java.util.Collection"%>
 <%@page import="modelo.Dinero"%>
 
 <%
     Cliente cliente = (Cliente) session.getAttribute("cliente"); 
     String nombreYApellidos = cliente.getNombre() + " " + cliente.getApellidos();
+    Collection<Movimientorealizado> movimientos = (Collection<Movimientorealizado>)session.getAttribute("movimientosRealizados");
 %>
 
 
@@ -28,10 +31,16 @@
         
         <jsp:include page="/WEB-INF/jspf/cabecera.jspf"/>
         
+        <div class="d-flex">
+            <ul class="breadcrumb list-inline mx-auto justify-content-center">
+                /<li ><a href="/BancaOnline/usuario">Inicio</a></li>
+            </ul>
+        </div>
+        
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    información
+                    Información
                     <div class="row header enmarcado">
                         <table style="width:100%">
                             <tr>
@@ -41,34 +50,71 @@
                             
                             <tr>
                                 <td clas="celdaDato">IBAN:</td>
-                                <td class="celdaValor">ES <%= cliente.getCuenta().getIban() %>  </td>
+                                <td class="celdaValor"><%= new IbanCC(cliente.getCuenta()) %>  </td>
                             </tr>
                             <tr>
                                 <td class="celdaDato">Saldo:</td>
                                 <td class="celdaValor"><%= new DineroCC(cliente.getCuenta()).toString() %>  </td>
                             </tr>       
                         </table>
-                    </div>
+                    </div>   
+                            
                 </div>
                 
                 <div class="col-sm-6">
-                    <img src ="res/blackjack.jpg" alt="Juega a nuestro blackjack online!" width="100%">
+                    <form action="../Blackjack">
+                        <!--<button><img src ="res/blackjack.jpg" alt="Juega a nuestro blackjack online!" width="100%"></button>-->
+                        <button id="close-image" display="block"><img src ="res/blackjack.jpg" alt="Juega a nuestro blackjack online!" width="100%"></button>
+                        
+                    </form>
+                    
                     
                 </div>
             
             </div>  <!-- fin de la primera fila -->
             
+            Últimos movimientos:
             
-            <div class="row">
-                   Últimos movimientos
+            <!--<div class="container">-->
+            
+                <div class="row">
+            <div class="col-sm-6">
                    <div class="enmarcado">
+                       <%
+                           if(movimientos != null){
+                               for(Movimiento m : movimientos){
+                                   %>
+                                   <%=m.toString()%>
+                                   <br>
+                                   <%
+                               }
+                           }
+                       %>
                    </div>
                    
                    
             </div>
+                <div class="col-sm-6">
+                    
+                    <form action="../realizartransferencia">
+                        <button>Realizar Transferencia</button>
+                    </form>
+                    
+                </div>
+            </div>
             
+            </div>
+                <div class="col-sm-6">
+                    
+                    <form method="get" action="../VerMovimientos">
+                        <button>Ver Movimientos</button>
+                        <input type="hidden" name="dnicliente" value="<%=cliente.getDni()%>">
+                    </form>
+                    
+                </div>
+            </div>
             
-            
+            <!--</div>-->
         </div>
     </body>
 </html>

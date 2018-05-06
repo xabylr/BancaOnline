@@ -44,8 +44,12 @@ CREATE TABLE movimiento(
     cuantia                 BIGINT,
     decimales               INT,
     divisa                  VARCHAR(3),
-    saldoRemitentePrevio    BIGINT,
-    saldoReceptorPrevio     BIGINT,
+    saldoRttPrev            BIGINT,
+    saldoRttPrevDec         INT,
+    saldoRttPrevDiv         VARCHAR(3),
+    saldoRcpPrev            BIGINT,
+    saldoRcpPrevDec         INT,
+    saldoRcpPrevDiv         VARCHAR(3),
     FOREIGN KEY (remitente) REFERENCES cuentacorriente (id),
     FOREIGN KEY (receptor)  REFERENCES cuentacorriente (id)
 );

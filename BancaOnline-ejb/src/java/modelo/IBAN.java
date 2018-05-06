@@ -19,7 +19,7 @@ import java.util.Scanner;
  */
 public class IBAN {
     
-    private static int getControlCCC(String entidad, String oficina, String numeroCuenta){
+    public static int getControlCCC(String entidad, String oficina, String numeroCuenta){
         int ctrl1, ctrl2;
             
         int [] nEntidad = new int[entidad.length()];         
@@ -65,7 +65,7 @@ public class IBAN {
             return ctrl1+ctrl2; 
     }
     
-    private static int getControlIBAN(String pais, String ccc){
+    public static int getControlIBAN(String pais, String ccc){
         String codPais = "";
         for(char c : pais.toCharArray()){
             codPais= codPais+(10 + (c-'A') );

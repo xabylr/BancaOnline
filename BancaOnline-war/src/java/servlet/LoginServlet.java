@@ -5,10 +5,11 @@
  */
 package servlet;
 
-import entidad.Cliente;
-import entidad.Empleado;
+import entidad.*;
+import java.util.Collection;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -61,8 +62,8 @@ public class LoginServlet extends HttpServlet {
             dni = utilidades.Dni.obtenerNumero(strDni);   
             
             //Comprobar dni en la base de datos aquí
-                      
-            
+                     
+             
              
              Empleado e = ef.validarPassword(dni, password);          
            if(e!=null){
@@ -71,7 +72,9 @@ public class LoginServlet extends HttpServlet {
                salida.print(" ");
                salida.print(e.getApellidos());
                
+               session.setAttribute("usuario", e);
                
+               response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/altaUsuario/"));
            }
            else{
             Cliente c = cf.validarPassword(dni, password);
@@ -85,15 +88,17 @@ public class LoginServlet extends HttpServlet {
               
               session.invalidate();
               session = request.getSession();
-              session.setAttribute("cliente", c); 
+              session.setAttribute("cliente", c);
+              List<Movimiento> movimientos = cf.getMovimientosFechaDesc(cf.getCuenta(c.getDni()));
+              session.setAttribute("movimientos", movimientos);
               
-            //  rd = (RequestDispatcher)this.getServletContext().getRequestDispatcher("/usuario/index.jsp");
-          //    rd.forward(request, response);
-           //   request.getRequestDispatcher("/usuario/index.jsp").forward(request, response);
-              
-     response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/usuario/"));
-           //   rd.forward(request, response);
-              
+                //  rd = (RequestDispatcher)this.getServletContext().getRequestDispatcher("/usuario/index.jsp");
+              //    rd.forward(request, response);
+               //   request.getRequestDispatcher("/usuario/index.jsp").forward(request, response);
+
+               response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/usuario/"));
+               //   rd.forward(request, response);
+
             }else{
                     salida.println("Dni o contraseña incorrectos");
                    }

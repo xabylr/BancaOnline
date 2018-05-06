@@ -7,7 +7,7 @@ package entidad;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,6 +40,11 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Cuentacorriente.findByFechacreacion", query = "SELECT c FROM Cuentacorriente c WHERE c.fechacreacion = :fechacreacion")})
 public class Cuentacorriente implements Serializable {
 
+    @OneToMany(mappedBy = "remitente")
+    private Collection<Movimiento> movimientoCollection;
+    @OneToMany(mappedBy = "receptor")
+    private Collection<Movimiento> movimientoCollection1;
+
     private static final long serialVersionUID = 1L;
     @Column(name = "entidad")
     private Integer entidad;
@@ -59,12 +64,6 @@ public class Cuentacorriente implements Serializable {
     private String divisa;
     @Column(name = "fechacreacion")
     private BigInteger fechacreacion;
-    @OneToMany(mappedBy = "cuenta")
-    private List<Cliente> clienteList;
-    @OneToMany(mappedBy = "remitente")
-    private List<Movimiento> movimientoList;
-    @OneToMany(mappedBy = "receptor")
-    private List<Movimiento> movimientoList1;
 
     public Cuentacorriente() {
     }
@@ -129,33 +128,6 @@ public class Cuentacorriente implements Serializable {
         this.fechacreacion = fechacreacion;
     }
 
-    @XmlTransient
-    public List<Cliente> getClienteList() {
-        return clienteList;
-    }
-
-    public void setClienteList(List<Cliente> clienteList) {
-        this.clienteList = clienteList;
-    }
-
-    @XmlTransient
-    public List<Movimiento> getMovimientoList() {
-        return movimientoList;
-    }
-
-    public void setMovimientoList(List<Movimiento> movimientoList) {
-        this.movimientoList = movimientoList;
-    }
-
-    @XmlTransient
-    public List<Movimiento> getMovimientoList1() {
-        return movimientoList1;
-    }
-
-    public void setMovimientoList1(List<Movimiento> movimientoList1) {
-        this.movimientoList1 = movimientoList1;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -179,6 +151,24 @@ public class Cuentacorriente implements Serializable {
     @Override
     public String toString() {
         return "entidad.Cuentacorriente[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Movimiento> getMovimientoCollection() {
+        return movimientoCollection;
+    }
+
+    public void setMovimientoCollection(Collection<Movimiento> movimientoCollection) {
+        this.movimientoCollection = movimientoCollection;
+    }
+
+    @XmlTransient
+    public Collection<Movimiento> getMovimientoCollection1() {
+        return movimientoCollection1;
+    }
+
+    public void setMovimientoCollection1(Collection<Movimiento> movimientoCollection1) {
+        this.movimientoCollection1 = movimientoCollection1;
     }
     
 }
