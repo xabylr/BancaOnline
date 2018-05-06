@@ -30,9 +30,11 @@
         
         <jsp:include page="/WEB-INF/jspf/cabecera.jspf"/>
         
-        <ul class="breadcrumb" style="align-self: center">
-            /<li>Inicio</li>
-        </ul>
+        <div class="d-flex">
+            <ul class="breadcrumb list-inline mx-auto justify-content-center">
+                /<li ><a href="/BancaOnline/usuario">Inicio</a></li>
+            </ul>
+        </div>
         
         <div class="container">
             <div class="row">
