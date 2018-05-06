@@ -61,6 +61,7 @@
                     </div>   
                             
                     <form action="../realizartransferencia">
+                        
                         <button>Realizar Transferencia</button>
                     </form>      
                             
@@ -104,6 +105,7 @@
            
                    
             <form method="get" action="../VerMovimientos">
+                <input type="hidden" name="dnicliente" value="<%=cliente.getDni()%>" />
                         <button>Ver Movimientos</button>
             </form>
                    
