@@ -26,18 +26,19 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author javier
  */
 @Entity
-@Table(name = "movimientopendiente")
+@Table(name = "movimiento")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Movimientopendiente.findAll", query = "SELECT m FROM Movimientopendiente m")
-    , @NamedQuery(name = "Movimientopendiente.findById", query = "SELECT m FROM Movimientopendiente m WHERE m.id = :id")
-    , @NamedQuery(name = "Movimientopendiente.findByConcepto", query = "SELECT m FROM Movimientopendiente m WHERE m.concepto = :concepto")
-    , @NamedQuery(name = "Movimientopendiente.findByFechaCreado", query = "SELECT m FROM Movimientopendiente m WHERE m.fechaCreado = :fechaCreado")
-    , @NamedQuery(name = "Movimientopendiente.findByCuantia", query = "SELECT m FROM Movimientopendiente m WHERE m.cuantia = :cuantia")
-    , @NamedQuery(name = "Movimientopendiente.findByDecimales", query = "SELECT m FROM Movimientopendiente m WHERE m.decimales = :decimales")
-    , @NamedQuery(name = "Movimientopendiente.findByDivisa", query = "SELECT m FROM Movimientopendiente m WHERE m.divisa = :divisa")
-    , @NamedQuery(name = "Movimientopendiente.findBySaldoRemitentePrevio", query = "SELECT m FROM Movimientopendiente m WHERE m.saldoRemitentePrevio = :saldoRemitentePrevio")})
-public class Movimientopendiente implements Serializable {
+    @NamedQuery(name = "Movimiento.findAll", query = "SELECT m FROM Movimiento m")
+    , @NamedQuery(name = "Movimiento.findById", query = "SELECT m FROM Movimiento m WHERE m.id = :id")
+    , @NamedQuery(name = "Movimiento.findByConcepto", query = "SELECT m FROM Movimiento m WHERE m.concepto = :concepto")
+    , @NamedQuery(name = "Movimiento.findByFecha", query = "SELECT m FROM Movimiento m WHERE m.fecha = :fecha")
+    , @NamedQuery(name = "Movimiento.findByCuantia", query = "SELECT m FROM Movimiento m WHERE m.cuantia = :cuantia")
+    , @NamedQuery(name = "Movimiento.findByDecimales", query = "SELECT m FROM Movimiento m WHERE m.decimales = :decimales")
+    , @NamedQuery(name = "Movimiento.findByDivisa", query = "SELECT m FROM Movimiento m WHERE m.divisa = :divisa")
+    , @NamedQuery(name = "Movimiento.findBySaldoRemitentePrevio", query = "SELECT m FROM Movimiento m WHERE m.saldoRemitentePrevio = :saldoRemitentePrevio")
+    , @NamedQuery(name = "Movimiento.findBySaldoReceptorPrevio", query = "SELECT m FROM Movimiento m WHERE m.saldoReceptorPrevio = :saldoReceptorPrevio")})
+public class Movimiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,8 +49,8 @@ public class Movimientopendiente implements Serializable {
     @Size(max = 200)
     @Column(name = "concepto")
     private String concepto;
-    @Column(name = "fechaCreado")
-    private BigInteger fechaCreado;
+    @Column(name = "fecha")
+    private BigInteger fecha;
     @Column(name = "cuantia")
     private BigInteger cuantia;
     @Column(name = "decimales")
@@ -59,6 +60,8 @@ public class Movimientopendiente implements Serializable {
     private String divisa;
     @Column(name = "saldoRemitentePrevio")
     private BigInteger saldoRemitentePrevio;
+    @Column(name = "saldoReceptorPrevio")
+    private BigInteger saldoReceptorPrevio;
     @JoinColumn(name = "remitente", referencedColumnName = "id")
     @ManyToOne
     private Cuentacorriente remitente;
@@ -66,10 +69,10 @@ public class Movimientopendiente implements Serializable {
     @ManyToOne
     private Cuentacorriente receptor;
 
-    public Movimientopendiente() {
+    public Movimiento() {
     }
 
-    public Movimientopendiente(Long id) {
+    public Movimiento(Long id) {
         this.id = id;
     }
 
@@ -89,12 +92,12 @@ public class Movimientopendiente implements Serializable {
         this.concepto = concepto;
     }
 
-    public BigInteger getFechaCreado() {
-        return fechaCreado;
+    public BigInteger getFecha() {
+        return fecha;
     }
 
-    public void setFechaCreado(BigInteger fechaCreado) {
-        this.fechaCreado = fechaCreado;
+    public void setFecha(BigInteger fecha) {
+        this.fecha = fecha;
     }
 
     public BigInteger getCuantia() {
@@ -129,6 +132,14 @@ public class Movimientopendiente implements Serializable {
         this.saldoRemitentePrevio = saldoRemitentePrevio;
     }
 
+    public BigInteger getSaldoReceptorPrevio() {
+        return saldoReceptorPrevio;
+    }
+
+    public void setSaldoReceptorPrevio(BigInteger saldoReceptorPrevio) {
+        this.saldoReceptorPrevio = saldoReceptorPrevio;
+    }
+
     public Cuentacorriente getRemitente() {
         return remitente;
     }
@@ -155,10 +166,10 @@ public class Movimientopendiente implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Movimientopendiente)) {
+        if (!(object instanceof Movimiento)) {
             return false;
         }
-        Movimientopendiente other = (Movimientopendiente) object;
+        Movimiento other = (Movimiento) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -167,7 +178,7 @@ public class Movimientopendiente implements Serializable {
 
     @Override
     public String toString() {
-        return "entidad.Movimientopendiente[ id=" + id + " ]";
+        return "entidad.Movimiento[ id=" + id + " ]";
     }
     
 }

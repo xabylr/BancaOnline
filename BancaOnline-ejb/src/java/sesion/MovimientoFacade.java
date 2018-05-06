@@ -5,7 +5,7 @@
  */
 package sesion;
 
-import entidad.Movimientopendiente;
+import entidad.Movimiento;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author javier
  */
 @Stateless
-public class MovimientopendienteFacade extends AbstractFacade<Movimientopendiente> {
+public class MovimientoFacade extends AbstractFacade<Movimiento> {
 
     @PersistenceContext(unitName = "BancaOnline-ejbPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class MovimientopendienteFacade extends AbstractFacade<Movimientopendient
         return em;
     }
 
-    public MovimientopendienteFacade() {
-        super(Movimientopendiente.class);
+    public MovimientoFacade() {
+        super(Movimiento.class);
     }
     
 }

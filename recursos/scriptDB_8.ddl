@@ -1,3 +1,4 @@
+DROP DATABASE bancaonline;
 CREATE DATABASE bancaonline;
 GRANT ALL PRIVILEGES ON bancaonline.* TO 'bancaonline'@'localhost' IDENTIFIED BY 'pendejo';
 
@@ -13,12 +14,14 @@ CREATE TABLE empleado (
 
 
 CREATE TABLE cuentacorriente (
+    entidad         INT,
+    oficina         INT,
     id              INT PRIMARY KEY AUTO_INCREMENT,
-    iban            VARCHAR(24),
     saldo           BIGINT,
     decimales       INT,
     divisa          VARCHAR(3),
-    fechacreacion   BIGINT
+    fechacreacion   BIGINT,
+    CONSTRAINT UC_CC UNIQUE (entidad, oficina, id)
 );
 
 
@@ -32,32 +35,17 @@ CREATE TABLE cliente (
 );
 
 
-CREATE TABLE movimientorealizado (
+CREATE TABLE movimiento(
     id                      BIGINT PRIMARY KEY AUTO_INCREMENT,
+    remitente               INT,
+    receptor                INT,
     concepto                VARCHAR(200),
-    fechaCreado             BIGINT,
-    fechaRealizado          BIGINT,
+    fecha                   BIGINT,
     cuantia                 BIGINT,
     decimales               INT,
     divisa                  VARCHAR(3),
-    remitente               INT,
     saldoRemitentePrevio    BIGINT,
-    receptor                INT,
     saldoReceptorPrevio     BIGINT,
-    FOREIGN KEY (remitente) REFERENCES cuentacorriente (id),
-    FOREIGN KEY (receptor)  REFERENCES cuentacorriente (id)
-);
-
-CREATE TABLE movimientopendiente (
-    id                      BIGINT PRIMARY KEY AUTO_INCREMENT,
-    concepto                VARCHAR(200),
-    fechaCreado             BIGINT,
-    cuantia                 BIGINT,
-    decimales               INT,
-    divisa                  VARCHAR(3),
-    remitente               INT,
-    saldoRemitentePrevio    BIGINT,
-    receptor                INT,
     FOREIGN KEY (remitente) REFERENCES cuentacorriente (id),
     FOREIGN KEY (receptor)  REFERENCES cuentacorriente (id)
 );

@@ -7,7 +7,7 @@ package entidad;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,8 +31,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cuentacorriente.findAll", query = "SELECT c FROM Cuentacorriente c")
+    , @NamedQuery(name = "Cuentacorriente.findByEntidad", query = "SELECT c FROM Cuentacorriente c WHERE c.entidad = :entidad")
+    , @NamedQuery(name = "Cuentacorriente.findByOficina", query = "SELECT c FROM Cuentacorriente c WHERE c.oficina = :oficina")
     , @NamedQuery(name = "Cuentacorriente.findById", query = "SELECT c FROM Cuentacorriente c WHERE c.id = :id")
-    , @NamedQuery(name = "Cuentacorriente.findByIban", query = "SELECT c FROM Cuentacorriente c WHERE c.iban = :iban")
     , @NamedQuery(name = "Cuentacorriente.findBySaldo", query = "SELECT c FROM Cuentacorriente c WHERE c.saldo = :saldo")
     , @NamedQuery(name = "Cuentacorriente.findByDecimales", query = "SELECT c FROM Cuentacorriente c WHERE c.decimales = :decimales")
     , @NamedQuery(name = "Cuentacorriente.findByDivisa", query = "SELECT c FROM Cuentacorriente c WHERE c.divisa = :divisa")
@@ -40,14 +41,15 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Cuentacorriente implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Column(name = "entidad")
+    private Integer entidad;
+    @Column(name = "oficina")
+    private Integer oficina;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 24)
-    @Column(name = "iban")
-    private String iban;
     @Column(name = "saldo")
     private BigInteger saldo;
     @Column(name = "decimales")
@@ -57,14 +59,12 @@ public class Cuentacorriente implements Serializable {
     private String divisa;
     @Column(name = "fechacreacion")
     private BigInteger fechacreacion;
+    @OneToMany(mappedBy = "cuenta")
+    private List<Cliente> clienteList;
     @OneToMany(mappedBy = "remitente")
-    private Collection<Movimientorealizado> movimientorealizadoCollection;
+    private List<Movimiento> movimientoList;
     @OneToMany(mappedBy = "receptor")
-    private Collection<Movimientorealizado> movimientorealizadoCollection1;
-    @OneToMany(mappedBy = "remitente")
-    private Collection<Movimientopendiente> movimientopendienteCollection;
-    @OneToMany(mappedBy = "receptor")
-    private Collection<Movimientopendiente> movimientopendienteCollection1;
+    private List<Movimiento> movimientoList1;
 
     public Cuentacorriente() {
     }
@@ -73,20 +73,28 @@ public class Cuentacorriente implements Serializable {
         this.id = id;
     }
 
+    public Integer getEntidad() {
+        return entidad;
+    }
+
+    public void setEntidad(Integer entidad) {
+        this.entidad = entidad;
+    }
+
+    public Integer getOficina() {
+        return oficina;
+    }
+
+    public void setOficina(Integer oficina) {
+        this.oficina = oficina;
+    }
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getIban() {
-        return iban;
-    }
-
-    public void setIban(String iban) {
-        this.iban = iban;
     }
 
     public BigInteger getSaldo() {
@@ -122,39 +130,30 @@ public class Cuentacorriente implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Movimientorealizado> getMovimientorealizadoCollection() {
-        return movimientorealizadoCollection;
+    public List<Cliente> getClienteList() {
+        return clienteList;
     }
 
-    public void setMovimientorealizadoCollection(Collection<Movimientorealizado> movimientorealizadoCollection) {
-        this.movimientorealizadoCollection = movimientorealizadoCollection;
-    }
-
-    @XmlTransient
-    public Collection<Movimientorealizado> getMovimientorealizadoCollection1() {
-        return movimientorealizadoCollection1;
-    }
-
-    public void setMovimientorealizadoCollection1(Collection<Movimientorealizado> movimientorealizadoCollection1) {
-        this.movimientorealizadoCollection1 = movimientorealizadoCollection1;
+    public void setClienteList(List<Cliente> clienteList) {
+        this.clienteList = clienteList;
     }
 
     @XmlTransient
-    public Collection<Movimientopendiente> getMovimientopendienteCollection() {
-        return movimientopendienteCollection;
+    public List<Movimiento> getMovimientoList() {
+        return movimientoList;
     }
 
-    public void setMovimientopendienteCollection(Collection<Movimientopendiente> movimientopendienteCollection) {
-        this.movimientopendienteCollection = movimientopendienteCollection;
+    public void setMovimientoList(List<Movimiento> movimientoList) {
+        this.movimientoList = movimientoList;
     }
 
     @XmlTransient
-    public Collection<Movimientopendiente> getMovimientopendienteCollection1() {
-        return movimientopendienteCollection1;
+    public List<Movimiento> getMovimientoList1() {
+        return movimientoList1;
     }
 
-    public void setMovimientopendienteCollection1(Collection<Movimientopendiente> movimientopendienteCollection1) {
-        this.movimientopendienteCollection1 = movimientopendienteCollection1;
+    public void setMovimientoList1(List<Movimiento> movimientoList1) {
+        this.movimientoList1 = movimientoList1;
     }
 
     @Override
