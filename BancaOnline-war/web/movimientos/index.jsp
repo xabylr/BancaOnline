@@ -4,11 +4,20 @@
     Author     : Abel
 --%>
 
+<%@page import="entidad.Cuentacorriente"%>
+<%@page import="entidad.Cliente"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <%
+            Cliente cliente = (Cliente)request.getAttribute("cliente");
+            //System.out.print(cliente.getDni());
+            //Cuentacorriente cuenta = cliente.getCuenta();
+        %>
+        
         <title>Movimientos de un usuario</title>
         
         <link rel="stylesheet" type="text/css" href="styles.css">
@@ -36,11 +45,11 @@
         <div class="container"> 
             <div class="row">
                     <h5 class="col-3">
-                        Usuario: <%=request.getParameter("nombreUsuario")%>
+                        Usuario: <%=cliente%>
                     </h5>
                     
                     <h5 class="col-4">
-                        IBAN: <%=request.getParameter("cuentaIBAN")%>
+                        IBAN: <%=123%>
                     </h5>
             
                     <h5 class="col-5 text-right">
@@ -61,6 +70,29 @@
       </tr>
     </thead>
     <tbody>
+        
+        <!--
+        
+        <% 
+            //for(Movimiento mov : cuenta.getMovimientos()){
+            
+        %>
+            <tr>
+                <td>Putas</td>
+                <td>asd</td>
+                <td>sdfdfs</td>
+                <td>sdffds</td>
+                <td>asd</td>
+                <td>sdfdfs</td>
+                <td>sdfdfs</td>
+            </tr>
+         
+        <% 
+           // }
+        %>
+        
+        -->
+        
       <tr>
         <td>Putas</td>
         <td>asd</td>

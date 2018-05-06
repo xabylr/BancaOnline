@@ -96,6 +96,17 @@
                 </div>
             </div>
             
+            </div>
+                <div class="col-sm-6">
+                    
+                    <form method="post" action="../VerMovimientos">
+                        <button>Ver Movimientos</button>
+                        <input type="hidden" name="dnicliente" value="<%=cliente.getDni()%>">
+                    </form>
+                    
+                </div>
+            </div>
+            
             <!--</div>-->
         </div>
     </body>
