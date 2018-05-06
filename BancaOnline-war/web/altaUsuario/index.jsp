@@ -23,24 +23,26 @@
     <body>
         
         <div class="container">
-         <div class="jumbotron">
-          <h1>UMA BANK</h1> 
-             <p>Tu dinero es nuestro y nuestro dinero tambien</p> 
-              </div>
-              <ul class="breadcrumb">
-                     <li><a href="#">Inicio</a></li>/
+            <div class="jumbotron">
+                <h1>UMA BANK</h1> 
+                <p>Tu dinero es nuestro y nuestro dinero tambien</p> 
+            </div>
+            
+            <ul class="breadcrumb">
+                     <li><a href="/BancaOnline/usuario">Inicio</a></li>/
                      <li>Añadir Usuario</li>
-                 </ul>
+            </ul>
         </div>
         
         <div class="container"> 
             <div class="row">
-                    <h5 class="col-4">
-                        Hola <%=request.getParameter("nombreUsuario")%>! <a href="#">Cerrar sesion</a>
+                    
+                    <h5 class="col-8 text-left">
+                        <a href="/BancaOnline/usuario"><small>Atrás</small></a>
                     </h5>
-            
-                    <h5 class="col-8 text-right">
-                        <a href="#"><small>Atrás</small></a>
+                
+                    <h5 class="col-4 text-right">
+                        Hola <%=request.getParameter("nombreUsuario")%>! <a href="/BancaOnline/login">Cerrar sesion</a>
                     </h5>
             </div>
         
