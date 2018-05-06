@@ -4,11 +4,18 @@
     Author     : Stefan
 --%>
 
+<%@page import="entidad.Empleado"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <%
+            Empleado empleado = (Empleado)session.getAttribute("usuario");
+        %>
+        
+        
         <title>Alta de usuario</title>
           
         <link rel="stylesheet" type="text/css" href="styles.css">
