@@ -71,8 +71,11 @@ public class LoginServlet extends HttpServlet {
                salida.print(" ");
                salida.print(e.getApellidos());
                
-           }else{
+               session.setAttribute("usuario", e);
                
+               response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/altaUsuario/"));
+           }
+           else{
             Cliente c = cf.validarPassword(dni, password);
             if(c!=null){
               salida.print("Hola, usuario ");

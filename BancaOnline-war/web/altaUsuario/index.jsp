@@ -48,7 +48,7 @@
         
                     <div class="content">
                         
-                                <form>
+                                <form method="post" action="../AnadirUsuario">
                                     <div class="form-group">
                                         <label>DNI:</label>
                                         <input type="text" class="form-control" id="dni" name="dni">

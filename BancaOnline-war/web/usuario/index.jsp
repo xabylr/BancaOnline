@@ -30,6 +30,10 @@
         
         <jsp:include page="/WEB-INF/jspf/cabecera.jspf"/>
         
+        <ul class="breadcrumb" style="align-self: center">
+            /<li>Inicio</li>
+        </ul>
+        
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
@@ -55,7 +59,12 @@
                 </div>
                 
                 <div class="col-sm-6">
-                    <img src ="res/blackjack.jpg" alt="Juega a nuestro blackjack online!" width="100%">
+                    <form action="../Blackjack">
+                        <!--<button><img src ="res/blackjack.jpg" alt="Juega a nuestro blackjack online!" width="100%"></button>-->
+                        <button id="close-image" display="block"><img src ="res/blackjack.jpg" alt="Juega a nuestro blackjack online!" width="100%"></button>
+                        
+                    </form>
+                    
                     
                 </div>
             
@@ -83,7 +92,11 @@
                    
             </div>
                 <div class="col-sm-6">
-                    <button>Realizar Transferencia</button>
+                    
+                    <form action="../realizartransferencia">
+                        <button>Realizar Transferencia</button>
+                    </form>
+                    
                 </div>
             </div>
             

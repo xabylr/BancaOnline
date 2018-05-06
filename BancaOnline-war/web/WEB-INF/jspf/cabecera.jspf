@@ -10,45 +10,25 @@
 
 nav.navbar{
 
-    background-color: #DAA520;
+    background-color: #ccccff;
 
 }
-
-
-
   </style>
   
 
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
-            
-             <div class="navbar-header">
-             <a class="navbar-brand" href="/BancaOnline">UMA Bank</a>
-             </div>
+            <h3>UMA BANK</h3> 
+            <p><b><i>Tu dinero es nuestro y nuestro dinero también.</i></b></p> 
 
-
-    <ul class="nav navbar-nab">
-      <ol class="breadcrumb breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Library</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Data</li>
-      </ol>
-    </ul>
-
-
-    <div class="btn-group">
-      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Menu
-      </button>
-      <div class="dropdown-menu dropdown-menu-right">
-        <button class="dropdown-item" type="button">Action</button>
-        <button class="dropdown-item" type="button">Another action</button>
-        <button class="dropdown-item" type="button"><a href="/BancaOnline/login">Cerrar Sesion</a></button>
-      </div>
-    </div>
-
-
-
-
-          </div>
-        </nav>
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Menu
+              </button>
+              <div class="dropdown-menu dropdown-menu-right">
+                  <button class="dropdown-item" type="button"><a href="#">Ayuda</a></button>
+                <button class="dropdown-item" type="button"><a href="/BancaOnline/login">Cerrar Sesion</a></button>
+              </div>
+            </div>
+        </div>
+    </nav>
