@@ -44,6 +44,14 @@
                 <td><%=c.getNombre()%></td>
                 <td><%=c.getApellidos()%></td>
                 <td><%=c.getCuenta()%></td>
+                
+                <td>
+                    <form method="get" action="../VerMovimientos">
+                        <button>Ver Movimientos</button>
+                        <input type="hidden" name="dnicliente" value="<%=c.getDni()%>">
+                    </form>       
+                </td>
+                
             </tr>   
         
         
