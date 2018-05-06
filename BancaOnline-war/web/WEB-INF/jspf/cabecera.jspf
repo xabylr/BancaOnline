@@ -19,7 +19,7 @@ nav.navbar{
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <h3>UMA BANK</h3> 
-            <p><b><i>Tu dinero es nuestro y nuestro dinero tambi�n.</i></b></p> 
+            <p><b><i>Tu dinero es nuestro y nuestro dinero también.</i></b></p> 
 
             <div class="btn-group">
               <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -27,7 +27,7 @@ nav.navbar{
               </button>
               <div class="dropdown-menu dropdown-menu-right">
                   <button class="dropdown-item" type="button"><a href="#">Ayuda</a></button>
-                <button class="dropdown-item" type="button"><a href="/BancaOnline/login">Cerrar Sesion</a></button>
+                <button class="dropdown-item" type="button"><a href="/BancaOnline/login">Cerrar Sesión</a></button>
               </div>
             </div>
         </div>

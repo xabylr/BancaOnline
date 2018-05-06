@@ -7,11 +7,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div align="center"> <h1>Banca Online en construcción </h1>
-            <p> <img src="res/construccion.gif" alt="En construcción"/> </p>
+        <div align="center"> <h1>Banca Online en construcciÃ³n </h1>
+            <p> <img src="res/construccion.gif" alt="En construcciÃ³n"/> </p>
             <p></p>
             
-            <a href="login">Inicio de Sesión</a>
+            <a href="login">Inicio de SesiÃ³n</a>
             
         </div>
     </body>

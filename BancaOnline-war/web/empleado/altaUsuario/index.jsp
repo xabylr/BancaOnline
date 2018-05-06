@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <%@ include file="/WEB-INF/jspf/cargar_bootstrap.jspf"%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         <%
@@ -19,20 +20,15 @@
         <title>Alta de usuario</title>
           
         <link rel="stylesheet" type="text/css" href="styles.css">
-        
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        
-        
+ 
     </head>
     <body>
         
         <jsp:include page="/WEB-INF/jspf/cabecera.jspf"/>
         <div class="d-flex">
             <ul class="breadcrumb list-inline mx-auto justify-content-center">
-                /<li ><a href="/BancaOnline/usuario">Inicio</a></li>/
+                /<li ><a href="/BancaOnline/login">Login</a></li>/
+                <li ><a href="#">Empleado</a></li>/
                 <li ><a href="#">Alta Usuario</a></li>
             </ul>
         </div>
@@ -68,7 +64,7 @@
                             
                 <div class="row">
                     <div class="alert alert-warning col-6 mx-auto">
-                        <strong>¡Precaucion!</strong> Solo se modificara el numero de oficina en caso de trabajar en una sucursal, no en la central.
+                        <strong>¡Precaución!</strong> Solo se modificará el número de oficina en caso de trabajar en una sucursal, no en la central.
                     </div>
                 </div>
                 

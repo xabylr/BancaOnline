@@ -60,6 +60,10 @@
                         </table>
                     </div>   
                             
+                    <form action="../realizartransferencia">
+                        <button>Realizar Transferencia</button>
+                    </form>      
+                            
                 </div>
                 
                 <div class="col-sm-6">
@@ -78,8 +82,8 @@
             
             <!--<div class="container">-->
             
-                <div class="row">
-            <div class="col-sm-6">
+         
+          
                    <div class="enmarcado">
                        <%
                            if(movimientos != null){
@@ -92,27 +96,20 @@
                            }
                        %>
                    </div>
+         
+        
+
+  
                    
+           
                    
-            </div>
-                <div class="col-sm-6">
-                    
-                    <form action="../realizartransferencia">
-                        <button>Realizar Transferencia</button>
-                    </form>
-                    
-                </div>
-            </div>
-            
-            </div>
-                <div class="col-sm-6">
-                    
-                    <form method="get" action="../VerMovimientos">
+            <form method="get" action="../VerMovimientos">
                         <button>Ver Movimientos</button>
-                        <input type="hidden" name="dnicliente" value="<%=cliente.getDni()%>">
-                    </form>
-                    
-                </div>
+            </form>
+                   
+                   
+            </div>
+           
             </div>
             
             <!--</div>-->
