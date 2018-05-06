@@ -79,5 +79,12 @@
              </form>
 
         </div> 
+        
+        
+        <form method="post" action="../VerClientes">
+            <button>Ver Clientes</button>
+        </form>
+        
+        
     </body>
 </html>
