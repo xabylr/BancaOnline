@@ -4,6 +4,8 @@
     Author     : Abel
 --%>
 
+<%@page import="javax.ejb.EJB"%>
+<%@page import="sesion.ClienteFacade"%>
 <%@page import="entidad.Cuentacorriente"%>
 <%@page import="entidad.Cliente"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -13,9 +15,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         <%
-            Cliente cliente = (Cliente)request.getAttribute("cliente");
-            //System.out.print(cliente.getDni());
-            //Cuentacorriente cuenta = cliente.getCuenta();
+            Cliente cliente = (Cliente)session.getAttribute("cliente");
+            Cuentacorriente cuenta = cliente.getCuenta();
         %>
         
         <title>Movimientos de un usuario</title>
@@ -45,11 +46,11 @@
         <div class="container"> 
             <div class="row">
                     <h5 class="col-3">
-                        Usuario: <%=cliente%>
+                        Usuario: <%=cliente.getNombre() + " " + cliente.getApellidos()%>
                     </h5>
                     
                     <h5 class="col-4">
-                        IBAN: <%=123%>
+                        IBAN: <%=cuenta.getIban()%>
                     </h5>
             
                     <h5 class="col-5 text-right">

@@ -48,7 +48,7 @@ public class VerMovimientosServlet extends HttpServlet {
         
         System.out.println(cliente.getApellidos());
         
-        request.setAttribute("cliente", cliente);
+        request.getSession().setAttribute("cliente", cliente);
         
         response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/movimientos/"));
         
