@@ -30,6 +30,10 @@
         
         <jsp:include page="/WEB-INF/jspf/cabecera.jspf"/>
         
+        <ul class="breadcrumb" style="align-self: center">
+            /<li>Inicio</li>
+        </ul>
+        
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">

@@ -91,13 +91,13 @@ public class LoginServlet extends HttpServlet {
               Collection<Movimientorealizado> movimientos = cf.movimientosRealizados(cf.obtenerCuenta(c.getDni()));
               session.setAttribute("movimientosRealizados", movimientos);
               
-            //  rd = (RequestDispatcher)this.getServletContext().getRequestDispatcher("/usuario/index.jsp");
-          //    rd.forward(request, response);
-           //   request.getRequestDispatcher("/usuario/index.jsp").forward(request, response);
-              
-     response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/usuario/"));
-           //   rd.forward(request, response);
-              
+                //  rd = (RequestDispatcher)this.getServletContext().getRequestDispatcher("/usuario/index.jsp");
+              //    rd.forward(request, response);
+               //   request.getRequestDispatcher("/usuario/index.jsp").forward(request, response);
+
+               response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/usuario/"));
+               //   rd.forward(request, response);
+
             }else{
                     salida.println("Dni o contraseña incorrectos");
                    }

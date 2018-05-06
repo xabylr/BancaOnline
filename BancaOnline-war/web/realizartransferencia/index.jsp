@@ -13,6 +13,10 @@
     </head>
     <body>
         <jsp:include page="/WEB-INF/jspf/cabecera.jspf"/>
+        <ul class="breadcrumb">
+                     <li><a href="/BancaOnline/usuario">Inicio</a></li>/
+                     <li>Realizar Transferencia</li>
+        </ul>
       
         <div class="container" style="margin-top:50px"> 
 
