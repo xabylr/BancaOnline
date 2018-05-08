@@ -4,6 +4,7 @@
     Author     : Javier (Basado en login)
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="sesion.IbanCC"%>
 <%@page import="sesion.DineroCC"%>
@@ -25,19 +26,19 @@
     <head>
         <%@ include file="/WEB-INF/jspf/cargar_bootstrap.jspf"%>
          <link rel="stylesheet" type="text/css" href="styles.css">
+         
         <title>Visión general de <%=nombreYApellidos%></title>
-
+        <%  List<String []> breadcrumb = new ArrayList<String []>();    
+            breadcrumb.add(new String[] { "/BancaOnline/", "Inicio" } );
+            breadcrumb.add(new String[] { "/BancaOnline/login", "Login" });
+            breadcrumb.add(new String[] { "#", "Usuario" });
+ 
+        %>
     </head>
     <body class="body">
         
-        <jsp:include page="/WEB-INF/jspf/cabecera.jspf"/>
-        
-        <div class="d-flex">
-            <ul class="breadcrumb list-inline mx-auto justify-content-center">
-                /<li ><a href="/BancaOnline/usuario">Inicio</a></li>
-            </ul>
-        </div>
-        
+        <%@ include file="/WEB-INF/jspf/cabecera.jspf"%>
+ 
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
@@ -59,10 +60,11 @@
                             </tr>       
                         </table>
                     </div>   
+  
                             
-                    <form action="../realizartransferencia">
-                        <button>Realizar Transferencia</button>
-                    </form>      
+                            <a href="transferencia" 
+                       class="btn btn-warning" role="button">Realizar transferencia</a>
+                            
                             
                 </div>
                 
@@ -101,11 +103,10 @@
 
   
                    
-           
+                    <a href="VerMovimientos?idCliente=<%=cliente.getDni() %>" 
+                       class="btn btn-info" role="button">Ver Movimientos</a>
                    
-            <form method="get" action="../VerMovimientos">
-                        <button>Ver Movimientos</button>
-            </form>
+        
                    
                    
             </div>

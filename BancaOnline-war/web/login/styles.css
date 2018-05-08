@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 
             .body {
-                background-image: url("res/money.jpg");
+                background-image: url("/BancaOnline/res/money.jpg");
             }
             .container {
                 margin-top: 5em;

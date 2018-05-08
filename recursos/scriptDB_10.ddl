@@ -14,14 +14,15 @@ CREATE TABLE empleado (
 
 
 CREATE TABLE cuentacorriente (
-    entidad         INT,
-    oficina         INT,
     id              INT PRIMARY KEY AUTO_INCREMENT,
+    entidad         NUMERIC(4,0),
+    oficina         NUMERIC(4,0),
+    cc              NUMERIC(10,0),
     saldo           BIGINT,
     decimales       INT,
     divisa          VARCHAR(3),
     fechacreacion   BIGINT,
-    CONSTRAINT UC_CC UNIQUE (entidad, oficina, id)
+    CONSTRAINT UC_CC UNIQUE (entidad, oficina, cc)
 );
 
 

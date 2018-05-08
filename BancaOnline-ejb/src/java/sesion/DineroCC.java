@@ -24,7 +24,7 @@ import modelo.Dinero;
 public class DineroCC extends Dinero{
 
     CuentacorrienteFacade ccf = lookupCuentacorrienteFacadeBean();
-    private Cuentacorriente cc;
+    private final Cuentacorriente cc;
 
 
     public DineroCC(Cuentacorriente cc) {
@@ -39,6 +39,49 @@ public class DineroCC extends Dinero{
         cc.setDivisa(getDivisa());
         
         ccf.edit(cc);
+    }
+
+    @Override
+    public void convertirA(String cod) {
+        super.convertirA(cod);
+        actualizarCuenta();
+    }
+
+    @Override
+    public Dinero retirar(Dinero cantidad) throws SaldoInsuficiente {
+        actualizarCuenta();
+        return super.retirar(cantidad);
+    }
+
+    @Override
+    public void ingresar(Dinero cantidad) {
+        super.ingresar(cantidad);
+        actualizarCuenta();
+    }
+
+    @Override
+    public void setCuantia(String cantidad, String cod) {
+        super.setCuantia(cantidad, cod);
+        actualizarCuenta();
+    }
+        
+
+    @Override
+    public void setCuantia(double cantidad, String cod) {
+        super.setCuantia(cantidad, cod);
+        actualizarCuenta();
+    }
+
+    @Override
+    public void setEuros(long euros, long centimos) {
+        super.setEuros(euros, centimos);
+        actualizarCuenta();
+    }
+
+    @Override
+    public void setCuantia(long sinDecimales, String cod) {
+        super.setCuantia(sinDecimales, cod);
+        actualizarCuenta();
     }
 
     private CuentacorrienteFacade lookupCuentacorrienteFacadeBean() {

@@ -7,7 +7,6 @@ package entidad;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,11 +15,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,30 +28,28 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cuentacorriente.findAll", query = "SELECT c FROM Cuentacorriente c")
+    , @NamedQuery(name = "Cuentacorriente.findById", query = "SELECT c FROM Cuentacorriente c WHERE c.id = :id")
     , @NamedQuery(name = "Cuentacorriente.findByEntidad", query = "SELECT c FROM Cuentacorriente c WHERE c.entidad = :entidad")
     , @NamedQuery(name = "Cuentacorriente.findByOficina", query = "SELECT c FROM Cuentacorriente c WHERE c.oficina = :oficina")
-    , @NamedQuery(name = "Cuentacorriente.findById", query = "SELECT c FROM Cuentacorriente c WHERE c.id = :id")
+    , @NamedQuery(name = "Cuentacorriente.findByCc", query = "SELECT c FROM Cuentacorriente c WHERE c.cc = :cc")
     , @NamedQuery(name = "Cuentacorriente.findBySaldo", query = "SELECT c FROM Cuentacorriente c WHERE c.saldo = :saldo")
     , @NamedQuery(name = "Cuentacorriente.findByDecimales", query = "SELECT c FROM Cuentacorriente c WHERE c.decimales = :decimales")
     , @NamedQuery(name = "Cuentacorriente.findByDivisa", query = "SELECT c FROM Cuentacorriente c WHERE c.divisa = :divisa")
     , @NamedQuery(name = "Cuentacorriente.findByFechacreacion", query = "SELECT c FROM Cuentacorriente c WHERE c.fechacreacion = :fechacreacion")})
 public class Cuentacorriente implements Serializable {
 
-    @OneToMany(mappedBy = "remitente")
-    private Collection<Movimiento> movimientoCollection;
-    @OneToMany(mappedBy = "receptor")
-    private Collection<Movimiento> movimientoCollection1;
-
     private static final long serialVersionUID = 1L;
-    @Column(name = "entidad")
-    private Integer entidad;
-    @Column(name = "oficina")
-    private Integer oficina;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Column(name = "entidad")
+    private Short entidad;
+    @Column(name = "oficina")
+    private Short oficina;
+    @Column(name = "cc")
+    private Long cc;
     @Column(name = "saldo")
     private BigInteger saldo;
     @Column(name = "decimales")
@@ -72,28 +67,36 @@ public class Cuentacorriente implements Serializable {
         this.id = id;
     }
 
-    public Integer getEntidad() {
-        return entidad;
-    }
-
-    public void setEntidad(Integer entidad) {
-        this.entidad = entidad;
-    }
-
-    public Integer getOficina() {
-        return oficina;
-    }
-
-    public void setOficina(Integer oficina) {
-        this.oficina = oficina;
-    }
-
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Short getEntidad() {
+        return entidad;
+    }
+
+    public void setEntidad(Short entidad) {
+        this.entidad = entidad;
+    }
+
+    public Short getOficina() {
+        return oficina;
+    }
+
+    public void setOficina(Short oficina) {
+        this.oficina = oficina;
+    }
+
+    public Long getCc() {
+        return cc;
+    }
+
+    public void setCc(Long cc) {
+        this.cc = cc;
     }
 
     public BigInteger getSaldo() {
@@ -151,24 +154,6 @@ public class Cuentacorriente implements Serializable {
     @Override
     public String toString() {
         return "entidad.Cuentacorriente[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Movimiento> getMovimientoCollection() {
-        return movimientoCollection;
-    }
-
-    public void setMovimientoCollection(Collection<Movimiento> movimientoCollection) {
-        this.movimientoCollection = movimientoCollection;
-    }
-
-    @XmlTransient
-    public Collection<Movimiento> getMovimientoCollection1() {
-        return movimientoCollection1;
-    }
-
-    public void setMovimientoCollection1(Collection<Movimiento> movimientoCollection1) {
-        this.movimientoCollection1 = movimientoCollection1;
     }
     
 }

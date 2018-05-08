@@ -4,22 +4,25 @@
     Author     : javier
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <%@ include file="/WEB-INF/jspf/cargar_bootstrap.jspf"%>
         <title>Realizar transferencia bancaria</title>
+        <% //BEADCRUMB
+            List<String []> breadcrumb = new ArrayList<String []>();    
+            breadcrumb.add(new String[] { "/BancaOnline/", "Inicio" } );
+            breadcrumb.add(new String[] { "/BancaOnline/login", "Login" });
+            breadcrumb.add(new String[] { "/BancaOnline/usuario", "Usuario" });
+            breadcrumb.add(new String[] { "#", "Realizar Transferencia" });
+
+        %>
+        
     </head>
     <body>
-        <jsp:include page="/WEB-INF/jspf/cabecera.jspf"/>
-        <div class="d-flex">
-            <ul class="breadcrumb list-inline mx-auto justify-content-center">
-                /<li ><a href="/BancaOnline/usuario">Inicio</a></li>/
-                <li ><a href="#">Realizar Transferencia</a></li>
-            </ul>
-        </div>
-        <br/>
+        <%@ include file="/WEB-INF/jspf/cabecera.jspf"%>
         
         <div class="container"> 
             <form action="../RealizarTransferencia">
@@ -85,7 +88,7 @@
                 </div>
                 
                 <div class="row">
-                    <button class=" mx-auto col-3 btn btn-success">Realizar transferencia</button>
+                    <button class=" mx-auto col-3 btn btn-danger">Realizar transferencia</button>
                 </div>
             </form>
         </div>

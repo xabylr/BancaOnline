@@ -6,7 +6,6 @@
 package sesion;
 
 import entidad.Cuentacorriente;
-import modelo.Dinero;
 import modelo.IBAN;
 
 /**
@@ -14,21 +13,20 @@ import modelo.IBAN;
  * @author javier
  */
 public class IbanCC{
-    Cuentacorriente cc;
+    final Cuentacorriente cc;
+    String iban=null;
 
     public IbanCC(Cuentacorriente cc) {
      this.cc=cc;      
     }
     
     public String getIBAN(){
-        String entidad = cc.getEntidad().toString();
-        String oficina = cc.getOficina().toString();
-        String ncuenta = cc.getId().toString();
+        if(iban!=null)return iban;
+        int entidad = cc.getEntidad();
+        int oficina = cc.getOficina();
+        long ncc = cc.getCc();
         
-        String ccc = entidad+oficina+IBAN.getControlCCC(entidad, oficina, ncuenta)+ncuenta;
-        
-        String iban = "ES"+IBAN.getControlIBAN("ES", ccc)+ccc;
-        
+        iban = IBAN.getIbanES(entidad, oficina, ncc);
        return iban;
     }
 

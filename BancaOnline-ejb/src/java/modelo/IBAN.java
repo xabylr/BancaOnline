@@ -12,14 +12,21 @@ import java.util.Scanner;
 /**
  *
  * @author javier
- * Utilidad estática para validar códigos IBAN ESPAÑOLES,
+ * Utilidad estática para validar códigos IBAN principalmente españoles,
  * leerlos de diferentes maneras y mostrarlos
  * 
  * https://www.iban.es/
  */
 public class IBAN {
-    
-    public static int getControlCCC(String entidad, String oficina, String numeroCuenta){
+    /**
+     * Obtiene los dos dígitos de control de un CCC español
+     * http://www.lasexta.com/tecnologia-tecnoxplora/ciencia/divulgacion/iban-asi-calculan-numeros-cuenta-bancaria_2014020957fca03d0cf2fd8cc6b0e1a2.html
+     * @param entidad    
+     * @param oficina    
+     * @param numeroCuenta    
+     * @return     
+    */
+    public static String getControlCCC(String entidad, String oficina, String numeroCuenta){
         int ctrl1, ctrl2;
             
         int [] nEntidad = new int[entidad.length()];         
@@ -35,7 +42,7 @@ public class IBAN {
         
         int [] nOficina = new int[oficina.length()];         
         for (int i=0; i<oficina.length(); i++){
-            nEntidad[i]= Character.getNumericValue(oficina.charAt(i));
+            nOficina[i]= Character.getNumericValue(oficina.charAt(i));
         }  
             nOficina[0]*=9;
             nOficina[1]*=7;
@@ -52,35 +59,36 @@ public class IBAN {
         
         int [] cuenta = new int[numeroCuenta.length()];         
         for (int i=0; i<numeroCuenta.length(); i++){
-            nEntidad[i]= Character.getNumericValue(numeroCuenta.charAt(i));
+            cuenta[i]= Character.getNumericValue(numeroCuenta.charAt(i));
+            
         }  
         
         for (int i=0; i< cuenta.length; i++) cuenta[i]*=cifras[i];
 
         int D = Arrays.stream(cuenta).sum();
-            
-        ctrl2 = 11-D;
+        int E = D%11;
+        ctrl2 = 11-E;
             if (ctrl2>9) ctrl2 = (ctrl2 == 10? 1 : 0);
         
-            return ctrl1+ctrl2; 
+            return ""+ctrl1+ctrl2; 
     }
     
-    public static int getControlIBAN(String pais, String ccc){
+    public static String getControlIBAN(String pais, String ccc){
         String codPais = "";
         for(char c : pais.toCharArray()){
             codPais= codPais+(10 + (c-'A') );
         }
-        
+
         String aux = ccc+codPais+"00";     
         BigInteger convertido = new BigInteger(aux);
       int modulo =  convertido.mod(new BigInteger("97")).intValue();
       int control = 98-modulo;
       
-        return control;
+        return String.format("%02d", control);
     }
     
     
-    /*
+    /**
     Valida y parsea un IBAN para dejarlo como una cadena consecutiva de números
     */
     static String parsear(String entrada) throws IllegalArgumentException{
@@ -109,10 +117,11 @@ public class IBAN {
         return pais+codigo;
     }
 
-    /*
+    /**
     tokeniza suponiendo que sea una dirección IBAN válida y parseada
     {c_País, dig_control, entidad, oficina, ctrl_bancario, n_cuenta}
-    http://www.lasexta.com/tecnologia-tecnoxplora/ciencia/divulgacion/iban-asi-calculan-numeros-cuenta-bancaria_2014020957fca03d0cf2fd8cc6b0e1a2.html
+     * @param entrada
+     * @return 
     */
     public static String[] tokenizarIBAN_ES(String entrada){
         String[] salida = {entrada.substring(0, 2), entrada.substring(2, 4),
@@ -123,51 +132,81 @@ public class IBAN {
     }
     
     
-    public int getCCCfromIBAN(String iban){
+    public static int getCCCfromIBAN(String iban){
         String [] tok = tokenizarIBAN_ES(iban);
         return Integer.parseInt(tok[5]);
     }
     
-     /*
+     /**
     Valida cualquier CCC español ya parseado
+     * @param codigo
+     * @return 
     */
       public static boolean validarCCC(String codigo) {
         if (codigo.length()!= 20) return false;
         
-        int cc =getControlCCC(codigo.substring(0, 4), codigo.substring(4, 8), codigo.substring(10));
-        int ccActual = Integer.parseInt(codigo.substring(8, 10));
+        String cc =getControlCCC(codigo.substring(0, 4), 
+                codigo.substring(4, 8), codigo.substring(10));
+        String ccActual = codigo.substring(8, 10);
         
-        return ccActual==cc;
+        return ccActual.equals(cc);
     }
     
     
-    /*
+    /**
     Valida cualquier IBAN ya parseado
     https://en.wikipedia.org/wiki/International_Bank_Account_Number
     
     (no verifica la longitud adecuada para cada país)
+     * @param iban
+     * @return 
     */
     public static boolean validarIBAN(String iban){
         
-       int cc = getControlIBAN(iban.substring(0, 2), iban.substring(4)) ;
+       String cc = getControlIBAN(iban.substring(0, 2), iban.substring(4)) ;
        
-       int ccActual = Integer.parseInt(iban.substring(2, 4));
+       String ccActual = iban.substring(2, 4);
         
-        return ccActual==cc;
+        return ccActual.equals(cc);
     }
     
     
-    public String getCCC(String entidad, String oficina, String numeroCuenta){
+    public static String getCCC(String entidad, String oficina, String numeroCuenta){
             return entidad+oficina+getControlCCC(entidad, oficina, numeroCuenta)+numeroCuenta;   
     }
     
-    public String getIban(String pais, String ccc){
-     return pais+getControlIBAN(pais, ccc);
+    
+    /**
+     * Devuelve un IBAN válido
+     * @param pais String de dos caracteres que identifica a un país
+     * @param ccc Números que identifican a una cuenta en un país, incluyendo
+     * comprobación de errores que puedan tener
+     * @return 
+     */
+    public static String getIban(String pais, String ccc){
+     return pais+getControlIBAN(pais, ccc)+ccc;
+    }
+    
+    /**
+        Devuelve un IBAN español completo y válido con los datos introducidos
+     * @param entidad
+     * @param oficina
+     * @param numeroCuenta
+     * @return 
+    */
+    public static String getIbanES(int entidad, int oficina, long numeroCuenta){
+        String strEntidad = String.format("%04d", entidad);
+        String strOficina = String.format("%04d", oficina);
+        String strNumeroCuenta = String.format("%010d", numeroCuenta);
+
+        return getIban("ES", getCCC(strEntidad, strOficina, strNumeroCuenta) );
     }
     
     
-    /*
+    /**
     Valida que el IBAN parseado sea correcto, además de validar el CCC
+     * @param iban
+     * @return 
     */
     public static boolean validarIBAN_ES(String iban){
         if(iban.length()!= 24) return false;

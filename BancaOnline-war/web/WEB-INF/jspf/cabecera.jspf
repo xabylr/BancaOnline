@@ -1,3 +1,34 @@
+<%@page import="entidad.Cliente"%>
+<%@page import="entidad.Empleado"%>
+<%@page import="java.util.ArrayList"%>
+<%/*Si ves esto cambia la forma de incluír la cabecera por:     
+    [ include file="/WEB-INF/jspf/cabecera.jspf" ]
+*/
+%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.List"%>
+
+<%
+String nombre=null;
+String home=null;
+
+Empleado empleadoCabecera = (Empleado) session.getAttribute("empleado");
+Cliente clienteCabecera = (Cliente) session.getAttribute("cliente");
+
+
+if(empleadoCabecera !=null){
+    nombre = empleadoCabecera.getNombre()+" "+empleadoCabecera.getApellidos();
+    home = "/BancaOnline/empleado";
+}
+else if (clienteCabecera!=null){
+    nombre = clienteCabecera.getNombre()+" "+clienteCabecera.getApellidos();
+     home = "/BancaOnline/usuario";
+}
+
+%>
+
+
 <style type="text/css">
 .btn-group .dropdown-menu:after {
     left: auto;
@@ -16,19 +47,54 @@ nav.navbar{
   </style>
   
 
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar">
         <div class="container-fluid">
-            <h3>UMA BANK</h3> 
-            <p><b><i>Tu dinero es nuestro y nuestro dinero también.</i></b></p> 
+            
+            <div class="navbar-header">
+                <a class="navbar-brand" style="color: #cc0000" href="/BancaOnline">UMA BANK</a>
+                hola <a href="<%= home %>"> <%=nombre%> </a>
+          
+            </div>
+            
+            
+            
+             <ul class="nav navbar-bar">
+                 
+      
+                 
+                <li>
+                    <ul class="breadcrumb">
+                        
+                        <%
+                            for (String [] elemento : breadcrumb ){
+                           out.print("/<li ><a href=\""+elemento[0]+"\">"+elemento[1]+"</a></li>"  );
+                            
+                        }
+                        %>
+                   
+                    </ul>
+              
+                </li>
+              
+            
+                
+  
+                 
+        </ul>
+            
+            
 
             <div class="btn-group">
-              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Menu
-              </button>
-              <div class="dropdown-menu dropdown-menu-right">
-                  <button class="dropdown-item" type="button"><a href="#">Ayuda</a></button>
-                <button class="dropdown-item" type="button"><a href="/BancaOnline/login">Cerrar Sesión</a></button>
-              </div>
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Menu
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <button class="dropdown-item" type="button"><a href="#">Ayuda</a></button>
+                      <button class="dropdown-item" type="button"><a href="/BancaOnline/CerrarSesion">Cerrar Sesión</a></button>
+                    </div>
             </div>
+
+            
+     
         </div>
     </nav>

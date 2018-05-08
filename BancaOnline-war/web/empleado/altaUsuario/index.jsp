@@ -21,17 +21,18 @@
           
         <link rel="stylesheet" type="text/css" href="styles.css">
  
+        <%  List<String []> breadcrumb = new ArrayList<String []>();    
+            breadcrumb.add(new String[] { "/BancaOnline/", "Inicio" } );
+            breadcrumb.add(new String[] { "/BancaOnline/empleado", "Empleado" });
+            breadcrumb.add(new String[] { "#", "Alta Usuario" });
+ 
+        %>
+        
+        
     </head>
     <body>
         
-        <jsp:include page="/WEB-INF/jspf/cabecera.jspf"/>
-        <div class="d-flex">
-            <ul class="breadcrumb list-inline mx-auto justify-content-center">
-                /<li ><a href="/BancaOnline/login">Login</a></li>/
-                <li ><a href="#">Empleado</a></li>/
-                <li ><a href="#">Alta Usuario</a></li>
-            </ul>
-        </div>
+        <%@ include file="/WEB-INF/jspf/cabecera.jspf"%>
         
         <div class="container"> 
             <form method="post" action="../AnadirUsuario">

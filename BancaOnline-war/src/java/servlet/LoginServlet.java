@@ -72,7 +72,7 @@ public class LoginServlet extends HttpServlet {
                salida.print(" ");
                salida.print(e.getApellidos());
                
-               session.setAttribute("usuario", e);
+               session.setAttribute("empleado", e);
                
                response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/empleado/altaUsuario"));
            }
@@ -84,11 +84,13 @@ public class LoginServlet extends HttpServlet {
               salida.print(" ");
               salida.print(c.getApellidos());
               
+              
               //request.setAttribute("cliente", c);
               
               session.invalidate();
               session = request.getSession();
               session.setAttribute("cliente", c);
+              
               List<Movimiento> movimientos = cf.getMovimientosFechaDesc(cf.getCuenta(c.getDni()));
               session.setAttribute("movimientos", movimientos);
               
@@ -96,6 +98,9 @@ public class LoginServlet extends HttpServlet {
               //    rd.forward(request, response);
                //   request.getRequestDispatcher("/usuario/index.jsp").forward(request, response);
 
+              
+               
+               
                response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/usuario/"));
                //   rd.forward(request, response);
 

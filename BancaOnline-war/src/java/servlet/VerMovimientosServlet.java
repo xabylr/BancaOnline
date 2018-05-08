@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +22,7 @@ import sesion.ClienteFacade;
  *
  * @author Jose Santos
  */
-@WebServlet(name = "VerMovimientosServlet", urlPatterns = {"/VerMovimientos"})
+@WebServlet(name = "VerMovimientosServlet", urlPatterns = {"/usuario/VerMovimientos", "/empleado/VerMovimientos"})
 public class VerMovimientosServlet extends HttpServlet {
 
     @EJB
@@ -44,13 +45,17 @@ public class VerMovimientosServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Cliente cliente = clienteFacade.find(Integer.parseInt(request.getParameter("dnicliente")));
+        Cliente cliente = clienteFacade.find(Integer.parseInt(request.getParameter("idCliente")));
+   
         
-        System.out.println(cliente.getApellidos());
+        request.setAttribute("cliente", cliente);
         
-        request.getSession().setAttribute("cliente", cliente);
         
-        response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/movimientos/"));
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/movimientos/index.jsp");
+        
+        
+        
+        rd.forward(request, response);
         
     }
 

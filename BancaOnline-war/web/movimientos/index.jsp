@@ -13,36 +13,28 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <%@ include file="/WEB-INF/jspf/cargar_bootstrap.jspf"%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         <%
-            Cliente cliente = (Cliente)session.getAttribute("cliente");
+            Cliente cliente = (Cliente)request.getAttribute("cliente");
             Cuentacorriente cuenta = cliente.getCuenta();
         %>
         
         <title>Movimientos de un usuario</title>
         
         <link rel="stylesheet" type="text/css" href="styles.css">
-        
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        
+
+        <%  List<String []> breadcrumb = new ArrayList<String []>();    
+            breadcrumb.add(new String[] { "/BancaOnline/", "Inicio" } );
+            breadcrumb.add(new String[] { "/BancaOnline/login", "Login" });
+            breadcrumb.add(new String[] { "/BancaOnline/usuario", "Usuario" });
+            breadcrumb.add(new String[] { "#", "Movimientos" }); 
+        %>
     </head>
     <body>
         
-        <div class="container">
-  <div class="jumbotron">
-    <h1>UMA BANK</h1> 
-    <p>Tu dinero es nuestro y nuestro dinero tambien</p> 
-  </div>
-            <ul class="breadcrumb">
-             <li><a href="#">Inicio</a></li>/
-             <li><a href="#">Usuario</a></li>/
-             <li>Movimientos</li>
-            </ul>
-</div>
+<%@ include file="/WEB-INF/jspf/cabecera.jspf"%>
         
         <div class="container"> 
             <div class="row">
