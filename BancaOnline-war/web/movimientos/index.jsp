@@ -43,7 +43,7 @@
                     </h5>
                     
                     <h5 class="col-4">
-                        IBAN: <%=new IbanCC(cuenta)%>
+                        IBAN: <%=123%>
                     </h5>
             
                     <h5 class="col-5 text-right">
