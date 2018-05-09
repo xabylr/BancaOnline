@@ -375,21 +375,22 @@ public class Dinero implements Cloneable  {
     */
     public String getNumero(){
         int decimales = divisa.getDecimales();
-        String numero;
-        if(decimales>0){
-            if (cuantia >= 10*decimales){
-            StringBuilder buffer = new StringBuilder(Long.toString(cuantia));
-            buffer.insert(buffer.length()-decimales, ',');
-            numero = buffer.toString();
-            
-            }else{
-                numero = "0,";
-                for (int i=0; i<decimales; i++){
-                  numero = numero+cuantia/Operaciones.potencia(10, i); 
-                }
+        String numero=null;
+        if (decimales > 0) {
+            StringBuilder buffer = null;
+            if (cuantia < Operaciones.potencia(10, decimales)) {
+                buffer = new StringBuilder(
+                        String.format("%0" + (decimales + 1) + "d", cuantia));
 
+            } else {
+                buffer = new StringBuilder(String.valueOf(cuantia));
             }
-        }else numero = String.valueOf(cuantia);
+
+            buffer.insert(buffer.length() - decimales, ',');
+            numero = buffer.toString();
+
+        }
+        
            
         return numero;
     }

@@ -9,7 +9,6 @@ import entidad.Cliente;
 import entidad.Cuentacorriente;
 import entidad.Movimiento;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.util.Date;
 import javax.ejb.EJB;
@@ -66,7 +65,8 @@ public class RealizarTransferenciaServlet extends HttpServlet {
         
        String iban = IBAN.parsear("ES"+ctrliban+entidad+oficina+ctrlCCC+nc);
        
-        if(!IBAN.validarIBAN_ES(iban) ) throw new IllegalArgumentException("IBAN NO VÁLIDO");
+       
+       if(!IBAN.validarIBAN_ES(iban) ) throw new IllegalArgumentException("IBAN NO VÁLIDO");
        
         
         Cliente cliente = (Cliente)request.getSession().getAttribute("cliente");
@@ -121,6 +121,8 @@ public class RealizarTransferenciaServlet extends HttpServlet {
         this.getServletContext().getRequestDispatcher("/avisos/aviso_redireccion.jsp")
                 .forward(request, response);
         
+        
+    
         //response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/realizartransferencia"));
     }
     

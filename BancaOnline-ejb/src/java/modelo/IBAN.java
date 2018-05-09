@@ -94,27 +94,14 @@ public class IBAN {
      * @return 
     */
     public static String parsear(String entrada) throws IllegalArgumentException{
-        String pais;
-        String codigo;
-        
         entrada = entrada.toUpperCase();
         entrada = entrada.trim();
         Scanner sc = new Scanner(entrada);
-        if(sc.hasNext("[A-Z]")){
-            pais =  sc.next("[A-Z");
-            if (pais.length()!= 2 || !sc.hasNext()) 
-                throw new IllegalArgumentException("Código de país incorrecto");
-          
-            codigo = sc.next();
-            codigo = codigo.replaceAll("\\D",""); //quitamos todo lo que no sea número
-            
-            if(!validarCCC(codigo) ) 
-                throw new IllegalArgumentException("Verificación de IBAN incorrecta");
-            
-       
-        }else throw new IllegalArgumentException("Formato de IBAN incorrecto");
-        
-        
+
+        String codigo = entrada.substring(2);
+        codigo = codigo.replaceAll("\\D",""); //quitamos todo lo que no sea número
+
+        String pais = entrada.substring(0,2);
         
         return pais+codigo;
     }
@@ -213,7 +200,7 @@ public class IBAN {
     public static boolean validarIBAN_ES(String iban){
         if(iban.length()!= 24) return false;
         
-        return validarIBAN(iban) && validarCCC(iban);
+        return validarIBAN(iban) && validarCCC(iban.substring(4));
     }
   
     
