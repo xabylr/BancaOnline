@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,7 +35,8 @@ public class CerrarSesionServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
                 
-      request.getSession().invalidate();
+        HttpSession sesion = request.getSession();
+        if(sesion!=null)sesion.invalidate();
       
       response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/login"));
 

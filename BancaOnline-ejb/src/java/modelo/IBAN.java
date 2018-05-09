@@ -90,8 +90,10 @@ public class IBAN {
     
     /**
     Valida y parsea un IBAN para dejarlo como una cadena consecutiva de números
+     * @param entrada
+     * @return 
     */
-    static String parsear(String entrada) throws IllegalArgumentException{
+    public static String parsear(String entrada) throws IllegalArgumentException{
         String pais;
         String codigo;
         

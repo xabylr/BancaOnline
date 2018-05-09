@@ -25,7 +25,9 @@
         <%@ include file="/WEB-INF/jspf/cabecera.jspf"%>
         
         <div class="container"> 
-            <form action="../RealizarTransferencia">
+            <form action="/BancaOnline/usuario/RealizarTransferencia"
+                  method="post">
+                
                 <div class="row">
                     <table>
                         <tr>
@@ -59,11 +61,11 @@
 
                         <tr>
                             <td><b>ES</b></td>
-                            <td><input type="text" class="form-control" id="ctrlIBAN" name="IBAN" size="4"></td>
-                            <td><input type="text" class="form-control" id="Entidad" name="Entidad" size="4"></td>
-                            <td><input type="text" class="form-control" id="Oficina" name="Oficina" size="4"></td>
-                            <td><input type="text" class="form-control" id="ctrlCCC" name="ctrlCCC" size="2"></td>
-                            <td><input type="text" class="form-control" id="NC" name="CCC" size="10"></td>
+                            <td><input type="text" class="form-control" name="ctrliban" size="4"></td>
+                            <td><input type="text" class="form-control" name="entidad" size="4"></td>
+                            <td><input type="text" class="form-control" name="oficina" size="4"></td>
+                            <td><input type="text" class="form-control" name="ctrlCCC" size="2"></td>
+                            <td><input type="text" class="form-control" name="nc" size="10"></td>
                         </tr>
 
                         <tr>

@@ -49,8 +49,9 @@ public class DineroCC extends Dinero{
 
     @Override
     public Dinero retirar(Dinero cantidad) throws SaldoInsuficiente {
+        Dinero resultado = super.retirar(cantidad);
         actualizarCuenta();
-        return super.retirar(cantidad);
+        return resultado;
     }
 
     @Override

@@ -9,6 +9,7 @@ import entidad.Cliente;
 import entidad.Cuentacorriente;
 import entidad.Movimiento;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.util.Date;
 import javax.ejb.EJB;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.Dinero;
+import modelo.IBAN;
 import sesion.ClienteFacade;
 import sesion.CuentacorrienteFacade;
 import sesion.DineroCC;
@@ -27,7 +29,7 @@ import sesion.MovimientoFacade;
  *
  * @author Jose Santos
  */
-@WebServlet(name = "RealizarTransferenciaServlet", urlPatterns = {"/RealizarTransferencia"})
+@WebServlet(name = "RealizarTransferenciaServlet", urlPatterns = {"/usuario/RealizarTransferencia"})
 public class RealizarTransferenciaServlet extends HttpServlet {
 
     @EJB
@@ -56,12 +58,26 @@ public class RealizarTransferenciaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-       //TODO COMPROBAR IBAN 
+        String ctrliban = request.getParameter("ctrliban");
+        String entidad = request.getParameter("entidad");
+        String oficina = request.getParameter("oficina");
+        String ctrlCCC = request.getParameter("ctrlCCC");
+        String nc = request.getParameter("nc");
+        
+       String iban = IBAN.parsear("ES"+ctrliban+entidad+oficina+ctrlCCC+nc);
+       
+        if(!IBAN.validarIBAN_ES(iban) ) throw new IllegalArgumentException("IBAN NO VÁLIDO");
+       
         
         Cliente cliente = (Cliente)request.getSession().getAttribute("cliente");
        
         Cuentacorriente ccRemitente = cliente.getCuenta();
-        Cuentacorriente ccReceptor = cuentacorrienteFacade.find(request.getParameter("NC"));
+        
+       
+        
+        Cuentacorriente ccReceptor = 
+                cuentacorrienteFacade.obtenerCuentaConCCC(entidad,oficina,nc);
+     
   
         String importe = request.getParameter("importe");
         String divisa = request.getParameter("divisa");
@@ -70,8 +86,7 @@ public class RealizarTransferenciaServlet extends HttpServlet {
         
         DineroCC remitente = new DineroCC(ccRemitente);
         DineroCC receptor = new DineroCC(ccReceptor);
-        
-        System.out.println("TRANSFERENCIA de "+cantidad);
+
         
         Movimiento movimiento = new Movimiento();
         movimiento.setConcepto(request.getParameter("concepto"));
@@ -79,6 +94,7 @@ public class RealizarTransferenciaServlet extends HttpServlet {
         movimiento.setDecimales(cantidad.getDecimales());
         movimiento.setRemitente(ccRemitente);
         movimiento.setReceptor(ccReceptor);
+        movimiento.setDivisa(divisa);
         
         movimiento.setSaldoRttPrev(ccRemitente.getSaldo());
         movimiento.setSaldoRttPrevDec(ccRemitente.getDecimales());
@@ -92,11 +108,20 @@ public class RealizarTransferenciaServlet extends HttpServlet {
         Date tiempoActual = new Date();
         movimiento.setFecha(BigInteger.valueOf(tiempoActual.getTime() / 1000L ) );
         
+        movimientoFacade.create(movimiento);
         
         Dinero.mover(remitente, cantidad, receptor);
 
-    
-        response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/realizartransferencia"));
+   
+        request.setAttribute("aviso", "Operación completada exitosamente");
+        request.setAttribute("detalles", "Tu saldo actual es de "+remitente.toString());
+        request.setAttribute("url", "/BancaOnline/usuario");
+        request.setAttribute("duracion", 5);
+        
+        this.getServletContext().getRequestDispatcher("/avisos/aviso_redireccion.jsp")
+                .forward(request, response);
+        
+        //response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/realizartransferencia"));
     }
     
 
@@ -112,7 +137,8 @@ public class RealizarTransferenciaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //NO HACER NADA, SOLO POST
+        //processRequest(request, response);
     }
 
     /**
@@ -126,7 +152,15 @@ public class RealizarTransferenciaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try{
+             processRequest(request, response);
+        }catch(IllegalArgumentException e){
+             response.getWriter().print("Excepción:");
+             response.getWriter().println(e.getMessage());
+             response.getWriter().print("\n(TODO: cambiar la forma de mostrar este error)");
+             
+        }
+       
     }
 
     /**

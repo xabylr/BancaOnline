@@ -4,6 +4,7 @@
     Author     : Javier (Basado en login)
 --%>
 
+<%@page import="java.util.Date"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="sesion.IbanCC"%>
@@ -87,21 +88,42 @@
          
           
                    <div class="enmarcado">
+                       <table border ="1">
+                           <tr>
+                               <th>Remitente</th>
+                               <th>Receptor</th>
+                               <th>Cantidad</th>
+                               <th>Concepto</th>
+                               <th>Fecha</th>
+                               
+                           </tr>
+            
                        <%
                            if(movimientos != null){
                                for(Movimiento m : movimientos){
+                                   String saldo = new Dinero(m.getCuantia().longValue(),
+                                           m.getDecimales(), m.getDivisa()).toString();
+                                   String ibanRemitente = new IbanCC(m.getRemitente()).getIBAN();
+                                    String ibanReceptor = new IbanCC(m.getReceptor()).getIBAN();
                                    %>
-                                   <%=m.toString()%>
-                                   <br>
+                                   <tr>
+                                   <td><%=ibanRemitente%>
+                                   <td><%=ibanReceptor%>
+                                   <td><%=saldo%>
+                                   <td><%=m.getConcepto()%>
+                                   <td><%=new Date(m.getFecha().longValue() )%>
+                                   <tr>    
+                               
                                    <%
                                }
                            }
                        %>
+                       
+                       </table>
+                       
+                       
                    </div>
          
-        
-
-  
                    
                     <a href="VerMovimientos?idCliente=<%=cliente.getDni() %>" 
                        class="btn btn-info" role="button">Ver Movimientos</a>
