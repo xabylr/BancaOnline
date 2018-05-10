@@ -27,29 +27,50 @@
         if(request.getAttribute("error") != null){
             cuerpo = (String)request.getAttribute("error");
         }
-     
+        
+        String ruta = "#";
+        if(request.getAttribute("rerror") != null){
+            ruta = (String)request.getAttribute("rerror");
+            request.setAttribute("rerror", null);
+        }
+        
+            
 
-       String[] ERRORES = {
-           "C#_ES_MEJOR_QUE_JAVA",
-           "JAVA_SIEMPRE_MALO",
-           "JOSE_SIEMPRE_MALO",
-           "EJB_NO_EXCEPTION_EXCEPTION",
-           "NULL_KNOWLEDGE_EXCEPTION",
-           "ILEGAL_FACTORIO_EXCEPTION",
-           "EOL_ERROR_EXCEPTION",
-           "UNEXPECTED_INDENT_EXCEPTION",
-           "SIMULACRO_EXAM_NOTES_EXCEPTION",
-           "PAPYRUS_WORKING_WELL_EXCEPTION",
-           "TITO_BILL_FAULT_EXCEPTION",
-           "GLASSFISH_NO_ERRORS_EXCEPTION",
-           "SNYTAX_ERORR_EXECPTION",
-           "HONOR_OR_502_BAD_GATEWAY",
-           "SQL_INYECTION_EXCEPTION"
+        String[] ERRORES = {
+            "C#_ES_MEJOR_QUE_JAVA",
+            "JAVA_SIEMPRE_MALO",
+            "JOSE_SIEMPRE_MALO",
+            "EJB_NO_EXCEPTION_EXCEPTION",
+            "NULL_KNOWLEDGE_EXCEPTION",
+            "ILEGAL_FACTORIO_EXCEPTION",
+            "EOL_ERROR_EXCEPTION",
+            "UNEXPECTED_INDENT_EXCEPTION",
+            "SIMULACRO_EXAM_NOTES_EXCEPTION",
+            "PAPYRUS_WORKING_WELL_EXCEPTION",
+            "TITO_BILL_FAULT_EXCEPTION",
+            "GLASSFISH_NO_ERRORS_EXCEPTION",
+            "SNYTAX_ERORR_EXECPTION",
+            "HONOR_OR_502_BAD_GATEWAY",
+            "SQL_INYECTION_EXCEPTION"
         };
        
         String error = ERRORES[new Random().nextInt(ERRORES.length) ];
 
-    %>
+     %>
+
+    
+    <body>
+        <h1><%=titulo%></h1>
+        <p><%=cuerpo%></p>
+        
+        <form method="post" action="<%=ruta%>">
+        
+            <button>Aceptar</button>
+            
+        </form>
+        
+    </body>
+</html>
 
 
 <!DOCTYPE html>

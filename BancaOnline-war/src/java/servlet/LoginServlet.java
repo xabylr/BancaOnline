@@ -74,7 +74,7 @@ public class LoginServlet extends HttpServlet {
                
                session.setAttribute("empleado", e);
                
-               response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/empleado/altaUsuario"));
+               response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/empleado"));
            }
            else{
             Cliente c = cf.validarPassword(dni, password);
@@ -112,8 +112,16 @@ public class LoginServlet extends HttpServlet {
             
         }else{ //Código DNI inválido
             
-            rd = (RequestDispatcher)this.getServletContext().getRequestDispatcher("/errorLogin.html");
+            request.setAttribute("terror", "Error en el login :(");
+            request.setAttribute("error", "DNI o contraseña incorrecto");
+            request.setAttribute("rerror", response.encodeRedirectURL(request.getContextPath() + "/login/"));
+            
+            rd = (RequestDispatcher)this.getServletContext().getRequestDispatcher("/avisos/error.jsp");
             rd.forward(request, response);
+            
+            /*rd = (RequestDispatcher)this.getServletContext().getRequestDispatcher("/errorLogin.html");
+            rd.forward(request, response);*/
+
         }
 
              
