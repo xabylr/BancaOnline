@@ -60,13 +60,12 @@
                                 <td class="celdaValor"><%= new DineroCC(cliente.getCuenta()).toString() %>  </td>
                             </tr>       
                         </table>
-                    </div>   
+                    </div> 
+                            <br/>
   
                             
                             <a href="transferencia" 
                        class="btn btn-warning" role="button">Realizar transferencia</a>
-                            
-                            
                 </div>
                 
                 <div class="col-sm-6">
@@ -80,7 +79,8 @@
                 </div>
             
             </div>  <!-- fin de la primera fila -->
-            
+                
+            <br/>
             Últimos movimientos:
             
             <!--<div class="container">-->
@@ -124,13 +124,10 @@
                        
                    </div>
          
-                   
+                    <br/>
                     <a href="VerMovimientos?idCliente=<%=cliente.getDni() %>" 
                        class="btn btn-info" role="button">Ver Movimientos</a>
-                   
-        
-                   
-                   
+
             </div>
            
             </div>

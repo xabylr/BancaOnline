@@ -46,20 +46,14 @@ public class VerMovimientosServlet extends HttpServlet {
             throws ServletException, IOException {
         
         Cliente cliente = clienteFacade.find(Integer.parseInt(request.getParameter("idCliente")));
-   
-        
         request.setAttribute("cliente", cliente);
         
         
-        response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/movimientos/"));
+        //response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/movimientos/"));
+  
+      RequestDispatcher rd = getServletContext().getRequestDispatcher("/movimientos/index.jsp");
+      rd.forward(request, response);
         
-        
-       /* RequestDispatcher rd = getServletContext().getRequestDispatcher("/movimientos");
-        
-        
-        
-        rd.forward(request, response);
-        */
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
