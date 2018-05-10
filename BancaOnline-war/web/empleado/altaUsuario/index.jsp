@@ -75,13 +75,6 @@
                  
              </form>
 
-        </div> 
-        
-        
-        <form method="post" action="<%=request.getContextPath() + "/VerClientes"%>">
-            <button>Ver Clientes</button>
-        </form>
-        
-        
+        </div>         
     </body>
 </html>

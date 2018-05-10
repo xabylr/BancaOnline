@@ -29,9 +29,11 @@
         
         <title>Banca Online</title>
     </head>
-    <body>
+    <body class="">
         
         <%@ include file="/WEB-INF/jspf/cabecera.jspf"%>
+        
+        <br/>
         
         DNI: <%=empleado.getDni()%>
         <br/>
@@ -39,9 +41,26 @@
         <br/>
         Apellidos: <%=empleado.getApellidos()%>
         <br/>
-        <form method="post" action="../empleado/altaUsuario">
-            <button> Ir AltaUsuario</button>
-        </form>
+        <br/>
+        
+        <table>
+            <tr>
+                <td>
+                   <form method="post" action="../empleado/altaUsuario">
+                        <button> Ir AltaUsuario</button>
+                    </form> 
+                </td>
+                
+                <td>
+                    <form method="post" action="<%=request.getContextPath() + "/VerClientes"%>">
+                        <button>Ver Clientes</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        
+        
+        
         
     </body>
 </html>

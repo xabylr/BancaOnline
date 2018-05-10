@@ -74,15 +74,20 @@
                 </div>
             
             </div>  <!-- fin de la primera fila -->
-                
-            <br/>
-        
+            
+            <div class="container">
+                <div class="row d-flex justify-content-center">       
+                    <a href="transferencia" 
+                        class="btn btn-warning" role="button">Realizar transferencia
+                     </a>
+                </div>
+            </div>
             
             
             Últimos movimientos:
             
-           <div class="enmarcado">
-                <table border ="1">
+           <div class="enmarcado row">
+               <table class="col-lg-12" border ="1">
                     <tr>
                         <th>Remitente</th>
                         <th>Receptor</th>
@@ -115,28 +120,18 @@
 
                 </table>
                 </div>
+                <br/>
+                <div class="row d-flex justify-content-center">
+
+                    <a href="VerMovimientos?idCliente=<%=cliente.getDni() %>" 
+                        accesskey=""class="btn btn-info" role="button">Ver Movimientos
+                    </a> 
+
+                </div>
             </div>
                        
             <div class="container">
-                <div class="row d-flex justify-content-center">
-                   
-                    <table>
-                        <tr>
-                            <td>
-                                <a href="transferencia" 
-                                    class="btn btn-warning" role="button">Realizar transferencia
-                                 </a>
-                            </td>
-                            <td></td>
-                            <td>
-                                <a href="VerMovimientos?idCliente=<%=cliente.getDni() %>" 
-                                    accesskey=""class="btn btn-info" role="button">Ver Movimientos
-                                </a> 
-                            </td>
-                        </tr>
-                    </table>
-                    
-                </div>
+                
             </div>
     </body>
 </html>

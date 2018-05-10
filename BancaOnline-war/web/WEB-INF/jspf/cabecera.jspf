@@ -51,17 +51,12 @@ nav.navbar{
         <div class="container-fluid">
             
             <div class="navbar-header">
-                <a class="navbar-brand" style="color: #cc0000" href="/BancaOnline">UMA BANK</a>
-                Hola <a href="<%= home %>"> <%=nombre%> </a>
-          
+                <a class="navbar-brand" style="color: #cc0000" href="/BancaOnline"><b>UMA BANK</b></a>          
             </div>
             
             
             
-             <ul class="nav navbar-bar">
-                 
-      
-                 
+             <ul class="nav navbar-bar"> 
                 <li>
                     <ul class="breadcrumb">
                         
@@ -73,17 +68,12 @@ nav.navbar{
                         %>
                    
                     </ul>
-              
-                </li>
-              
-            
-                
-  
-                 
-        </ul>
-            
-            
 
+                </li> 
+             </ul>
+            
+            
+            <span>Hola <a href="<%= home %>"> <%=nombre%> </a>!</span>
             <div class="btn-group">
                     <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Menu
