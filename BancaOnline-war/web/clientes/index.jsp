@@ -48,7 +48,7 @@
                 <td>
                     <form method="get" action="../VerMovimientos">
                         <button>Ver Movimientos</button>
-                        <input type="hidden" name="dnicliente" value="<%=c.getDni()%>">
+                        <input type="hidden" name="idCliente" value="<%=c.getDni()%>">
                     </form>       
                 </td>
                 

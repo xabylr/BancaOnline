@@ -35,7 +35,7 @@
         <%@ include file="/WEB-INF/jspf/cabecera.jspf"%>
         
         <div class="container"> 
-            <form method="post" action="../AnadirUsuario">
+            <form method="post" action="<%=request.getContextPath() + "/AnadirUsuario"%>">
                 <div class="row">
                     <div class="form-group col-6 mx-auto">
                         <label>DNI:</label>
@@ -78,7 +78,7 @@
         </div> 
         
         
-        <form method="post" action="../VerClientes">
+        <form method="post" action="<%=request.getContextPath() + "/VerClientes"%>">
             <button>Ver Clientes</button>
         </form>
         

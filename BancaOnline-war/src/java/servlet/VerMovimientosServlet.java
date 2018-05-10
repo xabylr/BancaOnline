@@ -22,7 +22,7 @@ import sesion.ClienteFacade;
  *
  * @author Jose Santos
  */
-@WebServlet(name = "VerMovimientosServlet", urlPatterns = {"/usuario/VerMovimientos", "/empleado/VerMovimientos"})
+@WebServlet(name = "VerMovimientosServlet", urlPatterns = {"/usuario/VerMovimientos", "/empleado/VerMovimientos", "/VerMovimientos"})
 public class VerMovimientosServlet extends HttpServlet {
 
     @EJB
@@ -51,12 +51,15 @@ public class VerMovimientosServlet extends HttpServlet {
         request.setAttribute("cliente", cliente);
         
         
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/movimientos/index.jsp");
+        response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/movimientos/"));
+        
+        
+       /* RequestDispatcher rd = getServletContext().getRequestDispatcher("/movimientos");
         
         
         
         rd.forward(request, response);
-        
+        */
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
