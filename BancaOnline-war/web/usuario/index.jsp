@@ -61,11 +61,6 @@
                             </tr>       
                         </table>
                     </div> 
-                            <br/>
-  
-                            
-                            <a href="transferencia" 
-                       class="btn btn-warning" role="button">Realizar transferencia</a>
                 </div>
                 
                 <div class="col-sm-6">
@@ -81,58 +76,67 @@
             </div>  <!-- fin de la primera fila -->
                 
             <br/>
+        
+            
+            
             Últimos movimientos:
             
-            <!--<div class="container">-->
-            
-         
-          
-                   <div class="enmarcado">
-                       <table border ="1">
-                           <tr>
-                               <th>Remitente</th>
-                               <th>Receptor</th>
-                               <th>Cantidad</th>
-                               <th>Concepto</th>
-                               <th>Fecha</th>
-                               
-                           </tr>
-            
-                       <%
-                           if(movimientos != null){
-                               for(Movimiento m : movimientos){
-                                   String saldo = new Dinero(m.getCuantia().longValue(),
-                                           m.getDecimales(), m.getDivisa()).toString();
-                                   String ibanRemitente = new IbanCC(m.getRemitente()).getIBAN();
-                                    String ibanReceptor = new IbanCC(m.getReceptor()).getIBAN();
-                                   %>
-                                   <tr>
-                                   <td><%=ibanRemitente%>
-                                   <td><%=ibanReceptor%>
-                                   <td><%=saldo%>
-                                   <td><%=m.getConcepto()%>
-                                   <td><%=new Date(m.getFecha().longValue() )%>
-                                   <tr>    
-                               
-                                   <%
-                               }
-                           }
-                       %>
-                       
-                       </table>
-                       
-                       
-                   </div>
-         
-                    <br/>
-                    <a href="VerMovimientos?idCliente=<%=cliente.getDni() %>" 
-                       class="btn btn-info" role="button">Ver Movimientos</a>
+           <div class="enmarcado">
+                <table border ="1">
+                    <tr>
+                        <th>Remitente</th>
+                        <th>Receptor</th>
+                        <th>Cantidad</th>
+                        <th>Concepto</th>
+                        <th>Fecha</th>
 
+                    </tr>
+
+                <%
+                    if(movimientos != null){
+                        for(Movimiento m : movimientos){
+                            String saldo = new Dinero(m.getCuantia().longValue(),
+                                    m.getDecimales(), m.getDivisa()).toString();
+                            String ibanRemitente = new IbanCC(m.getRemitente()).getIBAN();
+                             String ibanReceptor = new IbanCC(m.getReceptor()).getIBAN();
+                            %>
+                            <tr>
+                            <td><%=ibanRemitente%>
+                            <td><%=ibanReceptor%>
+                            <td><%=saldo%>
+                            <td><%=m.getConcepto()%>
+                            <td><%=new Date(m.getFecha().longValue() )%>
+                            <tr>    
+
+                            <%
+                        }
+                    }
+                %>
+
+                </table>
+                </div>
             </div>
-           
+                       
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                   
+                    <table>
+                        <tr>
+                            <td>
+                                <a href="transferencia" 
+                                    class="btn btn-warning" role="button">Realizar transferencia
+                                 </a>
+                            </td>
+                            <td></td>
+                            <td>
+                                <a href="VerMovimientos?idCliente=<%=cliente.getDni() %>" 
+                                    accesskey=""class="btn btn-info" role="button">Ver Movimientos
+                                </a> 
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </div>
             </div>
-            
-            <!--</div>-->
-        </div>
     </body>
 </html>

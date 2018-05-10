@@ -52,7 +52,7 @@ nav.navbar{
             
             <div class="navbar-header">
                 <a class="navbar-brand" style="color: #cc0000" href="/BancaOnline">UMA BANK</a>
-                hola <a href="<%= home %>"> <%=nombre%> </a>
+                Hola <a href="<%= home %>"> <%=nombre%> </a>
           
             </div>
             
