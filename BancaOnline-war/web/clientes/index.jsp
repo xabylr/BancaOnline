@@ -23,6 +23,25 @@
     <body>
         <h1>Clientes</h1>
         
+        <form method="post" action="../BuscarCliente">
+            
+            Buscar por: 
+            
+            <select name="criteriobusqueda">
+                <option value="0">DNI</option>
+                <option value="1">Nombre</option>
+                <option value="2">Apellidos</option>
+                <option value="3">Numero cuenta</option>
+            </select>
+            
+            <input type="text" name="contenidobusqueda">
+            
+            <button>Buscar</button>
+            
+        </form>
+        
+        
+        
     <table class="table table-bordered">
     <thead>
       <tr>

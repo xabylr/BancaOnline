@@ -62,5 +62,36 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
          return getMovimientosOrdenados(c, "fecha desc");
        }
        
+       public List<Cliente> BuscarPorDNI(String dni){
+           List<Cliente> resultado = new ArrayList<>();
+           Query q = em.createNativeQuery("SELECT c FROM Cliente c WHERE c.id LIKE '" + dni + "%'");
+           //q.setParameter("dni", dni+"%");
+           resultado = (List<Cliente>)q.getResultList();
+           return resultado;
+       }
+       
+       public List<Cliente> BuscarPorNombre(String nombre){
+           List<Cliente> resultado = new ArrayList<>();
+           Query q = em.createQuery("SELECT c FROM Cliente c WHERE c.nombre like :nombre%");
+           q.setParameter("nombre", nombre);
+           resultado = q.getResultList();
+           return resultado;
+       }
+       
+       public List<Cliente> BuscarPorApellido(String apellidos){
+           List<Cliente> resultado = new ArrayList<>();
+           Query q = em.createQuery("SELECT c FROM Cliente c WHERE c.apellidos like :apellidos%");
+           q.setParameter("apellidos", apellidos);
+           resultado = q.getResultList();
+           return resultado;
+       }
+       
+       public List<Cliente> BuscarPorCuenta(String cuenta){
+           List<Cliente> resultado = new ArrayList<>();
+           Query q = em.createQuery("SELECT c FROM Cliente c WHERE c.cuenta.id like :cuenta%");
+           q.setParameter("cuenta", cuenta);
+           resultado = q.getResultList();
+           return resultado;
+       }
     
 }
