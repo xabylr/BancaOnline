@@ -107,7 +107,7 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
               public List<Cliente> BuscarPorNumeroCC(String ncuenta){
            List<Cliente> resultado;
                Query q = em.createQuery("SELECT c FROM Cliente c WHERE "
-                   + "FUNC( 'LPAD', d.cuenta.cc, 10, '0' ) LIKE :ncuenta" );
+                   + "FUNC( 'LPAD', c.cuenta.cc, 10, '0' ) LIKE :ncuenta" );
            q.setParameter("ncuenta", "%"+ncuenta+"%");
            resultado = q.getResultList();
            return resultado;
