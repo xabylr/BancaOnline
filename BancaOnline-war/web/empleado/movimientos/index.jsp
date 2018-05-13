@@ -36,6 +36,13 @@
         
 <%@ include file="/WEB-INF/jspf/cabecera.jspf"%>
 <%@ include file="/WEB-INF/jspf/movimientos.jspf"%>
-        
-        
+    
+<form method="post" action="empleado/crearmovimiento">
+    
+    <input type="hidden" name="idCliente" value="<%=cliente.getDni()%>"/>
+    <button>Crear Movimiento</button>
+    
+</form>
+
+    </body>
 </html>
