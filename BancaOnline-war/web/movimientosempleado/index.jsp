@@ -35,7 +35,7 @@
     <body>
         
 <%@ include file="/WEB-INF/jspf/cabecera.jspf"%>
-<%@ include file="/WEB-INF/jspf/movimientos.jspf"%>
+<%@include file="/WEB-INF/jspf/movimientos.jspf"%>
         
         
 </html>

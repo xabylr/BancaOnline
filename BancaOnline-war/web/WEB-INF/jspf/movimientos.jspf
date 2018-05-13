@@ -33,6 +33,26 @@
             </h5>
 
         </div>
+            
+            
+        <form method="post" action="/BancaOnline/BuscarMovimientos">
+            
+            Buscar por: 
+            
+            <select name="criteriobusqueda">
+                <option value="0">DNI</option>
+                <option value="1">Nombre</option>
+                <option value="2">Apellidos</option>
+                <option value="3">Numero cuenta</option>
+            </select>
+            
+            <input type="text" name="contenidobusqueda">
+            <input type="hidden" name="idCliente" value="<%=cliente.getDni()%>">
+            
+            <button>Buscar</button>
+            
+        </form>
+            
                     
         <table class="table table-bordered">
             <thead>
