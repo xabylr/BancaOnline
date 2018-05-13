@@ -62,10 +62,10 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
          return getMovimientosOrdenados(c, "fecha desc");
        }
        
-       public List<Cliente> BuscarPorDNI(String dni){
+       public List<Cliente> BuscarPorDNI(Integer dni){
            List<Cliente> resultado = new ArrayList<>();
-           Query q = em.createNativeQuery("SELECT c FROM Cliente c WHERE c.id LIKE '" + dni + "%'");
-           //q.setParameter("dni", dni+"%");
+           Query q = em.createNamedQuery("Cliente.findByDni");
+           q.setParameter("dni", dni);
            resultado = (List<Cliente>)q.getResultList();
            return resultado;
        }

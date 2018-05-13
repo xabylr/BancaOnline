@@ -1,0 +1,75 @@
+<%@page import="java.util.Date"%>
+<%@page import="sesion.IbanCC"%>
+<%@page import="modelo.Dinero"%>
+<%@page import="entidad.Movimiento"%>
+<%@page import="entidad.Cuentacorriente"%>
+<%@page import="entidad.Cliente"%>
+<%@page import="entidad.Empleado"%>
+<%@page import="java.util.ArrayList"%>
+<%/*Si ves esto cambia la forma de incluír la lista de movimientos por:     
+    [ include file="/WEB-INF/jspf/movimientos.jspf" ]
+*/
+%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.List"%>
+
+
+<div>
+    <%
+        Cuentacorriente cuenta = cliente.getCuenta();     
+    %>
+        
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    
+    <div class="container"> 
+        <div class="row">
+            <h5 class="col-3">
+                Usuario: <%=cliente.getNombre() + " " + cliente.getApellidos()%>
+            </h5>
+                    
+            <h5 class="col-4">
+                IBAN: <%=123%>
+            </h5>
+
+        </div>
+                    
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Remitente</th>
+                    <th>Receptor</th>
+                    <th>Cantidad</th>
+                    <th>Concepto</th>
+                    <th>Fecha</th>
+                 </tr>
+            </thead>
+            <tbody>
+                <% 
+                    if(movimientos != null){
+                        for(Movimiento m : movimientos){
+                            String saldo = new Dinero(m.getCuantia().longValue(),
+                                    m.getDecimales(), m.getDivisa()).toString();
+                            String ibanRemitente = new IbanCC(m.getRemitente()).getIBAN();
+                             String ibanReceptor = new IbanCC(m.getReceptor()).getIBAN();
+                            %>
+                            <tr>
+                            <td><%=ibanRemitente%>
+                            <td><%=ibanReceptor%>
+                            <td><%=saldo%>
+                            <td><%=m.getConcepto()%>
+                            <td><%=new Date(m.getFecha().longValue() )%>
+                            <tr>    
+
+                            <%
+                        }
+                    }
+                %>
+        
+      
+            </tbody>
+        </table>  
+                    
+    </div>
+
+</div>

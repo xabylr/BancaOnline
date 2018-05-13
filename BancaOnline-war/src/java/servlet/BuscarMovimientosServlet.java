@@ -5,28 +5,20 @@
  */
 package servlet;
 
-import entidad.Cliente;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import sesion.ClienteFacade;
 
 /**
  *
  * @author Jose Santos
  */
-@WebServlet(name = "BuscarClienteServlet", urlPatterns = {"/BuscarCliente"})
-public class BuscarClienteServlet extends HttpServlet {
-
-    @EJB
-    private ClienteFacade clienteFacade;
+@WebServlet(name = "BuscarMovimientosServlet", urlPatterns = {"/BuscarMovimientos"})
+public class BuscarMovimientosServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,46 +29,21 @@ public class BuscarClienteServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Cliente> lista = new ArrayList<Cliente>();
-        
-        String contenidoBusqueda = request.getParameter("contenidobusqueda");
-        int criterioBusqueda = Integer.parseInt(request.getParameter("criteriobusqueda"));
-        
-        if (contenidoBusqueda != null && !contenidoBusqueda.equals("")) {
-            switch (criterioBusqueda) {
-                case 0:
-                    Integer dni = Integer.parseInt(contenidoBusqueda);
-                    lista = clienteFacade.BuscarPorDNI(dni);
-                    break;
-
-                case 1:
-                    lista = clienteFacade.BuscarPorNombre(contenidoBusqueda);
-                    break;
-                    
-                case 2:
-                    lista = clienteFacade.BuscarPorApellido(contenidoBusqueda);
-                    break;
-
-                case 3:
-                    lista = clienteFacade.BuscarPorCuenta(contenidoBusqueda);
-                    break;
-
-            }
-        }else{
-            lista = clienteFacade.findAll();
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet BuscarMovimientosServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet BuscarMovimientosServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        
-        
-        
-        
-        
-        request.getSession().setAttribute("lista", lista);
-        response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/clientes/"));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

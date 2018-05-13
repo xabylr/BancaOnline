@@ -6,6 +6,7 @@
 package servlet;
 
 import entidad.Cliente;
+import entidad.Movimiento;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -48,11 +49,19 @@ public class VerMovimientosServlet extends HttpServlet {
         Cliente cliente = clienteFacade.find(Integer.parseInt(request.getParameter("idCliente")));
         request.setAttribute("cliente", cliente);
         
+        List<Movimiento> movimientos = clienteFacade.getMovimientosFechaDesc(clienteFacade.getCuenta(Integer.parseInt(request.getParameter("idCliente"))));   
+        request.setAttribute("movimientos", movimientos);
         
         //response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/movimientos/"));
-  
-      RequestDispatcher rd = getServletContext().getRequestDispatcher("/movimientos/index.jsp");
-      rd.forward(request, response);
+        
+        if(request.getSession().getAttribute("empleado") != null){
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/movimientosempleado/index.jsp");
+            rd.forward(request, response);
+        }else{
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/movimientosusuario/index.jsp");
+            rd.forward(request, response);
+        }
+      
         
     }
 
