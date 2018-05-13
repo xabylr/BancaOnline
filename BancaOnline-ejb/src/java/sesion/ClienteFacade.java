@@ -62,36 +62,57 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
          return getMovimientosOrdenados(c, "fecha desc");
        }
        
-       public List<Cliente> BuscarPorDNI(Integer dni){
-           List<Cliente> resultado = new ArrayList<>();
-           Query q = em.createNamedQuery("Cliente.findByDni");
-           q.setParameter("dni", dni);
+       public List<Cliente> BuscarPorDNI(String dni){
+           List<Cliente> resultado;
+           Query q = em.createQuery("SELECT c FROM Cliente c WHERE FUNC( 'LPAD', c.dni, 8, '0' ) LIKE :patron");
+           q.setParameter("patron", dni+"%");
            resultado = (List<Cliente>)q.getResultList();
            return resultado;
        }
        
        public List<Cliente> BuscarPorNombre(String nombre){
-           List<Cliente> resultado = new ArrayList<>();
-           Query q = em.createQuery("SELECT c FROM Cliente c WHERE c.nombre like :nombre%");
-           q.setParameter("nombre", nombre);
+           List<Cliente> resultado;
+           Query q = em.createQuery("SELECT c FROM Cliente c WHERE c.nombre LIKE :nombre");
+           q.setParameter("nombre", "%"+nombre+"%");
            resultado = q.getResultList();
            return resultado;
        }
        
        public List<Cliente> BuscarPorApellido(String apellidos){
-           List<Cliente> resultado = new ArrayList<>();
-           Query q = em.createQuery("SELECT c FROM Cliente c WHERE c.apellidos like :apellidos%");
-           q.setParameter("apellidos", apellidos);
+           List<Cliente> resultado;
+           Query q = em.createQuery("SELECT c FROM Cliente c WHERE c.apellidos LIKE :apellidos");
+           q.setParameter("apellidos", "%"+apellidos+"%");
            resultado = q.getResultList();
            return resultado;
        }
        
-       public List<Cliente> BuscarPorCuenta(String cuenta){
-           List<Cliente> resultado = new ArrayList<>();
-           Query q = em.createQuery("SELECT c FROM Cliente c WHERE c.cuenta.id like :cuenta%");
-           q.setParameter("cuenta", cuenta);
+       public List<Cliente> BuscarPorEntidad(String entidad){
+           List<Cliente> resultado;
+           Query q = em.createQuery("SELECT c FROM Cliente c WHERE "
+                   + "FUNC( 'LPAD', c.cuenta.entidad, 4, '0' ) LIKE :entidad" );
+           q.setParameter("entidad", entidad+"%");
            resultado = q.getResultList();
            return resultado;
        }
+       
+              public List<Cliente> BuscarPorOficina(String oficina){
+           List<Cliente> resultado;
+               Query q = em.createQuery("SELECT c FROM Cliente c WHERE "
+                   + "FUNC( 'LPAD', c.cuenta.oficina, 4, '0' ) LIKE :oficina" );
+           q.setParameter("oficina", oficina+"%");
+           resultado = q.getResultList();
+           return resultado;
+       }
+              
+              public List<Cliente> BuscarPorNumeroCC(String ncuenta){
+           List<Cliente> resultado;
+               Query q = em.createQuery("SELECT c FROM Cliente c WHERE "
+                   + "FUNC( 'LPAD', d.cuenta.cc, 10, '0' ) LIKE :ncuenta" );
+           q.setParameter("ncuenta", "%"+ncuenta+"%");
+           resultado = q.getResultList();
+           return resultado;
+       }
+              
+              
     
 }

@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +23,7 @@ import sesion.ClienteFacade;
  *
  * @author Jose Santos
  */
-@WebServlet(name = "BuscarClienteServlet", urlPatterns = {"/BuscarCliente"})
+@WebServlet(name = "BuscarClienteServlet", urlPatterns = {"/empleado/BuscarClientes"})
 public class BuscarClienteServlet extends HttpServlet {
 
     @EJB
@@ -42,16 +43,18 @@ public class BuscarClienteServlet extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Cliente> lista = new ArrayList<Cliente>();
+        List<Cliente> lista=null;
         
         String contenidoBusqueda = request.getParameter("contenidobusqueda");
-        int criterioBusqueda = Integer.parseInt(request.getParameter("criteriobusqueda"));
+        int criterioBusqueda = -1;
+        String criterio = request.getParameter("criteriobusqueda");
+        if(criterio!=null)
+            criterioBusqueda = Integer.parseInt(criterio);
         
-        if (contenidoBusqueda != null && !contenidoBusqueda.equals("")) {
+        if (contenidoBusqueda != null) {
             switch (criterioBusqueda) {
                 case 0:
-                    Integer dni = Integer.parseInt(contenidoBusqueda);
-                    lista = clienteFacade.BuscarPorDNI(dni);
+                    lista = clienteFacade.BuscarPorDNI(contenidoBusqueda);
                     break;
 
                 case 1:
@@ -61,9 +64,15 @@ public class BuscarClienteServlet extends HttpServlet {
                 case 2:
                     lista = clienteFacade.BuscarPorApellido(contenidoBusqueda);
                     break;
-
                 case 3:
-                    lista = clienteFacade.BuscarPorCuenta(contenidoBusqueda);
+                    lista = clienteFacade.BuscarPorEntidad(contenidoBusqueda);
+                    break;
+                case 4:
+                    lista = clienteFacade.BuscarPorOficina(contenidoBusqueda);
+                    break; 
+                    
+                case 5:
+                    lista = clienteFacade.BuscarPorNumeroCC(contenidoBusqueda);
                     break;
 
             }
@@ -72,11 +81,12 @@ public class BuscarClienteServlet extends HttpServlet {
         }
         
         
+
+        request.setAttribute("lista", lista);
         
-        
-        
-        request.getSession().setAttribute("lista", lista);
-        response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/clientes/"));
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/empleado/buscar_clientes/index.jsp");
+        rd.forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

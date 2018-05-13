@@ -46,14 +46,14 @@
         <table>
             <tr>
                 <td>
-                   <form method="post" action="../empleado/altaUsuario">
+                   <form method="post" action="altaUsuario">
                         <button> Ir AltaUsuario</button>
                     </form> 
                 </td>
                 
                 <td>
-                    <form method="post" action="<%=request.getContextPath() + "/VerClientes"%>">
-                        <button>Ver Clientes</button>
+                    <form method="post" action="BuscarClientes">
+                        <button>Buscar clientes</button>
                     </form>
                 </td>
             </tr>

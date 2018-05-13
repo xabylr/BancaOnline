@@ -55,10 +55,10 @@ public class VerMovimientosServlet extends HttpServlet {
         //response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/movimientos/"));
         
         if(request.getSession().getAttribute("empleado") != null){
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/movimientosempleado/index.jsp");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/empleado/movimientos/index.jsp");
             rd.forward(request, response);
         }else{
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/movimientosusuario/index.jsp");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/usuario/movimientos/index.jsp");
             rd.forward(request, response);
         }
       
