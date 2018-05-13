@@ -5,13 +5,20 @@
  */
 package servlet;
 
+import entidad.Cliente;
+import entidad.Movimiento;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sesion.ClienteFacade;
 
 /**
  *
@@ -19,6 +26,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "BuscarMovimientosServlet", urlPatterns = {"/BuscarMovimientos"})
 public class BuscarMovimientosServlet extends HttpServlet {
+
+    @EJB
+    private ClienteFacade clienteFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,20 +39,50 @@ public class BuscarMovimientosServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet BuscarMovimientosServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet BuscarMovimientosServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        List<Movimiento> movimientos = new ArrayList<Movimiento>();
+        
+        String contenidoBusqueda = request.getParameter("contenidobusqueda");
+        int criterioBusqueda = Integer.parseInt(request.getParameter("criteriobusqueda"));
+        
+        if (contenidoBusqueda != null && !contenidoBusqueda.equals("")) {
+            switch (criterioBusqueda) {
+                case 0:
+                    Integer dni = Integer.parseInt(contenidoBusqueda);
+                    //movimientos = clienteFacade.BuscarPorDNI(dni);
+                    break;
+
+                case 1:
+                    //movimientos = clienteFacade.BuscarPorNombre(contenidoBusqueda);
+                    break;
+                    
+                case 2:
+                    //movimientos = clienteFacade.BuscarPorApellido(contenidoBusqueda);
+                    break;
+
+                case 3:
+                    //movimientos = clienteFacade.BuscarPorCuenta(contenidoBusqueda);
+                    break;
+
+            }
+        }else{
+            //lista = clienteFacade.findAll();
+        }
+        
+        request.setAttribute("movimientos", movimientos);
+        Cliente cliente = clienteFacade.find(Integer.parseInt(request.getParameter("idCliente")));
+        request.setAttribute("cliente", cliente);
+        
+        if(request.getSession().getAttribute("empleado") != null){
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/movimientosempleado/index.jsp");
+            rd.forward(request, response);
+        }else{
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/movimientosusuario/index.jsp");
+            rd.forward(request, response);
         }
     }
 
