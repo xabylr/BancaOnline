@@ -5,11 +5,10 @@
  */
 package servlet;
 
-import entidad.*;
-import java.util.Collection;
+import entidad.Cliente;
+import entidad.Cuentacorriente;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,21 +16,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import modelo.IBAN;
 import sesion.ClienteFacade;
-import sesion.EmpleadoFacade;
+import sesion.CuentacorrienteFacade;
+import sesion.IbanCC;
 
 /**
  *
- * @author Abel y Javier
+ * @author Jose Santos
  */
-@WebServlet (name="LoginServlet", urlPatterns={"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "CrearMovimientoServlet", urlPatterns = {"/datosCrearMovimiento"})
+public class DatosCrearMovimientoServlet extends HttpServlet {
 
     @EJB
-    private ClienteFacade cf;
+    private CuentacorrienteFacade cuentacorrienteFacade;
+
     @EJB
-    private EmpleadoFacade ef;
+    private ClienteFacade clienteFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,53 +45,22 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         
-        RequestDispatcher rd;
-        PrintWriter salida;
-        salida = response.getWriter();
+        int dniCliente = Integer.parseInt(request.getParameter("idCliente"));
         
-        HttpSession session=request.getSession();
+        Cliente client = clienteFacade.find(dniCliente);
+        Cuentacorriente cuenta = client.getCuenta();
         
-             
-        int dni;
-        String password = request.getParameter("password");
-        //Comprobación del formato de dni
+        IbanCC iban = new IbanCC(cuenta);
+        String ib = iban.getIBAN();
         
-        String strDni = request.getParameter("DNI");
-        if(utilidades.Dni.validar(strDni)){ //también comprueba si es nulo
-            dni = utilidades.Dni.obtenerNumero(strDni);   
-            
-            //Comprobar dni en la base de datos aquí
-                     
-             
-             
-             Empleado e = ef.validarPassword(dni, password);          
-           if(e!=null){               
-               session.setAttribute("empleado", e);
-               response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/empleado"));
-           }
-           else{
-            Cliente c = cf.validarPassword(dni, password);
-            if(c!=null){
-                session = request.getSession();
-                session.setAttribute("cliente", c);
-                response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/usuario"));
-            }else{
-                salida.println("Dni o contraseña incorrectos");
-            }
-          
-           }
-            
-        }else{ //Código DNI inválido
-            
-            request.setAttribute("terror", "Error en el login :(");
-            request.setAttribute("error", "DNI o contraseña incorrecto");
-            request.setAttribute("rerror", response.encodeRedirectURL(request.getContextPath() + "/login/"));
-            
-            rd = (RequestDispatcher)this.getServletContext().getRequestDispatcher("/avisos/error.jsp");
-            rd.forward(request, response);
-        }        
+        String [] datos = IBAN.tokenizarIBAN_ES(ib);
+        
+        request.setAttribute("datos", datos);
+        
+        RequestDispatcher rd; 
+        rd = (RequestDispatcher) this.getServletContext().getRequestDispatcher("/empleado/crearmovimiento/index.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
