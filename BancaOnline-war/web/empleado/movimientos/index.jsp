@@ -32,17 +32,20 @@
             breadcrumb.add(new String[] { "#", "Movimientos" }); 
         %>
     </head>
-    <body>
+    
+    
+    <body  style="background-color: #fff; background-image: none">
         
 <%@ include file="/WEB-INF/jspf/cabecera.jspf"%>
 <%@ include file="/WEB-INF/jspf/movimientos.jspf"%>
-    
-<form method="post" action="empleado/crearmovimiento">
-    
-    <input type="hidden" name="idCliente" value="<%=cliente.getDni()%>"/>
-    <button>Crear Movimiento</button>
-    
-</form>
-
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <form method="post" action="empleado/crearmovimiento">
+            <input type="hidden" name="idCliente" value="<%=cliente.getDni()%>"/>
+            <button class="btn-primary">Crear Movimiento</button>
+        </form>
+    </div>
+        
+</div>
     </body>
 </html>
