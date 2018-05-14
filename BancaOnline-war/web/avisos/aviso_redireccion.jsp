@@ -15,9 +15,6 @@
 <html>
 <head>
     <title><%=aviso%> </title>
-    
-    <meta http-equiv="refresh" content="<%=duracion%>;url="<%=url%>" >
-    <meta name="keywords" content="automatic redirection">
 
 </head>
 
@@ -27,7 +24,16 @@
         <h2><%=detalles%></h2>
     Si tu navegador no te redirige automáticamente en <%=duracion%> segundos,
     <a href="<%=url%>">pulsa aquí</a> para acceder manualmente.
-
+    
+    <script type="text/JavaScript">
+        
+        setTimeout(function () {
+        window.location.href = "<%=url%>"; //will redirect to your blog page (an ex: blog.html)
+        }, <%=duracion*1000%>); //will call the function after 2 secs.
+        </script>
+    
+    
+    
     </center>
 </body>
 </html>

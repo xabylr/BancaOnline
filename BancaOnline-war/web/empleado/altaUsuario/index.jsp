@@ -75,14 +75,22 @@
                 
                 <div class="row">
                     <div class="form-group col-6 mx-auto">
-                        <label>Numero de entidad:</label>
-                        <input type="text" class="form-control" id="oficina" name="oficina" value="6969" disabled>
+                        <label>Número de entidad:</label>
+                        <input type="text" class="form-control" id="entidad" name="entidad" value="6969">
                     </div>
                 </div>
                 
                 <div class="row">
+                    <div class="alert alert-warning col-6 mx-auto">
+                        <strong>¡Precaución!</strong> El número de entidad identifica al banco al que pertenece la cuenta.
+                        Este campo no debería cambiarse.
+                    </div>
+                </div>
+                
+                
+                <div class="row">
                     <div class="form-group col-6 mx-auto">
-                        <label>Numero de oficina:</label>
+                        <label>Número de oficina:</label>
                         <input type="text" class="form-control" id="oficina" name="oficina" value="6969">
                     </div>
                 </div>

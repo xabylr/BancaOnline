@@ -70,8 +70,11 @@
                         for(Movimiento m : movimientos){
                             String saldo = new Dinero(m.getCuantia().longValue(),
                                     m.getDecimales(), m.getDivisa()).toString();
-                            String ibanRemitente = new IbanCC(m.getRemitente()).getIBAN();
-                             String ibanReceptor = new IbanCC(m.getReceptor()).getIBAN();
+                            
+                            String ibanRemitente;
+                            ibanRemitente = m.getRemitente()==null? "INGRESO" : new IbanCC(m.getRemitente()).getIBAN();
+                            String ibanReceptor;
+                            ibanReceptor = m.getReceptor()==null? "RETIRADA" : new IbanCC(m.getReceptor()).getIBAN();
                             %>
                             <tr>
                             <td><%=ibanRemitente%>

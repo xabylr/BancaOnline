@@ -85,8 +85,8 @@ body { font-family:"Segoe UI Light", "Segoe UI", Arial; font-weight: lighter;}
 
 <p style="font-size:14pt; color:#fff; margin-top:-30px; padding:0;line-height:32px;">
     <br />Para más información acerca de este fallo<br>y posibles arreglos, visita 
-    <br>http://<%=request.getLocalName()%>:<%=request.getLocalPort()%><%=request.getContextPath()%>
-    /Blackjack<br><br>Si contactas con algún desarrollador dale la siguente información:
+    <br>http://<%=request.getLocalName()%>:<%=request.getLocalPort()%><%=request.getContextPath()%>/Blackjack<br>
+    <br>Si contactas con algún desarrollador dale la siguente información:
     <br>Stop Code: <%=error%></p>
 
 

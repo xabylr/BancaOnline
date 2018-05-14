@@ -6,9 +6,12 @@
 package sesion;
 
 import entidad.Cuentacorriente;
+import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -43,5 +46,29 @@ public class CuentacorrienteFacade extends AbstractFacade<Cuentacorriente> {
   
         return cuentaCorriente;
     }
+    
+    /*
+    Busca un número vacío para asignar un número de cuenta a un cliente
+    */
+    public long obtenerNumeroCC(short entidad, short oficina){
+      long resultado=-1;
+       Query q = em.createNativeQuery("SELECT MAX(cc) FROM cuentacorriente "
+               + "WHERE entidad= ?1 AND oficina= ?2");
+       q.setParameter(1, entidad);
+       q.setParameter(2, oficina);
+       try{
+         BigDecimal bd = (BigDecimal) q.getSingleResult();
+         resultado = bd.longValue();
+         resultado++;
+         
+       }catch (NoResultException e){
+           
+       }
+       
+        return resultado;        
+    }
+    
+    
+    
     
 }

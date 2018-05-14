@@ -9,6 +9,8 @@ import entidad.Cliente;
 import entidad.Cuentacorriente;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigInteger;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import sesion.ClienteFacade;
 import sesion.CuentacorrienteFacade;
+import sesion.IbanCC;
 
 /**
  *
@@ -49,31 +52,82 @@ public class AnadirUsuarioServlet extends HttpServlet {
         
         RequestDispatcher rd;
         
-        try{
-            String strdni = request.getParameter("dni");
-            if (! utilidades.Dni.validar(strdni)) throw new IllegalArgumentException("Dni incorrecto");            
+                    
+            String[] parametros = {"dni", "password", "password_again",
+                "nombre", "apellidos", "entidad", "oficina"};
+            
+           String strdni=null, password=null, password_again=null, nombre=null, apellidos=null,
+               entidad=null, oficina=null;
+            
+            
+           String [] variables = new String[7];
+           
+            Cuentacorriente cuenta=null;
+            Cliente cliente=null;
+            
+        try{   
+           
+           for (int i=0; i<variables.length; i++){
+               variables[i] = request.getParameter(parametros[i]);
+               if (variables[i] == null) throw new IllegalArgumentException("Campo "+parametros[i]+" vacío"); 
+           }
+           
+           //Muy feo, pero no hay tiempo para arreglarlo
+           
+           strdni=variables[0];
+           password=variables[1];
+           password_again=variables[2];
+           nombre=variables[3];
+           apellidos=variables[4];
+           entidad=variables[5];
+           oficina=variables[6];
+           
+            
+            if (! utilidades.Dni.validar(strdni)) throw new IllegalArgumentException("DNI incorrecto");            
             int dni = utilidades.Dni.obtenerNumero(strdni);
+
             
-            String nombre = request.getParameter("nombre");
-            String apellidos = request.getParameter("apellidos");
-            int oficina = Integer.parseInt(request.getParameter("oficina"));
+            if(!password.equals(password_again)) throw new IllegalArgumentException("Las contraseñas no coinciden");
+
             
-            int numerocuenta = crearNumeroCuenta();
+            long numerocuenta = cuentacorrienteFacade.obtenerNumeroCC(
+                    Short.parseShort(entidad), Short.parseShort(oficina));
             
-            Cuentacorriente cuenta = new Cuentacorriente(numerocuenta);
+            if(numerocuenta==-1) throw new IllegalArgumentException("Error al generar número de cuenta");
+            
+            cuenta = new Cuentacorriente();
+            cuenta.setEntidad(Short.parseShort(entidad));
+            cuenta.setOficina(Short.parseShort(oficina));
+            cuenta.setCc(numerocuenta);
+            cuenta.setSaldo(BigInteger.ZERO);
+            cuenta.setDecimales(2);
+            cuenta.setDivisa("EUR");
+            
+            Date tiempoActual = new Date();
+            cuenta.setFechacreacion(BigInteger.valueOf(tiempoActual.getTime() / 1000L ) );
+            
             cuentacorrienteFacade.create(cuenta);
             
         
-            Cliente cliente = new Cliente(dni);
+            cliente = new Cliente(dni);
+            cliente.setPassword(password);
             cliente.setNombre(nombre);
             cliente.setApellidos(apellidos);
-            cliente.setPassword(nombre); //¿De donde se obtiene?
             cliente.setCuenta(cuenta);
             
             clienteFacade.create(cliente);
             
+        
+             
+        request.setAttribute("aviso", "Operación completada exitosamente");
+        request.setAttribute("detalles", "Cliente "+nombre+" "+apellidos+" con IBAN: "+new IbanCC(cuenta).getIBAN()  );
+        request.setAttribute("url", "/BancaOnline/empleado");
+        request.setAttribute("duracion", 5);
+        
+        this.getServletContext().getRequestDispatcher("/avisos/aviso_redireccion.jsp")
+                .forward(request, response);
             
-            response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/altaUsuario/"));
+        
         }catch (IllegalArgumentException e){
                 request.setAttribute("terror", "Error en el formulario");
             request.setAttribute("error", "Motivo del error: "+e.getMessage());
@@ -85,22 +139,18 @@ public class AnadirUsuarioServlet extends HttpServlet {
             
             request.setAttribute("terror", "Error no identificado");
             request.setAttribute("error", "Ha sucedido un error inesperado al dar de alta un nuevo usuario "
-                    + ". Revisa los datos y vuelve a intentarlo");
+                    + ". Revisa los datos y vuelve a intentarlo. Excepción: "+e.getMessage());
             request.setAttribute("rerror", response.encodeRedirectURL(request.getContextPath() + "/empleado/altaUsuario/"));
             rd = (RequestDispatcher)this.getServletContext().getRequestDispatcher("/avisos/error.jsp");
             rd.forward(request, response);
         }
-   
+        
+        
+       
+
             
         }
     
-
-    int crearNumeroCuenta(){
-
-        int res = 0;
-    
-        return res;
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -114,7 +164,8 @@ public class AnadirUsuarioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //No hacemos nada para no añadir el usuario dos veces
+       // processRequest(request, response);
     }
 
     /**
