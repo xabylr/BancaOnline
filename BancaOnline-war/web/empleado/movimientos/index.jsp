@@ -40,7 +40,7 @@
 <%@ include file="/WEB-INF/jspf/movimientos.jspf"%>
 <div class="container">
     <div class="row d-flex justify-content-center">
-        <form method="post" action="empleado/crearmovimiento">
+        <form method="post" action="datosCrearMovimiento">
             <input type="hidden" name="idCliente" value="<%=cliente.getDni()%>"/>
             <button class="btn-primary">Crear Movimiento</button>
         </form>

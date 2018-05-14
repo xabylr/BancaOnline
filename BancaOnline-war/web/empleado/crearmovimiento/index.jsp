@@ -13,12 +13,17 @@
         <%@ include file="/WEB-INF/jspf/cargar_bootstrap.jspf"%>
         <title>Crear Movimiento</title>
         
-        <%  List<String []> breadcrumb = new ArrayList<String []>();    
+        <%      
+            
+            List<String []> breadcrumb = new ArrayList<String []>();    
             breadcrumb.add(new String[] { "/BancaOnline/", "Inicio" } );
             breadcrumb.add(new String[] { "/BancaOnline/login", "Login" });
             breadcrumb.add(new String[] { "/BancaOnline/empleado", "Empleado" });
             breadcrumb.add(new String[] { "/BancaOnline/movimientosempleado", "Movimientos" });
             breadcrumb.add(new String[] { "#", "CrearMovimiento" }); 
+        
+            String [] datos;
+            datos = (String [])request.getAttribute("datos");
         %>
     </head>
     <body class="">
@@ -42,12 +47,12 @@
                     </tr>
 
                     <tr>
-                        <td><b>ES</b></td>
-                        <td><input type="text" class="form-control" name="ctrliban" size="4"></td>
-                        <td><input type="text" class="form-control" name="entidad" size="4"></td>
-                        <td><input type="text" class="form-control" name="oficina" size="4"></td>
-                        <td><input type="text" class="form-control" name="ctrlCCC" size="2"></td>
-                        <td><input type="text" class="form-control" name="nc" size="10"></td>
+                        <td><b><%=datos[0]%></b></td>
+                        <td><input type="text" class="form-control" name="ctrliban" size="4" value="<%=datos[1]%>"></td>
+                        <td><input type="text" class="form-control" name="entidad" size="4" value="<%=datos[2]%>"></td>
+                        <td><input type="text" class="form-control" name="oficina" size="4" value="<%=datos[3]%>"></td>
+                        <td><input type="text" class="form-control" name="ctrlCCC" size="2" value="<%=datos[4]%>"></td>
+                        <td><input type="text" class="form-control" name="nc" size="10" value="<%=datos[5]%>"></td>
                     </tr>
 
                     <tr>
