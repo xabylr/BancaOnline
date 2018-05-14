@@ -57,6 +57,7 @@ public class DatosCrearMovimientoServlet extends HttpServlet {
         String [] datos = IBAN.tokenizarIBAN_ES(ib);
         
         request.setAttribute("datos", datos);
+        request.setAttribute("cliente", client);
         
         RequestDispatcher rd; 
         rd = (RequestDispatcher) this.getServletContext().getRequestDispatcher("/empleado/crearmovimiento/index.jsp");

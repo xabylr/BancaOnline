@@ -84,7 +84,11 @@
                     <form method="get" action="../VerMovimientos">
                         <button>Ver Movimientos</button>
                         <input type="hidden" name="idCliente" value="<%=c.getDni()%>">
-                    </form>       
+                    </form> 
+                    <form method="post" action="../editarUsuarioServlet">
+                        <button>Editar Usuario</button>
+                        <input type="hidden" name="idCliente" value="<%=c.getDni()%>">
+                    </form>
                 </td>
                 
             </tr>   
