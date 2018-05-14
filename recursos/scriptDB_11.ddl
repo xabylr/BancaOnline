@@ -32,6 +32,9 @@ CREATE TABLE cliente (
     nombre      VARCHAR(30),
     apellidos   VARCHAR(100),
     cuenta      INT,
+    email       VARCHAR(100),
+    domicilio   VARCHAR(100),
+    telefono    NUMERIC(9,0),
     FOREIGN KEY (cuenta) REFERENCES cuentacorriente (id)
 );
 
