@@ -58,39 +58,29 @@
 
      %>
 
-    
-    <body>
-        <h1><%=titulo%></h1>
-        <p><%=cuerpo%></p>
-        
-        <form method="post" action="<%=ruta%>">
-        
-            <button>Aceptar</button>
-            
-        </form>
-        
-    </body>
-</html>
-
 
 <!DOCTYPE html>
+
+<head>
 <style>
 body { font-family:"Segoe UI Light", "Segoe UI", Arial; font-weight: lighter;}
 .content {width:700px; margin:10% auto;user-select:none;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none; }
 </style>
 
+<title><%= titulo %> </title>
+</head>
 
-</head><body bgcolor="#0086ac" scroll="no"> 
+<body bgcolor="#0086ac" scroll="no"> 
 
 <div class="content">
 <font size="4" color="#FFFFFF"> 
 <p style="font-size:100pt; margin:0; padding-bottom:20pt">:(</p>
 <p style="font-size:20pt; margin:0; padding:0"><%=cuerpo%></p>
 
-<br>Vuelve a la página anterior<br><br>
+<br>Vuelve a la <a style="color:white;" href="<%=ruta%>">página anterior</a> <br><br>
 
 
-<img src="qr.png" style="float:left;"/>
+<img src="/BancaOnline/res/qr.png" style="float:left;"/>
 <div style="float:left;margin-left:30px;width:65%;">
 
 <p style="font-size:14pt; color:#fff; margin-top:-30px; padding:0;line-height:32px;"><br />Para más información acerca de este fallo<br>y posibles arreglos, visita<br>http://server.com/Bancaonline/Blackjack<br><br>Si contactas con algún desarrollador dale la siguente información:<br>Stop Code: <%=error%></p>

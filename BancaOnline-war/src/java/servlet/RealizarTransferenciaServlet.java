@@ -108,10 +108,12 @@ public class RealizarTransferenciaServlet extends HttpServlet {
         Date tiempoActual = new Date();
         movimiento.setFecha(BigInteger.valueOf(tiempoActual.getTime() / 1000L ) );
         
-        movimientoFacade.create(movimiento);
+       
         
-        Dinero.mover(remitente, cantidad, receptor);
-
+        try {
+            Dinero.mover(remitente, cantidad, receptor);
+            
+             movimientoFacade.create(movimiento);
       
         request.setAttribute("aviso", "Operación completada exitosamente");
         request.setAttribute("detalles", "Tu saldo actual es de "+remitente.toString());
@@ -120,6 +122,17 @@ public class RealizarTransferenciaServlet extends HttpServlet {
         
         this.getServletContext().getRequestDispatcher("/avisos/aviso_redireccion.jsp")
                 .forward(request, response);
+            
+        }catch ( Dinero.SaldoInsuficiente s){
+            request.setAttribute("terror", "Error al realizar transferencia");
+             request.setAttribute("error", s.getMessage());
+              request.setAttribute("rerror", "/BancaOnline/usuario/transferencia/");
+             
+             this.getServletContext().getRequestDispatcher("/avisos/error.jsp")
+                .forward(request, response);
+        }
+
+        
         
         
     
