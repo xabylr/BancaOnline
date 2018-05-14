@@ -14,6 +14,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <%@ include file="/WEB-INF/jspf/cargar_bootstrap.jspf"%>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <%  List<String []> breadcrumb = new ArrayList<String []>();    
+            breadcrumb.add(new String[] { "/BancaOnline/", "Inicio" } );
+            breadcrumb.add(new String[] { "/BancaOnline/login", "Login" });
+            breadcrumb.add(new String[] { "/BancaOnline/empleado/", "Empleado" });
+            breadcrumb.add(new String[] { "#", "Clientes" });
+        %>
+        
+        
         <%
             List<Cliente> lista = (List<Cliente>)request.getAttribute("lista");
             Empleado empleado = (Empleado)session.getAttribute("empleado");
@@ -22,8 +33,8 @@
         <title>Banca Online</title>
     </head>
     <body>
-        <h1>Clientes</h1>
-        
+        <%@ include file="/WEB-INF/jspf/cabecera.jspf"%>
+        <br/>
         <form method="post" action="BuscarClientes">
             
             Buscar por: 
@@ -43,15 +54,16 @@
             
         </form>
         
+        <br/>
         
-        
-    <table class="table table-bordered">
+    <table class="table" border="1">
     <thead>
       <tr>
         <th>DNI</th>
         <th>Nombre</th>
         <th>Apellidos</th>
         <th>Cuenta</th>
+        <th/>
       </tr>
     </thead>
     <tbody>

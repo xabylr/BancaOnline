@@ -72,18 +72,18 @@ nav.navbar{
                 </li> 
              </ul>
             
-            
-            <span>Hola <a href="<%= home %>"> <%=nombre%> </a>!</span>
-            <div class="btn-group">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Menu
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <button class="dropdown-item" type="button"><a href="#">Ayuda</a></button>
-                      <button class="dropdown-item" type="button"><a href="/BancaOnline/CerrarSesion">Cerrar Sesión</a></button>
-                    </div>
+            <div>
+                <span>Hola <a href="<%= home %>"> <%=nombre%> </a>!</span>
+                <div class="btn-group">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Menu
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <button class="dropdown-item" type="button"><a href="#">Ayuda</a></button>
+                          <button class="dropdown-item" type="button"><a href="/BancaOnline/CerrarSesion">Cerrar Sesión</a></button>
+                        </div>
+                </div>
             </div>
-
             
      
         </div>

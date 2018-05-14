@@ -18,7 +18,7 @@
 <%
     Cliente cliente = (Cliente) session.getAttribute("cliente"); 
     String nombreYApellidos = cliente.getNombre() + " " + cliente.getApellidos();
-    List<Movimiento> movimientos = (List<Movimiento>)session.getAttribute("movimientos");
+    List<Movimiento> movimientos = (List<Movimiento>)request.getAttribute("movimientos");
 %>
 
 
