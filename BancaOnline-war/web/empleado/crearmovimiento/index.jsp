@@ -24,6 +24,7 @@
         
             String [] datos;
             datos = (String [])request.getAttribute("datos");
+            Cliente cliente = (Cliente)request.getAttribute("cliente");
         %>
     </head>
     <body class="">
@@ -92,6 +93,8 @@
             </div>
             <br/>
             <div class="row">
+                
+                        <input type="hidden" name="idCliente" value="<%=cliente.getDni()%>">
                         <button class=" mx-auto col-3 btn btn-primary">Crear</button>
             </div>
             

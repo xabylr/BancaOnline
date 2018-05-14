@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import entidad.Cliente;
 import entidad.Cuentacorriente;
 import entidad.Movimiento;
 import entidad.Movimiento_;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.Dinero;
+import sesion.ClienteFacade;
 import sesion.CuentacorrienteFacade;
 import sesion.DineroCC;
 import sesion.MovimientoFacade;
@@ -29,6 +31,9 @@ import sesion.MovimientoFacade;
  */
 @WebServlet(name = "CrearMovimiento", urlPatterns = {"/CrearMovimiento"})
 public class CrearMovimiento extends HttpServlet {
+
+    @EJB
+    private ClienteFacade clienteFacade;
 
     @EJB
     private MovimientoFacade movimientoFacade;
@@ -54,7 +59,12 @@ public class CrearMovimiento extends HttpServlet {
         String oficina = request.getParameter("oficina");
         String nc = request.getParameter("nc");
         
-        Cuentacorriente c = cuentacorrienteFacade.obtenerCuentaConCCC( entidad,oficina ,nc );
+        Cliente cliente = clienteFacade.find(Integer.parseInt(request.getParameter("idCliente")));
+        Cuentacorriente ccRemitente = cliente.getCuenta();
+        
+       
+        
+        Cuentacorriente ccReceptor = cuentacorrienteFacade.obtenerCuentaConCCC(entidad,oficina,nc);
         
                //DATOS MOVIMIENTO
         String movimiento = request.getParameter("movimiento");
@@ -65,34 +75,40 @@ public class CrearMovimiento extends HttpServlet {
         Movimiento m = new Movimiento();
         m.setConcepto(concepto);
         m.setDivisa(divisa);
-        m.setReceptor(c);
+        m.setReceptor(ccReceptor);
         Date tiempoActual = new Date();
         m.setFecha(BigInteger.valueOf(tiempoActual.getTime() / 1000L ) );
-        m.setRemitente(new Cuentacorriente());
+        m.setRemitente(ccRemitente);
         m.setDecimales(2);
         m.setCuantia(BigInteger.valueOf(Long.parseLong(importe)));
         
         //Falta lo de  SetSaldoPrev y esas mierdas
         
+        m.setSaldoRttPrev(ccRemitente.getSaldo());
+        m.setSaldoRttPrevDec(ccRemitente.getDecimales());
+        m.setSaldoRttPrevDiv(ccRemitente.getDivisa());
         
+        m.setSaldoRcpPrev(ccReceptor.getSaldo());
+        m.setSaldoRcpPrevDec(ccReceptor.getDecimales());
+        m.setSaldoRcpPrevDiv(ccReceptor.getDivisa());
         
         Dinero d = new Dinero(Long.parseLong(importe), 2, divisa);
         
-        DineroCC dinCC = new DineroCC(c);
+        DineroCC dinCC = new DineroCC(ccReceptor);
          try{
             if(movimiento.equals("ingresar")){
 
                     dinCC.ingresar(d);
-                    movimientoFacade.create(m);
-
             }else if(movimiento.equals("retirada")){
                 dinCC.retirar(d);
-                movimientoFacade.create(m);
             }
          }catch(Exception e){
                 
         }
          
+         movimientoFacade.create(m);
+         
+         response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/datosCrearMovimiento?idCliente=" + cliente.getDni()));
          //FALTA REDIRECCIONAR (A CREAR MOVIMIENTO DE NUEVO SUPONGO)
     }
 
