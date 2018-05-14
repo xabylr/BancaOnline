@@ -87,21 +87,13 @@ public class LoginServlet extends HttpServlet {
               
               //request.setAttribute("cliente", c);
               
-              session.invalidate();
+           //   session.invalidate();
               session = request.getSession();
               session.setAttribute("cliente", c);
               
-              List<Movimiento> movimientos = cf.getMovimientosFechaDesc(cf.getCuenta(c.getDni()));
-              session.setAttribute("movimientos", movimientos);
-              
-                //  rd = (RequestDispatcher)this.getServletContext().getRequestDispatcher("/usuario/index.jsp");
-              //    rd.forward(request, response);
-               //   request.getRequestDispatcher("/usuario/index.jsp").forward(request, response);
-
-              
-               
-               
-               response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/usuario/"));
+           
+          
+               response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/usuario"));
                //   rd.forward(request, response);
 
             }else{

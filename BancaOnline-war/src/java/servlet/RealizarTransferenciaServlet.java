@@ -112,7 +112,7 @@ public class RealizarTransferenciaServlet extends HttpServlet {
         
         Dinero.mover(remitente, cantidad, receptor);
 
-   
+      
         request.setAttribute("aviso", "Operación completada exitosamente");
         request.setAttribute("detalles", "Tu saldo actual es de "+remitente.toString());
         request.setAttribute("url", "/BancaOnline/usuario");
