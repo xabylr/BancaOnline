@@ -62,13 +62,13 @@ public class CuentacorrienteFacade extends AbstractFacade<Cuentacorriente> {
          resultado++;
          
        }catch (NoResultException e){
-           
+           resultado=0;
        }
        
         return resultado;        
     }
     
-    
-    
+     
+   
     
 }
