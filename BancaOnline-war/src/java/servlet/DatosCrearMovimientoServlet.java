@@ -76,6 +76,9 @@ public class DatosCrearMovimientoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        System.out.println("DOGET");
+        
         processRequest(request, response);
     }
 
@@ -90,6 +93,8 @@ public class DatosCrearMovimientoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        System.out.println("DOPOST");
         processRequest(request, response);
     }
 

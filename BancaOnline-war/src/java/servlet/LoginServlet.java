@@ -77,7 +77,12 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("cliente", c);
                 response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/usuario"));
             }else{
-                salida.println("Dni o contraseña incorrectos");
+                request.setAttribute("terror", "Error en el login :(");
+                request.setAttribute("error", "DNI o contraseña incorrecto");
+                request.setAttribute("rerror", response.encodeRedirectURL(request.getContextPath() + "/login/"));
+            
+                rd = (RequestDispatcher)this.getServletContext().getRequestDispatcher("/avisos/error.jsp");
+                rd.forward(request, response);
             }
           
            }
