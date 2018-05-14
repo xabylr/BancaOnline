@@ -10,6 +10,7 @@ import entidad.Cuentacorriente;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,7 +47,13 @@ public class AnadirUsuarioServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-            int dni = utilidades.Dni.obtenerNumero(request.getParameter("dni"));
+        RequestDispatcher rd;
+        
+        try{
+            String strdni = request.getParameter("dni");
+            if (! utilidades.Dni.validar(strdni)) throw new IllegalArgumentException("Dni incorrecto");            
+            int dni = utilidades.Dni.obtenerNumero(strdni);
+            
             String nombre = request.getParameter("nombre");
             String apellidos = request.getParameter("apellidos");
             int oficina = Integer.parseInt(request.getParameter("oficina"));
@@ -67,6 +74,23 @@ public class AnadirUsuarioServlet extends HttpServlet {
             
             
             response.sendRedirect(response.encodeRedirectURL(request.getContextPath() +"/altaUsuario/"));
+        }catch (IllegalArgumentException e){
+                request.setAttribute("terror", "Error en el formulario");
+            request.setAttribute("error", "Motivo del error: "+e.getMessage());
+            request.setAttribute("rerror", response.encodeRedirectURL(request.getContextPath() + "/empleado/altaUsuario/"));
+            rd = (RequestDispatcher)this.getServletContext().getRequestDispatcher("/avisos/error.jsp");
+            rd.forward(request, response);
+            
+        }catch (Exception e) {
+            
+            request.setAttribute("terror", "Error no identificado");
+            request.setAttribute("error", "Ha sucedido un error inesperado al dar de alta un nuevo usuario "
+                    + ". Revisa los datos y vuelve a intentarlo");
+            request.setAttribute("rerror", response.encodeRedirectURL(request.getContextPath() + "/empleado/altaUsuario/"));
+            rd = (RequestDispatcher)this.getServletContext().getRequestDispatcher("/avisos/error.jsp");
+            rd.forward(request, response);
+        }
+   
             
         }
     

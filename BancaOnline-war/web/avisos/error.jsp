@@ -1,7 +1,7 @@
 <%-- 
     Document   : error
     Created on : 19-mar-2018, 15:22:54
-    Author     : Jose Santos
+    Author     : Javier (Basado en Jose)
 --%>
 
 <%@page import="java.util.Random"%>
@@ -83,7 +83,11 @@ body { font-family:"Segoe UI Light", "Segoe UI", Arial; font-weight: lighter;}
 <img src="/BancaOnline/res/qr.png" style="float:left;"/>
 <div style="float:left;margin-left:30px;width:65%;">
 
-<p style="font-size:14pt; color:#fff; margin-top:-30px; padding:0;line-height:32px;"><br />Para más información acerca de este fallo<br>y posibles arreglos, visita<br>http://server.com/Bancaonline/Blackjack<br><br>Si contactas con algún desarrollador dale la siguente información:<br>Stop Code: <%=error%></p>
+<p style="font-size:14pt; color:#fff; margin-top:-30px; padding:0;line-height:32px;">
+    <br />Para más información acerca de este fallo<br>y posibles arreglos, visita 
+    <br>http://<%=request.getLocalName()%>:<%=request.getLocalPort()%><%=request.getContextPath()%>
+    /Blackjack<br><br>Si contactas con algún desarrollador dale la siguente información:
+    <br>Stop Code: <%=error%></p>
 
 
 

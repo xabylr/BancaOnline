@@ -38,10 +38,25 @@
             <form method="post" action="<%=request.getContextPath() + "/AnadirUsuario"%>">
                 <div class="row">
                     <div class="form-group col-6 mx-auto">
-                        <label>DNI:</label>
+                        <label>DNI con letra:</label>
                         <input type="text" class="form-control" id="dni" name="dni">
                     </div>
                 </div>
+                
+                <div class="row">
+                    <div class="form-group col-6 mx-auto">
+                        <label>Contraseña: (Debe ser cambiada posteriormente por el usuario)</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="form-group col-6 mx-auto">
+                        <label>Repetir contraseña:</label>
+                        <input type="password" class="form-control" id="password_again" name="password_again">
+                    </div>
+                </div>
+                
                 
                 <div class="row">
                     <div class="form-group col-6 mx-auto">
@@ -56,10 +71,19 @@
                         <input type="text" class="form-control" id="apellidos" name="apellidos">
                     </div>
                 </div>
+                
+                
+                <div class="row">
+                    <div class="form-group col-6 mx-auto">
+                        <label>Numero de entidad:</label>
+                        <input type="text" class="form-control" id="oficina" name="oficina" value="6969" disabled>
+                    </div>
+                </div>
+                
                 <div class="row">
                     <div class="form-group col-6 mx-auto">
                         <label>Numero de oficina:</label>
-                        <input type="text" class="form-control" id="oficina" name="oficina">
+                        <input type="text" class="form-control" id="oficina" name="oficina" value="6969">
                     </div>
                 </div>
                             
@@ -70,7 +94,7 @@
                 </div>
                 
                 <div class="row">
-                    <button class="col-3 mx-auto"><b>A&ntilde;adir</b></button>
+                    <button class="col-3 mx-auto"><b>Añadir</b></button>
                 </div>
                  
              </form>
