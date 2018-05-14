@@ -1,10 +1,4 @@
-INSERT INTO `bancaonline`.`empleado` (`dni`, `password`, `nombre`, `apellidos`) VALUES ('87654321', 'pendejo', 'Empleado', 'Empleoso');
-
-INSERT INTO `bancaonline`.`cuentacorriente` (`id`, `entidad`, `oficina`, `cc`, `saldo`, `decimales`, `divisa`, `fechacreacion`) VALUES ('5', '6969', '6969', '50', '80000', '2', 'EUR', '1514841395');
-
-INSERT INTO `bancaonline`.`cuentacorriente` (`id`, `entidad`, `oficina`, `cc`, `saldo`, `decimales`, `divisa`, `fechacreacion`) VALUES ('37', '6969', '6969', '370', '3000', '2', 'EUR', '1525796742');
-
-
-INSERT INTO `bancaonline`.`cliente` (`dni`, `password`, `nombre`, `apellidos`, `cuenta`, `email`, `domicilio`, `telefono`) VALUES ('66395509', 'pendejo', 'Pepe', 'Pérez', '5', 'pepe@uma.es', 'calle ave del paraíso', '696555555');
-
-INSERT INTO `bancaonline`.`cliente` (`dni`, `password`, `nombre`, `apellidos`, `cuenta`, `email`, `domicilio`, `telefono`) VALUES ('19002896', 'pendejo', 'Juan', 'García', '37', 'pendejo@uma.es', 'calle de la piruleta', '696696969');
+USE bancaonline;
+INSERT INTO `cuentacorriente` VALUES (1,25,4,111,4800,2,'EUR',1520796742),(2,25,1,17,30,2,'EUR',1520796742),(3,15,2,694,1,2,'USD',1520796742),(4,5,2,1564,4650,2,'GBP',1520791742),(5,6969,6969,50,80000,2,'EUR',1514841395),(6,9,9,10,500,0,'JPY',1520796730),(7,58,11,1,6000,5,'BTC',1520791142),(24,2,10,9,20,0,'MXN',1520222742),(37,6969,6969,370,3000,2,'EUR',1525796742);
+INSERT INTO `cliente` VALUES (13754687,'pendejo','Jose','Ama Java',2,'sisi@loama.jar','calle jaja',625847511),(15264845,'pendejo','Jose','Siempre Malo',24,'java@oracle.com','calle pitón',666666666),(19002896,'pendejo','Juan','García',37,'pendejo@uma.es','calle de la piruleta',696696969),(23514148,'pendejo','Pitón','Ver.3',4,'flexible@indentado.net','calle dinamica',698943222),(66395509,'pendejo','Pepe','Pérez',5,'pepe@uma.es','calle ave del paraíso',696555555),(87641744,'pendejo','Glass','Fish',7,'bugs@netbeans.org','calle suicidio',484132158),(89464971,'pendejo','Factorio','Insertador A Vapor',1,'mas@carbon.com','calle cinta rápida',111223344);
+INSERT INTO `empleado` VALUES (3142551,'pendejo','Miriam','Ezquerra Galisteo'),(35714105,'pendejo','Carolina','Querol Caparros'),(51478468,'pendejo','Mariano','Samper Aguilar'),(68713124,'pendejo','Yolanda','Vallecillo Vallecilla'),(78648477,'pendejo','Mariano','Samper Aguilar'),(87654321,'pendejo','Empleado','Empleoso');

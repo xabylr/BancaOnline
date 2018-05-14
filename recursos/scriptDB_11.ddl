@@ -1,6 +1,8 @@
-DROP DATABASE bancaonline;
+DROP DATABASE IF EXISTS  bancaonline;
+DROP USER IF EXISTS 'bancaonline'@'localhost';
+CREATE USER 'bancaonline'@'localhost' IDENTIFIED BY 'pendejo';
+GRANT ALL PRIVILEGES ON bancaonline.* TO 'bancaonline'@'localhost';
 CREATE DATABASE bancaonline;
-GRANT ALL PRIVILEGES ON bancaonline.* TO 'bancaonline'@'localhost' IDENTIFIED BY 'pendejo';
 
 USE bancaonline;
 
