@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
     Created on : 06-may-2018, 20:05:38
-    Author     : Jose Santos
+    Author     : Iosif Santos
 --%>
 
 <%@page import="sesion.IbanCC"%>

@@ -55,7 +55,9 @@ public class editarConfirmarServlet extends HttpServlet {
         cliente.setDomicilio(domicilio);
         cliente.setTelefono(telefono);
         
-        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/empleado/index.jsp");
+        clienteFacade.edit(cliente);
+        
+        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/empleado/BuscarClientes");
         rd.forward(request, response);
         
     }
