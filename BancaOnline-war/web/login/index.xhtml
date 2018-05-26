@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <link rel="stylesheet" type="text/css" href="styles.css"></link>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+        <title>UMA Bank Login</title>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 leftPane">
+                    <div class="row header">
+                        <h2 class="col-lg-4"><b>UMA BANK</b></h2>
+                        <h4 class="col-lg-8"><i>Tu dinero es nuestro y nuestro dinero tambien</i></h4>
+                    </div>
+
+                    <div class="row imgIzquierda">
+                        <img class="img" src="res/banco.jpg"/>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="col-lg-12 logInForm">
+                        <h:form>
+                            <pre>Iniciar Sesión</pre>
+                            <pre>DNI : <h:inputText value="#{registrationBean.DNI}" /></pre>
+                            <pre>Password : <h:inputSecret value="#{registrationBean.password}"/></pre>
+                            <pre><h:commandButton value="Enviar" action="#{registrationBean.doRegister()}"/></pre>
+                        </h:form>    
+                    </div>
+
+                    <div class="col-lg-12 gifRobo">                      
+                        <video class="img">
+                            <source src="res/rata.mp4" type="video/mp4"/>
+                        </video>
+                    </div>       
+                </div>
+            </div>                
+        </div>
+    </h:body>
+</html>
+
