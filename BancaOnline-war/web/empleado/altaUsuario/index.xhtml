@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        
+        <script type="text/javascript" src="/static/popper.js/popper.min.js"></script>
+        <script type="text/javascript" src="/static/jquery/jquery-3.3.1.slim.min.js"></script>
+        <link rel="stylesheet" href="/static/bootstrap/bootstrap.min.css"></link>
+        <script src="/static/bootstrap/bootstrap.min.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+        
+        <meta http-equiv="Alta de usuario" content="text/html; charset=UTF-8">
+            
+        <title>Alta Usuario</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <div class="container"> 
+            <h:form id="form">
+                <div class="row">
+                    <div class="form-group col-6 mx-auto">
+                        <label>DNI con letra:</label>
+                        <h:inputText value="#{altaUsuarioBean.dni}"/>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="form-group col-6 mx-auto">
+                        <label>Contraseña: (Debe ser cambiada posteriormente por el usuario)</label>
+                        <h:inputSecret value="#{altaUsuarioBean.password}"/>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="form-group col-6 mx-auto">
+                        <label>Repetir contraseña:</label>
+                        <h:inputSecret value="#{altaUsuarioBean.password_again}"/>
+                    </div>
+                </div>
+                
+                
+                <div class="row">
+                    <div class="form-group col-6 mx-auto">
+                        <label>Nombre:</label>
+                        <h:inputText value="#{altaUsuarioBean.nombre}"/>
+                    </div>
+                 </div>
+               
+                <div class="row">
+                    <div class="form-group col-6 mx-auto">
+                        <label>Apellidos:</label>
+                        <h:inputText value="#{altaUsuarioBean.apellidos}"/>
+                    </div>
+                </div>
+                
+                
+                <div class="row">
+                    <div class="form-group col-6 mx-auto">
+                        <label>Número de entidad:</label>
+                        <h:inputText value="#{altaUsuarioBean.entidad}"/>
+                        <input type="text" class="form-control" id="entidad" name="entidad" value="6969">
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="alert alert-warning col-6 mx-auto">
+                        <strong>¡Precaución!</strong> El número de entidad identifica al banco al que pertenece la cuenta.
+                        Este campo no debería cambiarse.
+                    </div>
+                </div>
+                
+                
+                <div class="row">
+                    <div class="form-group col-6 mx-auto">
+                        <label>Número de oficina:</label>
+                        <h:inputText value="#{altaUsuarioBean.oficina}"/>
+                        <input type="text" class="form-control" id="oficina" name="oficina" value="6969">
+                    </div>
+                </div>
+                            
+                <div class="row">
+                    <div class="alert alert-warning col-6 mx-auto">
+                        <strong>¡Precaución!</strong> Solo se modificará el número de oficina en caso de trabajar en una sucursal, no en la central.
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <button class="col-3 mx-auto"><b>Añadir</b></button>
+                    <h:commandButton action="#{altaUsuarioBean.guardar()}" value="Añadir"/>
+                </div>
+                 
+             </h:form>
+
+        </div>
+    </h:body>
+</html>
