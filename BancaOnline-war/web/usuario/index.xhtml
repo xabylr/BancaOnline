@@ -69,8 +69,8 @@ and open the template in the editor.
             
             Últimos movimientos:
             
-<!--           <div class="enmarcado row">
-               <table class="col-lg-12" border ="1">
+          <div class="enmarcado row">
+              <h:dataTable value="#{registroBean.movimientos}" var="movimiento" class="col-lg-12" border ="1">
                     <tr>
                         <th>Remitente</th>
                         <th>Receptor</th>
@@ -79,32 +79,15 @@ and open the template in the editor.
                         <th>Fecha</th>
 
                     </tr>
-
-                <%
-                    if(movimientos != null){
-                        for(Movimiento m : movimientos){
-                            String saldo = new Dinero(m.getCuantia().longValue(),
-                                    m.getDecimales(), m.getDivisa()).toString();
-                            String ibanRemitente;
-                            ibanRemitente = m.getRemitente()==null? "INGRESO" : new IbanCC(m.getRemitente()).getIBAN();
-                            String ibanReceptor;
-                            ibanReceptor = m.getReceptor()==null? "RETIRADA" : new IbanCC(m.getReceptor()).getIBAN();
-                            %>
                             <tr>
-                            <td><%=ibanRemitente%>
-                            <td><%=ibanReceptor%>
-                            <td><%=saldo%>
-                            <td><%=m.getConcepto()%>
-                            <td><%=new Date(m.getFecha().longValue() )%>
-                            <tr>    
-
-                            <%
-                        }
-                    }
-                %>
-
-                </table>
-                </div>
+                                <td>#{movimiento.ibanRemitente}</td>
+                                <td>#{movimiento.ibanReceptor}</td>
+                                <td>#{movimiento.saldo}</td>
+                                <td>#{movimiento.concepto}</td>
+                                <td>#{movimiento.date}</td>
+                            </tr>
+                </h:dataTable>
+            <!--     </div>
                 <br/>
                 <div class="row d-flex justify-content-center">
 
@@ -114,6 +97,6 @@ and open the template in the editor.
 -->
                 </div>
             </div>
-        
+        </div>
     </h:body>
 </html>

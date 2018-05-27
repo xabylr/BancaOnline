@@ -7,8 +7,11 @@ package managedBeans;
 
 import entidad.Cliente;
 import entidad.Empleado;
+import entidad.Movimiento;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -16,8 +19,10 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.faces.context.FacesContext;
+import modelo.Dinero;
 import sesion.ClienteFacade;
 import sesion.EmpleadoFacade;
+import sesion.IbanCC;
 
 /**
  *
@@ -37,6 +42,7 @@ public class RegistroBean implements Serializable{
     protected Empleado empleado;
     private String dni;
     private String password;
+    List<movimientoString> movimientos;
     
     private String error, mensajeError, rutaError;
     
@@ -60,6 +66,14 @@ public class RegistroBean implements Serializable{
 
     public String getError() {
         return error;
+    }
+
+    public List<movimientoString> getMovimientos() {
+        return movimientos;
+    }
+
+    public void setMovimientos(List<movimientoString> movimientos) {
+        this.movimientos = movimientos;
     }
 
     public String getMensajeError() {
@@ -103,22 +117,16 @@ public class RegistroBean implements Serializable{
     }
     
     public void registrar(){
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("../usuario/index.xhtml");
-        } catch (IOException ex) {
-            Logger.getLogger(RegistroBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        if(utilidades.Dni.validar(this.getDni())){
-            int dniNumero = utilidades.Dni.obtenerNumero(this.getDni());  
-             
-             empleado = empleadoFacade.validarPassword(dniNumero, this.getPassword());          
+        if(utilidades.Dni.validar(this.dni)){
+            int dniNumero = utilidades.Dni.obtenerNumero(this.dni);  
+             empleado = empleadoFacade.validarPassword(dniNumero, this.password);          
            if(empleado!=null){               
 //               FacesContext.getCurrentInstance().getExternalContext().redirect("../usuario/index.xhtml"); NO ESTA HECHO AUN
            }else{
-               cliente = clienteFacade.validarPassword(dniNumero, this.getPassword());
+               cliente = clienteFacade.validarPassword(dniNumero, this.password);
             if(cliente!=null){
                    try {
+                       listaStringMovimientos();
                        FacesContext.getCurrentInstance().getExternalContext().redirect("../usuario/index.xhtml");
                    } catch (IOException ex) {
                        Logger.getLogger(RegistroBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -138,6 +146,65 @@ public class RegistroBean implements Serializable{
             
 //                FacesContext.getCurrentInstance().getExternalContext().redirect("../usuario/index.xhtml"); NO HECHA AUN
         }
+        
+    }
+    
+    class movimientoString{
+        Movimiento mov;
+        String saldo, ibanRemitente, ibanReceptor, concepto;
+        Date date;
+        
+        public movimientoString(Movimiento m, String s, String iRem, String iRec, String con, Date d){
+            mov = m;
+            saldo = s;
+            ibanRemitente = iRem;
+            ibanReceptor = iRec;
+            concepto = con;
+            date = d;
+        }
+
+        public Movimiento getMov() {
+            return mov;
+        }
+
+        public String getSaldo() {
+            return saldo;
+        }
+
+        public String getIbanRemitente() {
+            return ibanRemitente;
+        }
+
+        public String getIbanReceptor() {
+            return ibanReceptor;
+        }
+
+        public String getConcepto() {
+            return concepto;
+        }
+
+        public Date getDate() {
+            return date;
+        }
+        
+        
+        
+    }
+    
+    public void listaStringMovimientos(){
+        List<Movimiento> movs = clienteFacade.getMovimientosFechaDesc(this.getCliente().getCuenta());
+        
+        for(Movimiento m : movs){
+                            String saldo = new Dinero(m.getCuantia().longValue(),
+                                    m.getDecimales(), m.getDivisa()).toString();
+                            String ibanRemitente;
+                            ibanRemitente = m.getRemitente()==null? "INGRESO" : new IbanCC(m.getRemitente()).getIBAN();
+                            String ibanReceptor;
+                            ibanReceptor = m.getReceptor()==null? "RETIRADA" : new IbanCC(m.getReceptor()).getIBAN();
+                            String concepto = m.getConcepto();
+                            Date date = new Date(m.getFecha().longValue());
+                            movimientos.add(new movimientoString(m,saldo,ibanRemitente,ibanReceptor,concepto,date));
+        } 
         
     }
     
