@@ -25,9 +25,9 @@
                     <div class="col-lg-12 logInForm">
                         <h:form>
                             <pre>Iniciar Sesión</pre>
-                            <pre>DNI : <h:inputText value="#{registrationBean.DNI}" /></pre>
-                            <pre>Password : <h:inputSecret value="#{registrationBean.password}"/></pre>
-                            <pre><h:commandButton value="Enviar" action="#{registrationBean.doRegister()}"/></pre>
+                            <pre>DNI : <h:inputText value="#{registroBean.dni}" /></pre>
+                            <pre>Password : <h:inputSecret value="#{registroBean.password}"/></pre>
+                            <pre><h:commandButton action="#{registroBean.registrar()}" value="Enviar"/></pre>
                         </h:form>    
                     </div>
 

@@ -29,7 +29,7 @@
        <center>>
             <div style="padding-left: 80px; padding-right: 80px; background-color:white; display: inline-block">
  
-                <h1> <a href="login">Inicio de Sesión</a> </h1>
+                <h1> <a href="login/index.xhtml">Inicio de Sesión</a> </h1>
 
             </div>
 

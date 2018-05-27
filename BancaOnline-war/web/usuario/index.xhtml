@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+<!--        <ui:include src="/WEB-INF/jspf/cargar_bootstrap.jspf" />-->
+        <link rel="stylesheet" type="text/css" href="styles.css"></link>
+        <title>Vista Usuario</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+<!--        <ui:include src="/WEB-INF/jspf/cabecera.jspf" />-->
+        
+        <div class="container">
+              <div class="col-sm-6">
+                    Información
+              <div class="row">
+                <div class="col-sm-6">
+                    Información
+                    <div class="row header enmarcado">
+                        <table style="width:100%">
+                            <tr>
+                                <td clas="celdaDato">Cliente:</td>
+                                <td class="celdaValor">#{registroBean.cliente.nombre}</td>
+                            </tr>
+                            
+                            <tr>
+                                <td clas="celdaDato">IBAN:</td>
+                                <td class="celdaValor">#{registroBean.cliente.cuenta.cc}  </td>
+                            </tr>
+                            <tr>
+                                <td class="celdaDato">Saldo:</td>
+                                <td class="celdaValor">#{registroBean.cliente.cuenta.saldo}  </td>
+                            </tr>       
+                        </table>
+                    </div> 
+                </div>
+                
+                <div class="col-sm-6">
+                    <h:form> <!--PONERLE ACCION action="../Blackjack"-->
+                        <!--<button><img src ="res/blackjack.jpg" alt="Juega a nuestro blackjack online!" width="100%"></button>-->
+<!--                        <h:commandButton action="" id="close-image"><img src ="res/blackjack.jpg" alt="Juega a nuestro blackjack online!" width="100%"></img></h:commandButton>-->
+                        
+                    </h:form>
+                    
+                    
+                </div>
+            
+            </div>  <!-- fin de la primera fila -->
+            
+            <div class="container">
+                <div class="row d-flex justify-content-center">       
+                    <a href="transferencia" 
+                        class="btn btn-warning" role="button">Realizar transferencia
+                     </a>
+                </div>
+            </div>
+            
+            
+            Últimos movimientos:
+            
+<!--           <div class="enmarcado row">
+               <table class="col-lg-12" border ="1">
+                    <tr>
+                        <th>Remitente</th>
+                        <th>Receptor</th>
+                        <th>Cantidad</th>
+                        <th>Concepto</th>
+                        <th>Fecha</th>
+
+                    </tr>
+
+                <%
+                    if(movimientos != null){
+                        for(Movimiento m : movimientos){
+                            String saldo = new Dinero(m.getCuantia().longValue(),
+                                    m.getDecimales(), m.getDivisa()).toString();
+                            String ibanRemitente;
+                            ibanRemitente = m.getRemitente()==null? "INGRESO" : new IbanCC(m.getRemitente()).getIBAN();
+                            String ibanReceptor;
+                            ibanReceptor = m.getReceptor()==null? "RETIRADA" : new IbanCC(m.getReceptor()).getIBAN();
+                            %>
+                            <tr>
+                            <td><%=ibanRemitente%>
+                            <td><%=ibanReceptor%>
+                            <td><%=saldo%>
+                            <td><%=m.getConcepto()%>
+                            <td><%=new Date(m.getFecha().longValue() )%>
+                            <tr>    
+
+                            <%
+                        }
+                    }
+                %>
+
+                </table>
+                </div>
+                <br/>
+                <div class="row d-flex justify-content-center">
+
+                    <a href="VerMovimientos?idCliente=<%=cliente.getDni() %>" 
+                        accesskey=""class="btn btn-info" role="button">Ver Movimientos
+                    </a> 
+-->
+                </div>
+            </div>
+        
+    </h:body>
+</html>

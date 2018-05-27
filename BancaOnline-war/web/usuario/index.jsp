@@ -41,7 +41,9 @@
         <%@ include file="/WEB-INF/jspf/cabecera.jspf"%>
  
         <div class="container">
-            <div class="row">
+              <div class="col-sm-6">
+                    Información
+              <div class="row">
                 <div class="col-sm-6">
                     Información
                     <div class="row header enmarcado">
