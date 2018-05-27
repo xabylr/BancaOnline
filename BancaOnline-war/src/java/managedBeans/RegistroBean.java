@@ -10,6 +10,7 @@ import entidad.Empleado;
 import entidad.Movimiento;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,6 +19,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import modelo.Dinero;
 import sesion.ClienteFacade;
@@ -29,7 +31,7 @@ import sesion.IbanCC;
  * @author Abel
  */
 @Named(value = "registroBean")
-@Dependent
+@RequestScoped
 public class RegistroBean implements Serializable{
 
     @EJB
@@ -40,9 +42,9 @@ public class RegistroBean implements Serializable{
     
     protected Cliente cliente;
     protected Empleado empleado;
-    private String dni;
-    private String password;
-    List<movimientoString> movimientos;
+    protected String dni;
+    protected String password;
+    protected List<movimientoString> movimientos;
     
     private String error, mensajeError, rutaError;
     
@@ -117,12 +119,16 @@ public class RegistroBean implements Serializable{
     }
     
     public void registrar(){
+        System.out.println("Java Siempremente malo " + dni);
+        
         if(utilidades.Dni.validar(this.dni)){
             int dniNumero = utilidades.Dni.obtenerNumero(this.dni);  
-             empleado = empleadoFacade.validarPassword(dniNumero, this.password);          
+             empleado = empleadoFacade.validarPassword(dniNumero, this.password); 
+             System.out.println("Java malo");
            if(empleado!=null){               
-//               FacesContext.getCurrentInstance().getExternalContext().redirect("../usuario/index.xhtml"); NO ESTA HECHO AUN
+               //FacesContext.getCurrentInstance().getExternalContext().redirect("../usuario/index.xhtml"); NO ESTA HECHO AUN
            }else{
+               System.out.println("Java siempre malo");
                cliente = clienteFacade.validarPassword(dniNumero, this.password);
             if(cliente!=null){
                    try {
@@ -193,6 +199,7 @@ public class RegistroBean implements Serializable{
     
     public void listaStringMovimientos(){
         List<Movimiento> movs = clienteFacade.getMovimientosFechaDesc(this.getCliente().getCuenta());
+        movimientos = new ArrayList<>(); // :c
         
         for(Movimiento m : movs){
                             String saldo = new Dinero(m.getCuantia().longValue(),

@@ -15,6 +15,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.RequestDispatcher;
 import sesion.ClienteFacade;
@@ -26,7 +27,7 @@ import sesion.IbanCC;
  * @author Jose Santos
  */
 @Named(value = "altaUsuarioBean")
-@Dependent
+@RequestScoped
 public class AltaUsuarioBean implements Serializable{
 
     @EJB
