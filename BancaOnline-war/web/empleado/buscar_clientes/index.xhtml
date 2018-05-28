@@ -21,41 +21,51 @@ and open the template in the editor.
     </h:head>
     
         <h:body class="container">
-        <h:form>
-            <h:dataTable value="#{buscarClientes.clientes}" var="cliente" border="1">
-                <h:column>
-                    <f:facet name="header">
-                        DNI
-                    </f:facet>
-                    #{cliente.dni}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        NOMBRE
-                    </f:facet>
-                    #{cliente.nombre}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        APELLIDOS
-                    </f:facet>
-                    #{cliente.apellidos}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        CUENTA
-                    </f:facet>
-                    #{cliente.cuenta.cc}
-                </h:column>
+            
+            <h:form id="criteria">
+                <h:selectOneMenu value="#{buscarClientes.criterio}">
+                    
+                    <f:selectItems value="#{buscarClientes.criterios}"/>
+                </h:selectOneMenu>
+                <h:inputText value="#{buscarClientes.valor}"/>
+                <h:commandButton action="#{buscarClientes.searchByCriteria()}" value="Buscar"/>
+            </h:form>
+            <br/>
+            <h:form id="movimientos">
+                <h:dataTable value="#{buscarClientes.clientes}" id="tabla" var="cliente" border="1">
+                    <h:column>
+                        <f:facet name="header">
+                            DNI
+                        </f:facet>
+                        #{cliente.dni}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            NOMBRE
+                        </f:facet>
+                        #{cliente.nombre}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            APELLIDOS
+                        </f:facet>
+                        #{cliente.apellidos}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            CUENTA
+                        </f:facet>
+                        #{cliente.cuenta.cc}
+                    </h:column>
 
-                <h:column>
-                    <h:commandButton action="index" value="Ver Movimientos" />
-                </h:column>            
-                <h:column>
-                    <h:commandButton action="index" value="Editar" />
-                </h:column>
+                    <h:column>
+                        <h:commandButton action="index" value="Ver Movimientos" />
+                    </h:column>            
+                    <h:column>
+                        <h:commandButton action="index" value="Editar" />
+                    </h:column>
 
-            </h:dataTable>
-        </h:form>
-    </h:body>
+                </h:dataTable>
+            </h:form>
+        </h:body>
 </html>
