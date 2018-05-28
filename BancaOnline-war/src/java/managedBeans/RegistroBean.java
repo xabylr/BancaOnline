@@ -5,27 +5,18 @@
  */
 package managedBeans;
 
-import utilidades.*;
+
 import entidad.Cliente;
 import entidad.Empleado;
-import entidad.Movimiento;
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
-import modelo.Dinero;
 import sesion.ClienteFacade;
 import sesion.EmpleadoFacade;
-import sesion.IbanCC;
+
 
 /**
  *
@@ -119,58 +110,66 @@ public class RegistroBean implements Serializable{
         this.password = password;
     }
     
-    public void registrar(){
-        System.out.println("Java Siempremente malo " + dni);
+    public String registrar(){
+        String ruta = "";
         
         if(utilidades.Dni.validar(this.dni)){
             int dniNumero = utilidades.Dni.obtenerNumero(this.dni);  
              empleado = empleadoFacade.validarPassword(dniNumero, this.password); 
-             System.out.println("Java malo");
-           if(empleado!=null){               
-               //FacesContext.getCurrentInstance().getExternalContext().redirect("../usuario/index.xhtml"); NO ESTA HECHO AUN
+             
+           if(empleado!=null){ 
+               
+               /* try {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("../empleado/index.xhtml");
+                } catch (IOException ex) {
+                    Logger.getLogger(RegistroBean.class.getName()).log(Level.SEVERE, null, ex);
+                }*/
+               ruta ="/empleado/index.xhtml";
            }else{
-               System.out.println("Java siempre malo");
                cliente = clienteFacade.validarPassword(dniNumero, this.password);
             if(cliente!=null){
-                   try {
+                   /*try {
                        listaStringMovimientos();
                        FacesContext.getCurrentInstance().getExternalContext().redirect("../usuario/index.xhtml");
                    } catch (IOException ex) {
                        Logger.getLogger(RegistroBean.class.getName()).log(Level.SEVERE, null, ex);
-                   }
+                   }*/
+                   ruta = "/usuario/index.html";
             }else{
                 this.setError("Error en el login :");
                 this.setMensajeError("DNI o contraseña incorrecto");
                 this.setRutaError(FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath());
-            
+                ruta = "index";
 //                FacesContext.getCurrentInstance().getExternalContext().redirect("../usuario/index.xhtml"); NO HECHA AUN
             }
            }
         } else{//Código DNI inválido
             this.setError("Error en el login :");
-                this.setMensajeError("DNI o contraseña incorrecto");
-                this.setRutaError(FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath());
+            this.setMensajeError("DNI o contraseña incorrecto");
+            this.setRutaError(FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath());
             
+            ruta = "index";
 //                FacesContext.getCurrentInstance().getExternalContext().redirect("../usuario/index.xhtml"); NO HECHA AUN
         }    
+        return ruta;
     }
-    
+   /* 
     public void listaStringMovimientos(){
         List<Movimiento> movs = clienteFacade.getMovimientosFechaDesc(this.getCliente().getCuenta());
         movimientos = new ArrayList<>(); // :c
         
         for(Movimiento m : movs){
-                            String saldo = new Dinero(m.getCuantia().longValue(),
-                                    m.getDecimales(), m.getDivisa()).toString();
-                            String ibanRemitente;
-                            ibanRemitente = m.getRemitente()==null? "INGRESO" : new IbanCC(m.getRemitente()).getIBAN();
-                            String ibanReceptor;
-                            ibanReceptor = m.getReceptor()==null? "RETIRADA" : new IbanCC(m.getReceptor()).getIBAN();
-                            String concepto = m.getConcepto();
-                            Date date = new Date(m.getFecha().longValue());
-                            movimientos.add(new MovimientoString(m,saldo,ibanRemitente,ibanReceptor,concepto,date));
+            String saldo = new Dinero(m.getCuantia().longValue(),
+            m.getDecimales(), m.getDivisa()).toString();
+            String ibanRemitente;
+            ibanRemitente = m.getRemitente()==null? "INGRESO" : new IbanCC(m.getRemitente()).getIBAN();
+            String ibanReceptor;
+            ibanReceptor = m.getReceptor()==null? "RETIRADA" : new IbanCC(m.getReceptor()).getIBAN();
+            String concepto = m.getConcepto();
+            Date date = new Date(m.getFecha().longValue());
+            movimientos.add(new MovimientoString(m,saldo,ibanRemitente,ibanReceptor,concepto,date));
         } 
         
     }
-    
+    */
 }
