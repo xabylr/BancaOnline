@@ -5,6 +5,7 @@
  */
 package managedBeans;
 
+import utilidades.*;
 import entidad.Cliente;
 import entidad.Empleado;
 import entidad.Movimiento;
@@ -151,50 +152,7 @@ public class RegistroBean implements Serializable{
                 this.setRutaError(FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath());
             
 //                FacesContext.getCurrentInstance().getExternalContext().redirect("../usuario/index.xhtml"); NO HECHA AUN
-        }
-        
-    }
-    
-    class MovimientoString{
-        Movimiento mov;
-        String saldo, ibanRemitente, ibanReceptor, concepto;
-        Date date;
-        
-        public MovimientoString(Movimiento m, String s, String iRem, String iRec, String con, Date d){
-            mov = m;
-            saldo = s;
-            ibanRemitente = iRem;
-            ibanReceptor = iRec;
-            concepto = con;
-            date = d;
-        }
-
-        public Movimiento getMov() {
-            return mov;
-        }
-
-        public String getSaldo() {
-            return saldo;
-        }
-
-        public String getIbanRemitente() {
-            return ibanRemitente;
-        }
-
-        public String getIbanReceptor() {
-            return ibanReceptor;
-        }
-
-        public String getConcepto() {
-            return concepto;
-        }
-
-        public Date getDate() {
-            return date;
-        }
-        
-        
-        
+        }    
     }
     
     public void listaStringMovimientos(){
