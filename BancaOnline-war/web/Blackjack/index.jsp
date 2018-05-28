@@ -1,3 +1,5 @@
+<%@page import="java.awt.Toolkit"%>
+<%@page import="java.awt.Dimension"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
@@ -24,9 +26,6 @@
             breadcrumb.add(new String[] { "#", "Blackjack" });
  
     %>
-    
-    
-    
            
   </head>
   <body>

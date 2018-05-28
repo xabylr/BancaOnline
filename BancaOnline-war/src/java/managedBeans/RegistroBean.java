@@ -44,7 +44,7 @@ public class RegistroBean implements Serializable{
     protected Empleado empleado;
     protected String dni;
     protected String password;
-    protected List<movimientoString> movimientos;
+    protected List<MovimientoString> movimientos;
     
     private String error, mensajeError, rutaError;
     
@@ -70,11 +70,11 @@ public class RegistroBean implements Serializable{
         return error;
     }
 
-    public List<movimientoString> getMovimientos() {
+    public List<MovimientoString> getMovimientos() {
         return movimientos;
     }
 
-    public void setMovimientos(List<movimientoString> movimientos) {
+    public void setMovimientos(List<MovimientoString> movimientos) {
         this.movimientos = movimientos;
     }
 
@@ -155,12 +155,12 @@ public class RegistroBean implements Serializable{
         
     }
     
-    class movimientoString{
+    class MovimientoString{
         Movimiento mov;
         String saldo, ibanRemitente, ibanReceptor, concepto;
         Date date;
         
-        public movimientoString(Movimiento m, String s, String iRem, String iRec, String con, Date d){
+        public MovimientoString(Movimiento m, String s, String iRem, String iRec, String con, Date d){
             mov = m;
             saldo = s;
             ibanRemitente = iRem;
@@ -210,7 +210,7 @@ public class RegistroBean implements Serializable{
                             ibanReceptor = m.getReceptor()==null? "RETIRADA" : new IbanCC(m.getReceptor()).getIBAN();
                             String concepto = m.getConcepto();
                             Date date = new Date(m.getFecha().longValue());
-                            movimientos.add(new movimientoString(m,saldo,ibanRemitente,ibanReceptor,concepto,date));
+                            movimientos.add(new MovimientoString(m,saldo,ibanRemitente,ibanReceptor,concepto,date));
         } 
         
     }
