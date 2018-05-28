@@ -8,14 +8,20 @@ package managedBeans;
 
 import entidad.Cliente;
 import entidad.Empleado;
+import entidad.Movimiento;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import modelo.Dinero;
 import sesion.ClienteFacade;
 import sesion.EmpleadoFacade;
+import sesion.IbanCC;
+import utilidades.MovimientoString;
 
 
 /**
@@ -139,7 +145,7 @@ public class RegistroBean implements Serializable{
                 this.setError("Error en el login :");
                 this.setMensajeError("DNI o contraseña incorrecto");
                 this.setRutaError(FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath());
-                ruta = "index";
+                ruta = "/../errorLogin.html";
 //                FacesContext.getCurrentInstance().getExternalContext().redirect("../usuario/index.xhtml"); NO HECHA AUN
             }
            }
@@ -148,12 +154,12 @@ public class RegistroBean implements Serializable{
             this.setMensajeError("DNI o contraseña incorrecto");
             this.setRutaError(FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath());
             
-            ruta = "index";
+            ruta = "/../errorLogin.html";
 //                FacesContext.getCurrentInstance().getExternalContext().redirect("../usuario/index.xhtml"); NO HECHA AUN
         }    
         return ruta;
     }
-   /* 
+    
     public void listaStringMovimientos(){
         List<Movimiento> movs = clienteFacade.getMovimientosFechaDesc(this.getCliente().getCuenta());
         movimientos = new ArrayList<>(); // :c
@@ -171,5 +177,5 @@ public class RegistroBean implements Serializable{
         } 
         
     }
-    */
+    
 }
