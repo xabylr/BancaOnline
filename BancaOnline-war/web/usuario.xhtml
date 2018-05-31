@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/plantillaUsuario.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <ui:define name="titulo">
+        Visión general de [INSERTAR USUARIO]
+    </ui:define>
+    
+    <ui:define name="contenido">
+        <div class="container">
+              <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-6">
+                    Información
+                    <div class="row header enmarcado">
+                        <table style="width:100%">
+                            <tr>
+                                <td clas="celdaDato">Cliente:</td>
+                                <td class="celdaValor">#{registroBean.cliente.nombre}</td>
+                            </tr>
+                            
+                            <tr>
+                                <td clas="celdaDato">IBAN:</td>
+                                <td class="celdaValor">#{registroBean.cliente.cuenta.cc}  </td>
+                            </tr>
+                            <tr>
+                                <td class="celdaDato">Saldo:</td>
+                                <td class="celdaValor">#{registroBean.cliente.cuenta.saldo}  </td>
+                            </tr>       
+                        </table>
+                    </div> 
+                </div>
+                
+                <div class="col-sm-6">
+                    
+                    <a href="../Blackjack/index.xhtml">
+                    <img src ="res/blackjack.jpg" alt="Juega a nuestro blackjack online!" width="100%"/>
+                    </a>
+<!--                    <h:form> PONERLE ACCION action="../Blackjack"
+                        <button><img src ="res/blackjack.jpg" alt="Juega a nuestro blackjack online!" width="100%"/></button>
+                       <h:commandButton action="" id="close-image"><img src ="res/blackjack.jpg" alt="Juega a nuestro blackjack online!" width="100%"></img></h:commandButton>
+                        
+                    </h:form>-->
+                    
+                    
+                </div>
+            
+            </div>  <!-- fin de la primera fila -->
+            
+            <div class="container">
+                <div class="row d-flex justify-content-center">       
+                    <a href="transferencia" 
+                        class="btn btn-warning" role="button">Realizar transferencia
+                     </a>
+                </div>
+            </div>
+            
+            
+            Últimos movimientos:
+            
+          <div class="enmarcado row">
+              <h:dataTable value="#{registroBean.movimientos}" var="movimiento" class="col-lg-12" border ="1">
+                    <tr>
+                        <th>Remitente</th>
+                        <th>Receptor</th>
+                        <th>Cantidad</th>
+                        <th>Concepto</th>
+                        <th>Fecha</th>
+
+                    </tr>
+                            <tr>
+                                <td>#{movimiento.ibanRemitente}</td>
+                                <td>#{movimiento.ibanReceptor}</td>
+                                <td>#{movimiento.saldo}</td>
+                                <td>#{movimiento.concepto}</td>
+                                <td>#{movimiento.date}</td>
+                            </tr>
+                </h:dataTable>
+            <!--     </div>
+                <br/>
+                <div class="row d-flex justify-content-center">
+
+                    <a href="VerMovimientos?idCliente=<%=cliente.getDni() %>" 
+                        accesskey=""class="btn btn-info" role="button">Ver Movimientos
+                    </a> 
+-->
+                </div>
+            </div>
+        </div>
+        
+        </ui:define>  
+</ui:composition>   

@@ -1,38 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedBeans;
 
 import entidad.Cliente;
 import entidad.Empleado;
 import entidad.Movimiento;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import modelo.Dinero;
 import sesion.ClienteFacade;
 import sesion.EmpleadoFacade;
 import sesion.IbanCC;
 
-/**
- *
- * @author Abel
- */
-@Named(value = "registroBean")
-@RequestScoped
-public class RegistroBean implements Serializable{
+
+@Named(value = "loginBean")
+@SessionScoped
+public class LoginBean implements Serializable{
 
     @EJB
     private EmpleadoFacade empleadoFacade;
@@ -44,14 +31,13 @@ public class RegistroBean implements Serializable{
     protected Empleado empleado;
     protected String dni;
     protected String password;
-    protected List<MovimientoString> movimientos;
     
     private String error, mensajeError, rutaError;
     
     /**
      * Creates a new instance of RegistroBean
      */
-    public RegistroBean() {
+    public LoginBean() {
     }
 
     public Cliente getCliente() {
@@ -68,14 +54,6 @@ public class RegistroBean implements Serializable{
 
     public String getError() {
         return error;
-    }
-
-    public List<MovimientoString> getMovimientos() {
-        return movimientos;
-    }
-
-    public void setMovimientos(List<MovimientoString> movimientos) {
-        this.movimientos = movimientos;
     }
 
     public String getMensajeError() {
@@ -118,25 +96,16 @@ public class RegistroBean implements Serializable{
         this.password = password;
     }
     
-    public void registrar(){
-        System.out.println("Java Siempremente malo " + dni);
-        
-        if(utilidades.Dni.validar(this.dni)){
-            int dniNumero = utilidades.Dni.obtenerNumero(this.dni);  
-             empleado = empleadoFacade.validarPassword(dniNumero, this.password); 
-             System.out.println("Java malo");
+    public String validarLogin(){     
+        if(utilidades.Dni.validar(dni)){
+            int dniNumero = utilidades.Dni.obtenerNumero(dni);  
+             empleado = empleadoFacade.validarPassword(dniNumero, password); 
            if(empleado!=null){               
-               //FacesContext.getCurrentInstance().getExternalContext().redirect("../usuario/index.xhtml"); NO ESTA HECHO AUN
+               //NO ESTA HECHO AÚN
            }else{
-               System.out.println("Java siempre malo");
-               cliente = clienteFacade.validarPassword(dniNumero, this.password);
+               cliente = clienteFacade.validarPassword(dniNumero, password);
             if(cliente!=null){
-                   try {
-                       listaStringMovimientos();
-                       FacesContext.getCurrentInstance().getExternalContext().redirect("../usuario/index.xhtml");
-                   } catch (IOException ex) {
-                       Logger.getLogger(RegistroBean.class.getName()).log(Level.SEVERE, null, ex);
-                   }
+                return "usuario";
             }else{
                 this.setError("Error en el login :");
                 this.setMensajeError("DNI o contraseña incorrecto");
@@ -152,7 +121,7 @@ public class RegistroBean implements Serializable{
             
 //                FacesContext.getCurrentInstance().getExternalContext().redirect("../usuario/index.xhtml"); NO HECHA AUN
         }
-        
+        return null;
     }
     
     class MovimientoString{
@@ -197,22 +166,7 @@ public class RegistroBean implements Serializable{
         
     }
     
-    public void listaStringMovimientos(){
-        List<Movimiento> movs = clienteFacade.getMovimientosFechaDesc(this.getCliente().getCuenta());
-        movimientos = new ArrayList<>(); // :c
-        
-        for(Movimiento m : movs){
-                            String saldo = new Dinero(m.getCuantia().longValue(),
-                                    m.getDecimales(), m.getDivisa()).toString();
-                            String ibanRemitente;
-                            ibanRemitente = m.getRemitente()==null? "INGRESO" : new IbanCC(m.getRemitente()).getIBAN();
-                            String ibanReceptor;
-                            ibanReceptor = m.getReceptor()==null? "RETIRADA" : new IbanCC(m.getReceptor()).getIBAN();
-                            String concepto = m.getConcepto();
-                            Date date = new Date(m.getFecha().longValue());
-                            movimientos.add(new MovimientoString(m,saldo,ibanRemitente,ibanReceptor,concepto,date));
-        } 
-        
-    }
+    
+
     
 }
