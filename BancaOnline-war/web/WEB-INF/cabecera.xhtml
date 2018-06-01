@@ -5,46 +5,23 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <nav class="navbar">
-        <div class="container-fluid">
-
-            <div class="navbar-header">
-                <a class="navbar-brand" style="color: #cc0000" href="/BancaOnline"><b>UMA BANK</b></a>          
-            </div>
-
-
-
-            <ul class="nav navbar-bar"> 
-                <li>
-                    <ul class="breadcrumb">
-
-                        <%
-                        for (String [] elemento : breadcrumb ){
-                        out.print("/<li ><a href=\""+elemento[0]+"\">"+elemento[1]+"</a></li>"  );
-
-                        }
-                        %>
-
-                    </ul>
-
-                </li> 
-            </ul>
-
-            <div>
-                <span>Hola <a href="<%= home %>"> <%=nombre%> </a>!</span>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Menu
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <button class="dropdown-item" type="button"><a href="#">Ayuda</a></button>
-                        <button class="dropdown-item" type="button"><a href="/BancaOnline/CerrarSesion">Cerrar Sesión</a></button>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-    </nav>
-
+    
+    <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+       <a class="navbar-brand" style="color: #cc0000" href="/BancaOnline"><b>UMA BANK</b></a> 
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="#">Hola, [NOMBRE]</a></li>
+      <li class="active"><a href="#">Inicio</a></li>
+      <li><a href="#">Page 1</a></li>
+      <li><a href="#">Page 2</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"> Idioma</a></li>
+      <li><a href="/BancaOnline/CerrarSesion"> Cerrar Sesión    </a></li>
+    </ul>
+  </div>
+</nav>
+    
 </ui:composition>
