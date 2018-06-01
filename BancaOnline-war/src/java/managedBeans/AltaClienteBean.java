@@ -26,9 +26,9 @@ import sesion.IbanCC;
  *
  * @author Jose Santos
  */
-@Named(value = "altaUsuarioBean")
+@Named(value = "altaClienteBean")
 @RequestScoped
-public class AltaUsuarioBean implements Serializable{
+public class AltaClienteBean implements Serializable{
 
     @EJB
     private CuentacorrienteFacade cuentacorrienteFacade;
@@ -54,9 +54,9 @@ public class AltaUsuarioBean implements Serializable{
     
     
     /**
-     * Creates a new instance of AltaUsuarioBean
+     * Creates a new instance of AltaClienteBean
      */
-    public AltaUsuarioBean() {
+    public AltaClienteBean() {
     }
     
     public Cuentacorriente getCuenta() {
@@ -210,7 +210,7 @@ public class AltaUsuarioBean implements Serializable{
         }catch (IllegalArgumentException e){
                 /*request.setAttribute("terror", "Error en el formulario");
             request.setAttribute("error", "Motivo del error: "+e.getMessage());
-            request.setAttribute("rerror", response.encodeRedirectURL(request.getContextPath() + "/empleado/altaUsuario/"));
+            request.setAttribute("rerror", response.encodeRedirectURL(request.getContextPath() + "/empleado/altaCliente/"));
             rd = (RequestDispatcher)this.getServletContext().getRequestDispatcher("/avisos/error.jsp");
             rd.forward(request, response);*/
                 
@@ -221,14 +221,14 @@ public class AltaUsuarioBean implements Serializable{
         }catch (Exception e) {
             
             /*request.setAttribute("terror", "Error no identificado");
-            request.setAttribute("error", "Ha sucedido un error inesperado al dar de alta un nuevo usuario "
+            request.setAttribute("error", "Ha sucedido un error inesperado al dar de alta un nuevo cliente "
                     + ". Revisa los datos y vuelve a intentarlo. Excepción: "+e.getMessage());
-            request.setAttribute("rerror", response.encodeRedirectURL(request.getContextPath() + "/empleado/altaUsuario/"));
+            request.setAttribute("rerror", response.encodeRedirectURL(request.getContextPath() + "/empleado/altaCliente/"));
             rd = (RequestDispatcher)this.getServletContext().getRequestDispatcher("/avisos/error.jsp");
             rd.forward(request, response);*/
             
             this.setTerror("Error no identificado");
-            this.setError("Ha sucedido un error inesperado al dar de alta un nuevo usuario");
+            this.setError("Ha sucedido un error inesperado al dar de alta un nuevo cliente");
             this.setRutaerror(FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath());
         }
         

@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import modelo.Dinero;
 import sesion.ClienteFacade;
 import sesion.DineroCC;
@@ -20,16 +21,15 @@ import sesion.IbanCC;
 @Named(value = "loginBean")
 @SessionScoped
 public class LoginBean implements Serializable {
-
-    @EJB
-    private EmpleadoFacade empleadoFacade;
-
+    @Inject
+    private ClienteBean clienteBean;
     
+    @EJB
+    private EmpleadoFacade empleadoFacade;    
 
     @EJB
     private ClienteFacade clienteFacade;
 
-    protected Cliente cliente;
     protected Empleado empleado;
     protected String dni;
     protected String password;
@@ -40,10 +40,6 @@ public class LoginBean implements Serializable {
      * Creates a new instance of RegistroBean
      */
     public LoginBean() {
-    }
-
-    public Cliente getCliente() {
-        return cliente;
     }
 
     public Empleado getEmpleado() {
@@ -70,10 +66,6 @@ public class LoginBean implements Serializable {
         return password;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
     public void setEmpleado(Empleado empleado) {
         this.empleado = empleado;
     }
@@ -97,18 +89,6 @@ public class LoginBean implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public String getNombreYApellidos(){
-        return cliente.getNombre() + " " + cliente.getApellidos();
-    }
-    
-    public IbanCC getIban(){
-        return new IbanCC(cliente.getCuenta());
-    }
-    
-    public DineroCC getSaldo(){
-        return new DineroCC(cliente.getCuenta());
-    }
     
     public String validarLogin() {
         if (utilidades.Dni.validar(dni)) {
@@ -117,8 +97,8 @@ public class LoginBean implements Serializable {
             if (empleado != null) {
                 //NO ESTA HECHO AÚN
             } else {
-                cliente = clienteFacade.validarPassword(dniNumero, password);
-                if (cliente != null) {
+                clienteBean.setCliente(clienteFacade.validarPassword(dniNumero, password));
+                if (clienteBean.getCliente() != null) {
                     return "usuario";
                 } else {
                     this.setError("Error en el login :");
@@ -134,47 +114,5 @@ public class LoginBean implements Serializable {
             //FacesContext.getCurrentInstance().getExternalContext().redirect("../usuario/index.xhtml"); NO HECHA AUN
         }
         return null;
-    }
-
-    /*class MovimientoString{
-        Movimiento mov;
-        String saldo, ibanRemitente, ibanReceptor, concepto;
-        Date date;
-        
-        public MovimientoString(Movimiento m, String s, String iRem, String iRec, String con, Date d){
-            mov = m;
-            saldo = s;
-            ibanRemitente = iRem;
-            ibanReceptor = iRec;
-            concepto = con;
-            date = d;
-        }
-
-        public Movimiento getMov() {
-            return mov;
-        }
-
-        public String getSaldo() {
-            return saldo;
-        }
-
-        public String getIbanRemitente() {
-            return ibanRemitente;
-        }
-
-        public String getIbanReceptor() {
-            return ibanReceptor;
-        }
-
-        public String getConcepto() {
-            return concepto;
-        }
-
-        public Date getDate() {
-            return date;
-        }
-        
-        
-        
-    }*/
+    }    
 }

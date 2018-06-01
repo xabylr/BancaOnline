@@ -6,7 +6,7 @@
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     
     <ui:define name="titulo">
-        Visión general de [INSERTAR USUARIO]
+        Visión general de #{clienteBean.cliente.nombre}
     </ui:define>
     
     <ui:define name="contenido">
@@ -19,16 +19,16 @@
                         <table style="width:100%">
                             <tr>
                                 <td clas="celdaDato">Cliente:</td>
-                                <td class="celdaValor">#{loginBean.getNombreYApellidos()}</td>
+                                <td class="celdaValor">#{clienteBean.getNombreYApellidos()}</td>
                             </tr>
                             
                             <tr>
                                 <td clas="celdaDato">IBAN:</td>
-                                <td class="celdaValor">#{loginBean.getIban()}</td>
+                                <td class="celdaValor">#{clienteBean.getIban()}</td>
                             </tr>
                             <tr>
                                 <td class="celdaDato">Saldo:</td>
-                                <td class="celdaValor">#{loginBean.getSaldo()}</td>
+                                <td class="celdaValor">#{clienteBean.getSaldo()}</td>
                             </tr>       
                         </table>
                     </div> 
