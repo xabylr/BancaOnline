@@ -6,10 +6,17 @@
 package managedBeans;
 
 import entidad.Cliente;
+import entidad.Movimiento;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.SessionScoped;
+import modelo.Dinero;
+import sesion.ClienteFacade;
 import sesion.DineroCC;
 import sesion.IbanCC;
 
@@ -21,20 +28,24 @@ import sesion.IbanCC;
 @SessionScoped
 public class ClienteBean implements Serializable{
 
-    protected entidad.Cliente cliente;
+    @EJB
+    private ClienteFacade clienteFacade;
 
+    protected entidad.Cliente cliente;
+    List<MovimientoString> movimientos = new ArrayList<>();    
+    
+    /**
+     * Creates a new instance of Cliente
+     */
+    public ClienteBean() {
+    }
+    
     public Cliente getCliente() {
         return cliente;
     }
     
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
-    }
-    
-    /**
-     * Creates a new instance of Cliente
-     */
-    public ClienteBean() {
     }
     
     public String getNombreYApellidos(){
@@ -49,7 +60,7 @@ public class ClienteBean implements Serializable{
         return new DineroCC(cliente.getCuenta());
     }
     
-    /*class MovimientoString{
+    class MovimientoString{
         Movimiento mov;
         String saldo, ibanRemitente, ibanReceptor, concepto;
         Date date;
@@ -86,8 +97,22 @@ public class ClienteBean implements Serializable{
         public Date getDate() {
             return date;
         }
+    }
+    
+    @PostConstruct
+    public void init(){
+        List<Movimiento> movs = clienteFacade.getMovimientosFechaDesc(this.getCliente().getCuenta());
         
-        
-        
-    }*/
+        for (Movimiento m : movs) {
+            String saldo = new Dinero(m.getCuantia().longValue(),
+                    m.getDecimales(), m.getDivisa()).toString();
+            String ibanRemitente;
+            ibanRemitente = m.getRemitente() == null ? "INGRESO" : new IbanCC(m.getRemitente()).getIBAN();
+            String ibanReceptor;
+            ibanReceptor = m.getReceptor() == null ? "RETIRADA" : new IbanCC(m.getReceptor()).getIBAN();
+            String concepto = m.getConcepto();
+            Date date = new Date(m.getFecha().longValue());
+            movimientos.add(new MovimientoString(m, saldo, ibanRemitente, ibanReceptor, concepto, date));
+        }
+    }
 }

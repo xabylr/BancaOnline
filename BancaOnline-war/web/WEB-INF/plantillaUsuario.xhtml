@@ -14,7 +14,9 @@
         <title><ui:insert name="titulo">Sin Título</ui:insert></title>
     </h:head>
     <h:body>
-        <ui:include src="/WEB-INF/cabecera.xhtml"/>
+        <ui:include src="/WEB-INF/cabecera.xhtml">
+            <ui:param name="nombre" value="#{clienteBean.cliente.nombre}"/>
+        </ui:include>
         
         <ui:insert name="contenido">
             <h1>Plantilla de contenido</h1>
