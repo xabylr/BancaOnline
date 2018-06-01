@@ -99,7 +99,7 @@ public class LoginBean implements Serializable {
             } else {
                 clienteBean.setCliente(clienteFacade.validarPassword(dniNumero, password));
                 if (clienteBean.getCliente() != null) {
-                    return "usuario";
+                    return "cliente";
                 } else {
                     this.setError("Error en el login :");
                     this.setMensajeError("DNI o contraseña incorrecto");

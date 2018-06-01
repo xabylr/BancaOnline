@@ -99,20 +99,20 @@ public class ClienteBean implements Serializable{
         }
     }
     
-    @PostConstruct
-    public void init(){
-        List<Movimiento> movs = clienteFacade.getMovimientosFechaDesc(this.getCliente().getCuenta());
-        
-        for (Movimiento m : movs) {
-            String saldo = new Dinero(m.getCuantia().longValue(),
-                    m.getDecimales(), m.getDivisa()).toString();
-            String ibanRemitente;
-            ibanRemitente = m.getRemitente() == null ? "INGRESO" : new IbanCC(m.getRemitente()).getIBAN();
-            String ibanReceptor;
-            ibanReceptor = m.getReceptor() == null ? "RETIRADA" : new IbanCC(m.getReceptor()).getIBAN();
-            String concepto = m.getConcepto();
-            Date date = new Date(m.getFecha().longValue());
-            movimientos.add(new MovimientoString(m, saldo, ibanRemitente, ibanReceptor, concepto, date));
-        }
-    }
+//    @PostConstruct
+//    public void init(){
+//        List<Movimiento> movs = clienteFacade.getMovimientosFechaDesc(this.getCliente().getCuenta());
+//        
+//        for (Movimiento m : movs) {
+//            String saldo = new Dinero(m.getCuantia().longValue(),
+//                    m.getDecimales(), m.getDivisa()).toString();
+//            String ibanRemitente;
+//            ibanRemitente = m.getRemitente() == null ? "INGRESO" : new IbanCC(m.getRemitente()).getIBAN();
+//            String ibanReceptor;
+//            ibanReceptor = m.getReceptor() == null ? "RETIRADA" : new IbanCC(m.getReceptor()).getIBAN();
+//            String concepto = m.getConcepto();
+//            Date date = new Date(m.getFecha().longValue());
+//            movimientos.add(new MovimientoString(m, saldo, ibanRemitente, ibanReceptor, concepto, date));
+//        }
+//    }
 }
