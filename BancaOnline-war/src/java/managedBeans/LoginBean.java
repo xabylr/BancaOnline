@@ -13,27 +13,29 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import modelo.Dinero;
 import sesion.ClienteFacade;
+import sesion.DineroCC;
 import sesion.EmpleadoFacade;
 import sesion.IbanCC;
 
-
 @Named(value = "loginBean")
 @SessionScoped
-public class LoginBean implements Serializable{
+public class LoginBean implements Serializable {
 
     @EJB
     private EmpleadoFacade empleadoFacade;
 
+    
+
     @EJB
     private ClienteFacade clienteFacade;
-    
+
     protected Cliente cliente;
     protected Empleado empleado;
     protected String dni;
     protected String password;
-    
+
     private String error, mensajeError, rutaError;
-    
+
     /**
      * Creates a new instance of RegistroBean
      */
@@ -44,12 +46,12 @@ public class LoginBean implements Serializable{
         return cliente;
     }
 
-    public String getDni() {
-        return dni;
-    }
-
     public Empleado getEmpleado() {
         return empleado;
+    }
+
+    public String getDni() {
+        return dni;
     }
 
     public String getError() {
@@ -95,36 +97,46 @@ public class LoginBean implements Serializable{
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getNombreYApellidos(){
+        return cliente.getNombre() + " " + cliente.getApellidos();
+    }
     
-    public String validarLogin(){     
-        if(utilidades.Dni.validar(dni)){
-            int dniNumero = utilidades.Dni.obtenerNumero(dni);  
-             empleado = empleadoFacade.validarPassword(dniNumero, password); 
-           if(empleado!=null){               
-               //NO ESTA HECHO AÚN
-           }else{
-               cliente = clienteFacade.validarPassword(dniNumero, password);
-            if(cliente!=null){
-                return "usuario";
-            }else{
-                this.setError("Error en el login :");
-                this.setMensajeError("DNI o contraseña incorrecto");
-                this.setRutaError(FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath());
-            
-//                FacesContext.getCurrentInstance().getExternalContext().redirect("../usuario/index.xhtml"); NO HECHA AUN
+    public IbanCC getIban(){
+        return new IbanCC(cliente.getCuenta());
+    }
+    
+    public DineroCC getSaldo(){
+        return new DineroCC(cliente.getCuenta());
+    }
+    
+    public String validarLogin() {
+        if (utilidades.Dni.validar(dni)) {
+            int dniNumero = utilidades.Dni.obtenerNumero(dni);
+            empleado = empleadoFacade.validarPassword(dniNumero, password);
+            if (empleado != null) {
+                //NO ESTA HECHO AÚN
+            } else {
+                cliente = clienteFacade.validarPassword(dniNumero, password);
+                if (cliente != null) {
+                    return "usuario";
+                } else {
+                    this.setError("Error en el login :");
+                    this.setMensajeError("DNI o contraseña incorrecto");
+                    this.setRutaError(FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath());
+                    //FacesContext.getCurrentInstance().getExternalContext().redirect("../usuario/index.xhtml"); NO HECHA AUN
+                }
             }
-           }
-        } else{//Código DNI inválido
+        } else {//Código DNI inválido
             this.setError("Error en el login :");
-                this.setMensajeError("DNI o contraseña incorrecto");
-                this.setRutaError(FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath());
-            
-//                FacesContext.getCurrentInstance().getExternalContext().redirect("../usuario/index.xhtml"); NO HECHA AUN
+            this.setMensajeError("DNI o contraseña incorrecto");
+            this.setRutaError(FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath());
+            //FacesContext.getCurrentInstance().getExternalContext().redirect("../usuario/index.xhtml"); NO HECHA AUN
         }
         return null;
     }
-    
-    class MovimientoString{
+
+    /*class MovimientoString{
         Movimiento mov;
         String saldo, ibanRemitente, ibanReceptor, concepto;
         Date date;
@@ -164,9 +176,5 @@ public class LoginBean implements Serializable{
         
         
         
-    }
-    
-    
-
-    
+    }*/
 }

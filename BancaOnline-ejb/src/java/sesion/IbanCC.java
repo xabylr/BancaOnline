@@ -19,6 +19,10 @@ public class IbanCC{
     public IbanCC(Cuentacorriente cc) {
      this.cc=cc;      
     }
+
+    public IbanCC() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     public String getIBAN(){
         if(iban!=null)return iban;
